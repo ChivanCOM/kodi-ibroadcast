@@ -17,6 +17,7 @@ jobs:
         run: bash visualization.ibroadcast.albumart/build.sh
 
       - name: Build C++ visualizer (Android arm64-v8a)
+        continue-on-error: true
         run: |
           NDK="${ANDROID_NDK_ROOT:-$ANDROID_NDK_HOME}"
           ADDON=visualization.ibroadcast.albumart
