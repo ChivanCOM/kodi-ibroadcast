@@ -1,33 +1,32 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.10)
 project(visualization.ibroadcast.albumart)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # ── Kodi dev-kit headers ──────────────────────────────────────────────────────
-# Set with: cmake -DKODI_INCLUDE_DIR=/path/to/xbmc/addons/kodi-dev-kit/include
 if(NOT DEFINED KODI_INCLUDE_DIR)
   set(KODI_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/kodi-dev-kit/include"
       CACHE PATH "Path to Kodi addon dev-kit include directory")
 endif()
 include_directories(${KODI_INCLUDE_DIR})
-
-# ── Sources ───────────────────────────────────────────────────────────────────
 include_directories(${CMAKE_SOURCE_DIR}/src)
 
-set(SOURCES src/main.cpp)
+# ── Platform definitions needed by kodi/gui/gl/GL.h ──────────────────────────
+if(APPLE)
+  add_definitions(-DHAS_GL=1 -DTARGET_DARWIN -DGL_SILENCE_DEPRECATION)
+elseif(UNIX)
+  add_definitions(-DHAS_GL=1 -DTARGET_LINUX)
+elseif(WIN32)
+  add_definitions(-DHAS_GL=1)
+endif()
 
 # ── OpenGL ────────────────────────────────────────────────────────────────────
 find_package(OpenGL REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIR})
-add_definitions(-DHAS_GL)
-
-if(APPLE)
-  add_definitions(-DGL_SILENCE_DEPRECATION)
-endif()
 
 # ── Build shared library ──────────────────────────────────────────────────────
-add_library(${PROJECT_NAME} MODULE ${SOURCES})
+add_library(${PROJECT_NAME} MODULE src/main.cpp)
 
 target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES})
 

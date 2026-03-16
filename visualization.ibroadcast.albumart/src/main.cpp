@@ -7,7 +7,6 @@
 
 #include <kodi/addon-instance/Visualization.h>
 #include <kodi/Filesystem.h>
-#include <kodi/General.h>
 #include <kodi/gui/gl/GL.h>
 
 #define STB_IMAGE_IMPLEMENTATION
@@ -93,17 +92,26 @@ public:
 
   bool IsDirty() override { return true; }
 
+  // Called by Kodi whenever the album art path changes
+  bool UpdateAlbumart(const std::string& albumart) override
+  {
+    if (albumart != m_currentArt)
+    {
+      m_currentArt = albumart;
+      m_pendingLoad = true;
+    }
+    return true;
+  }
+
   void Render() override
   {
     if (!m_glReady)
       return;
 
-    // Reload art if the track has changed
-    std::string thumb = kodi::GetInfoLabel("Player.Art(thumb)");
-    if (thumb != m_currentArt)
+    if (m_pendingLoad)
     {
-      m_currentArt = thumb;
-      LoadTexture(thumb);
+      m_pendingLoad = false;
+      LoadTexture(m_currentArt);
     }
 
     // Black background
@@ -215,8 +223,7 @@ private:
 
     // Read through Kodi VFS — handles special://, http://, and plain paths
     kodi::vfs::CFile file;
-    std::string resolved = kodi::vfs::TranslatePath(path);
-    if (!file.OpenFile(resolved.empty() ? path : resolved, 0))
+    if (!file.OpenFile(path, 0))
     {
       kodi::Log(ADDON_LOG_WARNING, "[AlbumArt] cannot open: %s", path.c_str());
       return false;
@@ -306,7 +313,8 @@ private:
 
   // ── State ──────────────────────────────────────────────────────────────────
 
-  bool    m_glReady  = false;
+  bool    m_glReady    = false;
+  bool    m_pendingLoad = false;
   GLuint  m_program  = 0;
   GLuint  m_vao      = 0;
   GLuint  m_vbo      = 0;
