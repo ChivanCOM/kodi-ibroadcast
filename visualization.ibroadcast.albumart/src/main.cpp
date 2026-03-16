@@ -132,9 +132,20 @@ public:
     glUniform1i(m_locTex,   0);
     glUniform1f(m_locAlpha, 1.0f);
 
+#if defined(HAS_GLES)
+    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float),
+                          (void*)(2 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+    glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+#else
     glBindVertexArray(m_vao);
     glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
     glBindVertexArray(0);
+#endif
 
     glBindTexture(GL_TEXTURE_2D, 0);
     glUseProgram(0);
@@ -187,10 +198,12 @@ private:
     m_locTex   = glGetUniformLocation(m_program, "u_tex");
     m_locAlpha = glGetUniformLocation(m_program, "u_alpha");
 
-    // VAO + VBO (4 verts × { x, y, u, v })
-    glGenVertexArrays(1, &m_vao);
+    // VBO (4 verts × { x, y, u, v }); VAO only on desktop GL
     glGenBuffers(1, &m_vbo);
+#if !defined(HAS_GLES)
+    glGenVertexArrays(1, &m_vao);
     glBindVertexArray(m_vao);
+#endif
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(m_quad), nullptr, GL_DYNAMIC_DRAW);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
@@ -198,7 +211,10 @@ private:
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float),
                           (void*)(2 * sizeof(float)));
     glEnableVertexAttribArray(1);
+#if !defined(HAS_GLES)
     glBindVertexArray(0);
+#endif
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     m_glReady = true;
     return true;
@@ -207,8 +223,10 @@ private:
   void DeinitGL()
   {
     DeleteTexture();
-    if (m_vbo)     { glDeleteBuffers(1, &m_vbo);      m_vbo = 0; }
-    if (m_vao)     { glDeleteVertexArrays(1, &m_vao); m_vao = 0; }
+    if (m_vbo) { glDeleteBuffers(1, &m_vbo); m_vbo = 0; }
+#if !defined(HAS_GLES)
+    if (m_vao) { glDeleteVertexArrays(1, &m_vao); m_vao = 0; }
+#endif
     if (m_program) { glDeleteProgram(m_program);       m_program = 0; }
     m_glReady = false;
   }
