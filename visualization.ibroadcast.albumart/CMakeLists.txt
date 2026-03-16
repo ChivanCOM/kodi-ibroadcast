@@ -13,7 +13,9 @@ include_directories(${KODI_INCLUDE_DIR})
 include_directories(${CMAKE_SOURCE_DIR}/src)
 
 # ── Platform definitions needed by kodi/gui/gl/GL.h ──────────────────────────
-if(APPLE)
+if(ANDROID)
+  add_definitions(-DHAS_GLES=2 -DTARGET_ANDROID)
+elseif(APPLE)
   add_definitions(-DHAS_GL=1 -DTARGET_DARWIN -DGL_SILENCE_DEPRECATION)
 elseif(UNIX)
   add_definitions(-DHAS_GL=1 -DTARGET_LINUX)
@@ -21,14 +23,18 @@ elseif(WIN32)
   add_definitions(-DHAS_GL=1)
 endif()
 
-# ── OpenGL ────────────────────────────────────────────────────────────────────
-find_package(OpenGL REQUIRED)
-include_directories(${OPENGL_INCLUDE_DIR})
-
 # ── Build shared library ──────────────────────────────────────────────────────
 add_library(${PROJECT_NAME} MODULE src/main.cpp)
 
-target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES})
+# ── OpenGL / GLES ─────────────────────────────────────────────────────────────
+if(ANDROID)
+  find_library(GLES_LIBRARY GLESv2 REQUIRED)
+  target_link_libraries(${PROJECT_NAME} ${GLES_LIBRARY})
+else()
+  find_package(OpenGL REQUIRED)
+  include_directories(${OPENGL_INCLUDE_DIR})
+  target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES})
+endif()
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
   PREFIX ""

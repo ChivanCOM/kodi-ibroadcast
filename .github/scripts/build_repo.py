@@ -39,7 +39,7 @@ def build_zip(addon_dir):
         return  # already up to date
 
     # Directories and file extensions to exclude from every zip
-    SKIP_DIRS = {"build", "src", "__pycache__", ".git"}
+    SKIP_DIRS = {"build", "build_android", "src", "__pycache__", ".git"}
     SKIP_EXTS = {".zip", ".cpp", ".h", ".sh"}
     SKIP_FILES = {"CMakeLists.txt"}
 
