@@ -576,9 +576,10 @@ private:
     float hArtist = m_texArtist.h * m_ndcPerPxH;
     float hAlbum  = m_texAlbum.h  * m_ndcPerPxH;
 
-    // Golden-ratio gaps; album gap halved to bring it closer to artist
-    float gap1   = hArtist * (kPhi - 1.f);
-    float gap2   = hAlbum  * (kPhi - 1.f) * 0.5f;
+    // Equal spacing between all three lines, based on artist and album heights
+    float gap    = (hArtist + hAlbum) * 0.5f * (kPhi - 1.f) * 0.5f;
+    float gap1   = gap;
+    float gap2   = gap;
     float blockH = hTitle + gap1 + hArtist + gap2 + hAlbum;
 
     // Centre text block within art height
