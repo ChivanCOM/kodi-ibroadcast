@@ -4,12 +4,13 @@
  * Layout (golden ratio):
  *   - Album art: left side, 60% of usable height, aspect-correct
  *   - Right panel: Title (large) / Artist (italic) / Album — golden-ratio spacing
- *   - Font loaded from Kodi VFS (arial.ttf) via stb_truetype
+ *   - Font: bundled Roboto Regular + Italic via stb_truetype
  */
 
 #include <kodi/addon-instance/Visualization.h>
 #include <kodi/Filesystem.h>
 #include <kodi/gui/gl/GL.h>
+#include <kodi/AddonBase.h>
 
 #define STB_IMAGE_IMPLEMENTATION
 #define STBI_NO_STDIO
@@ -160,11 +161,9 @@ public:
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    // Draw album art
     if (m_artTex && m_texW > 0)
       DrawQuad(m_artTex, m_artX0, m_artY0, m_artX1, m_artY1, 1.0f);
 
-    // Draw text
     DrawTextTex(m_texTitle,  m_titleX,  m_titleY,  m_titleX  + m_texTitle.w  * m_ndcPerPx, m_titleY  + m_texTitle.h  * m_ndcPerPxH);
     DrawTextTex(m_texArtist, m_artistX, m_artistY, m_artistX + m_texArtist.w * m_ndcPerPx, m_artistY + m_texArtist.h * m_ndcPerPxH);
     DrawTextTex(m_texAlbum,  m_albumX,  m_albumY,  m_albumX  + m_texAlbum.w  * m_ndcPerPx, m_albumY  + m_texAlbum.h  * m_ndcPerPxH);
@@ -213,11 +212,8 @@ private:
 
     GLint ok = 0;
     glGetProgramiv(m_program, GL_LINK_STATUS, &ok);
-    if (!ok)
-    {
-      kodi::Log(ADDON_LOG_ERROR, "[AlbumArt] link failed");
-      return false;
-    }
+    if (!ok) { kodi::Log(ADDON_LOG_ERROR, "[AlbumArt] link failed"); return false; }
+
     m_locTex   = glGetUniformLocation(m_program, "u_tex");
     m_locAlpha = glGetUniformLocation(m_program, "u_alpha");
 
@@ -268,7 +264,6 @@ private:
     glBindTexture(GL_TEXTURE_2D, tex);
     glUniform1i(m_locTex,   0);
     glUniform1f(m_locAlpha, alpha);
-
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
     glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(verts), verts);
 #if defined(HAS_GLES)
@@ -289,7 +284,6 @@ private:
   void DrawTextTex(const TextTex& t, float x0, float y0, float x1, float y1)
   {
     if (!t.id || t.w <= 0.f) return;
-    // UV: texture stored top-to-bottom; flip V so top of quad (y1) = v=0
     float verts[16] = {
       x0, y0,  0.f, 1.f,
       x1, y0,  1.f, 1.f,
@@ -300,7 +294,6 @@ private:
     glBindTexture(GL_TEXTURE_2D, t.id);
     glUniform1i(m_locTex,   0);
     glUniform1f(m_locAlpha, 1.0f);
-
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
     glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(verts), verts);
 #if defined(HAS_GLES)
@@ -326,11 +319,7 @@ private:
     if (path.empty()) return false;
 
     kodi::vfs::CFile file;
-    if (!file.OpenFile(path, 0))
-    {
-      kodi::Log(ADDON_LOG_WARNING, "[AlbumArt] cannot open: %s", path.c_str());
-      return false;
-    }
+    if (!file.OpenFile(path, 0)) return false;
 
     std::vector<uint8_t> buf;
     buf.reserve(512 * 1024);
@@ -339,7 +328,6 @@ private:
     while ((n = file.Read(chunk, sizeof(chunk))) > 0)
       buf.insert(buf.end(), chunk, chunk + n);
     file.Close();
-
     if (buf.empty()) return false;
 
     int w, h, comp;
@@ -359,7 +347,7 @@ private:
 
     m_texW  = w;
     m_texH  = h;
-    m_viewW = 0;  // force layout recalc
+    m_viewW = 0;
     return true;
   }
 
@@ -371,31 +359,13 @@ private:
 
   // ── Font loading ───────────────────────────────────────────────────────────
 
-  bool LoadFont()
+  bool LoadFontFromCandidates(const std::vector<std::string>& candidates,
+                               std::vector<uint8_t>& outData, stbtt_fontinfo& outInfo)
   {
-    if (!m_fontData.empty()) return true;
-
-    static const char* candidates[] = {
-      "special://xbmc/media/Fonts/arial.ttf",
-      "special://xbmc/media/Fonts/NotoSans-Regular.ttf",
-#if defined(TARGET_DARWIN)
-      "/Library/Fonts/Arial.ttf",
-      "/System/Library/Fonts/Supplemental/Arial.ttf",
-#elif defined(TARGET_ANDROID)
-      "/system/fonts/Roboto-Regular.ttf",
-      "/system/fonts/DroidSans.ttf",
-#else
-      "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
-      "/usr/share/fonts/TTF/DejaVuSans.ttf",
-#endif
-      nullptr
-    };
-
-    for (int i = 0; candidates[i]; ++i)
+    for (const auto& path : candidates)
     {
       kodi::vfs::CFile f;
-      if (!f.OpenFile(candidates[i], 0))
-        continue;
+      if (!f.OpenFile(path, 0)) continue;
       std::vector<uint8_t> buf;
       buf.reserve(256 * 1024);
       uint8_t chunk[8192];
@@ -404,17 +374,48 @@ private:
         buf.insert(buf.end(), chunk, chunk + n);
       f.Close();
       if (buf.empty()) continue;
-
       stbtt_fontinfo info;
       if (!stbtt_InitFont(&info, buf.data(), 0)) continue;
-
-      m_fontData = std::move(buf);
-      m_fontInfo = info;
-      kodi::Log(ADDON_LOG_INFO, "[AlbumArt] font: %s", candidates[i]);
+      outData = std::move(buf);
+      outInfo = info;
+      kodi::Log(ADDON_LOG_INFO, "[AlbumArt] font: %s", path.c_str());
       return true;
     }
-    kodi::Log(ADDON_LOG_WARNING, "[AlbumArt] no font found");
     return false;
+  }
+
+  bool LoadFont()
+  {
+    if (!m_fontData.empty()) return true;
+
+    // Bundled Roboto first, then system fallbacks
+    std::vector<std::string> reg = {
+      kodi::GetAddonPath("fonts/Roboto-Regular.ttf"),
+      "special://xbmc/media/Fonts/arial.ttf",
+      "special://xbmc/media/Fonts/NotoSans-Regular.ttf",
+    };
+    std::vector<std::string> ital = {
+      kodi::GetAddonPath("fonts/Roboto-Italic.ttf"),
+    };
+#if defined(TARGET_DARWIN)
+    reg.push_back("/Library/Fonts/Arial.ttf");
+    reg.push_back("/System/Library/Fonts/Supplemental/Arial.ttf");
+#elif defined(TARGET_ANDROID)
+    reg.push_back("/system/fonts/Roboto-Regular.ttf");
+    ital.push_back("/system/fonts/Roboto-Italic.ttf");
+#else
+    reg.push_back("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf");
+    reg.push_back("/usr/share/fonts/TTF/DejaVuSans.ttf");
+#endif
+
+    if (!LoadFontFromCandidates(reg, m_fontData, m_fontInfo))
+    {
+      kodi::Log(ADDON_LOG_WARNING, "[AlbumArt] no font found");
+      return false;
+    }
+    // Italic font optional — falls back to shear on Regular if not found
+    LoadFontFromCandidates(ital, m_fontDataItalic, m_fontInfoItalic);
+    return true;
   }
 
   // ── Text rasterization ─────────────────────────────────────────────────────
@@ -424,27 +425,30 @@ private:
     TextTex out;
     if (text.empty() || m_fontData.empty()) return out;
 
-    float scale = stbtt_ScaleForPixelHeight(&m_fontInfo, pixelH);
+    // Use bundled Roboto Italic if loaded; otherwise shear Regular
+    bool useShear       = italic && m_fontDataItalic.empty();
+    stbtt_fontinfo& fi  = (italic && !m_fontDataItalic.empty()) ? m_fontInfoItalic : m_fontInfo;
+
+    float scale = stbtt_ScaleForPixelHeight(&fi, pixelH);
     int ascent, descent, lineGap;
-    stbtt_GetFontVMetrics(&m_fontInfo, &ascent, &descent, &lineGap);
-    int asc  = (int)(ascent  * scale + 0.5f);
-    int dsc  = (int)(descent * scale - 0.5f);  // negative
+    stbtt_GetFontVMetrics(&fi, &ascent, &descent, &lineGap);
+    int asc   = (int)(ascent  * scale + 0.5f);
+    int dsc   = (int)(descent * scale - 0.5f);  // negative
     int lineH = asc - dsc;
 
-    // Measure total width
     int totalW = 0;
     for (unsigned char c : text)
     {
       if (c < 32 || c > 126) continue;
       int adv, lsb;
-      stbtt_GetCodepointHMetrics(&m_fontInfo, c, &adv, &lsb);
+      stbtt_GetCodepointHMetrics(&fi, c, &adv, &lsb);
       totalW += (int)(adv * scale + 0.5f);
     }
     if (totalW <= 0) return out;
 
-    float shear  = italic ? 0.25f : 0.0f;
-    int   extraR = italic ? (int)(asc      * shear + 1.f) : 0;
-    int   extraL = italic ? (int)((-dsc)   * shear + 1.f) : 0;
+    float shear  = useShear ? 0.25f : 0.0f;
+    int   extraR = useShear ? (int)(asc    * shear + 1.f) : 0;
+    int   extraL = useShear ? (int)((-dsc) * shear + 1.f) : 0;
     int   imgW   = totalW + extraL + extraR + 2;
     int   imgH   = lineH + 2;
 
@@ -455,17 +459,17 @@ private:
     {
       if (c < 32 || c > 126) continue;
       int adv, lsb;
-      stbtt_GetCodepointHMetrics(&m_fontInfo, c, &adv, &lsb);
+      stbtt_GetCodepointHMetrics(&fi, c, &adv, &lsb);
 
       int x0g, y0g, x1g, y1g;
-      stbtt_GetCodepointBitmapBox(&m_fontInfo, c, scale, scale, &x0g, &y0g, &x1g, &y1g);
+      stbtt_GetCodepointBitmapBox(&fi, c, scale, scale, &x0g, &y0g, &x1g, &y1g);
       int gw = x1g - x0g;
       int gh = y1g - y0g;
 
       if (gw > 0 && gh > 0)
       {
         std::vector<uint8_t> glyph(gw * gh);
-        stbtt_MakeCodepointBitmap(&m_fontInfo, glyph.data(), gw, gh, gw, scale, scale, c);
+        stbtt_MakeCodepointBitmap(&fi, glyph.data(), gw, gh, gw, scale, scale, c);
 
         int dstX = penX + (int)(lsb * scale);
         int dstY = asc + y0g;
@@ -474,7 +478,7 @@ private:
         {
           int dstRow = dstY + py;
           if (dstRow < 0 || dstRow >= imgH) continue;
-          int shiftX = italic ? (int)((asc - dstRow) * shear + 0.5f) : 0;
+          int shiftX = useShear ? (int)((asc - dstRow) * shear + 0.5f) : 0;
 
           for (int px = 0; px < gw; ++px)
           {
@@ -490,7 +494,6 @@ private:
       penX += (int)(adv * scale + 0.5f);
     }
 
-    // Grayscale → RGBA (white text, alpha = coverage)
     std::vector<uint8_t> rgba(imgW * imgH * 4);
     for (int i = 0; i < imgW * imgH; ++i)
     {
@@ -511,7 +514,7 @@ private:
 
     out.w    = (float)imgW;
     out.h    = (float)imgH;
-    out.xOff = (float)extraL;  // pixels of left padding to skip for baseline alignment
+    out.xOff = (float)extraL;
     return out;
   }
 
@@ -524,35 +527,25 @@ private:
     m_ndcPerPx  = 2.f / (float)vw;
     m_ndcPerPxH = 2.f / (float)vh;
 
-    // Margins: 5% horizontal, 7% vertical (NDC units)
-    float mxNdc = 2.f * 0.05f;
-    float myNdc = 2.f * 0.07f;
-
-    // Art: 60% of usable height, aspect-correct square pixels
+    float mxNdc  = 2.f * 0.05f;
+    float myNdc  = 2.f * 0.07f;
     float usableH = 2.f - 2.f * myNdc;
     float artHNdc = usableH * 0.60f;
 
-    float artAR = (m_texW > 0 && m_texH > 0)
-                    ? (float)m_texW / (float)m_texH
-                    : 1.f;
-    // Convert pixel AR to NDC AR (account for non-square viewport)
+    float artAR = (m_texW > 0 && m_texH > 0) ? (float)m_texW / (float)m_texH : 1.f;
     float artWNdc = artHNdc * artAR * ((float)vh / (float)vw);
-    artWNdc = std::min(artWNdc, 0.90f);  // cap at 90% NDC width
+    artWNdc = std::min(artWNdc, 0.90f);
 
-    // Art quad: left-aligned, vertically centred
-    float artLeft = -1.f + mxNdc;
-    m_artX0 = artLeft;
-    m_artX1 = artLeft + artWNdc;
+    m_artX0 = -1.f + mxNdc;
+    m_artX1 =  m_artX0 + artWNdc;
     m_artY0 = -artHNdc * 0.5f;
     m_artY1 =  artHNdc * 0.5f;
 
-    // Text panel
-    float gapNdc = 2.f * 0.05f;
-    float textX0 = m_artX1 + gapNdc;
-    float textX1 = 1.f - mxNdc * 0.8f;
+    float gapNdc   = 2.f * 0.05f;
+    float textX0   = m_artX1 + gapNdc;
+    float textX1   = 1.f - mxNdc * 0.8f;
     float textWNdc = textX1 - textX0;
 
-    // Font sizes in pixels (golden ratio hierarchy, clamped)
     float szTitle  = std::max(18.f, std::min(68.f, (float)vh * 0.065f));
     float szArtist = szTitle  / kPhi;
     float szAlbum  = szArtist / kPhi;
@@ -566,8 +559,7 @@ private:
     m_texArtist = MakeTextTex(m_artist.empty() ? " " : m_artist, szArtist, true);
     m_texAlbum  = MakeTextTex(m_album.empty()  ? " " : m_album,  szAlbum,  false);
 
-    // Scale ndcPerPx down if any line overflows panel width
-    // Use (w - xOff) as effective visible width from textX0 to right edge
+    // Scale down if any line overflows panel width (use effective visible width)
     m_ndcPerPx = 2.f / (float)vw;
     auto fitW = [&](const TextTex& t) {
       float effW = t.w - t.xOff;
@@ -580,12 +572,11 @@ private:
     fitW(m_texArtist);
     fitW(m_texAlbum);
 
-    // Text heights in NDC
     float hTitle  = m_texTitle.h  * m_ndcPerPxH;
     float hArtist = m_texArtist.h * m_ndcPerPxH;
     float hAlbum  = m_texAlbum.h  * m_ndcPerPxH;
 
-    // Golden-ratio gaps between lines; album gap halved to bring it closer
+    // Golden-ratio gaps; album gap halved to bring it closer to artist
     float gap1   = hArtist * (kPhi - 1.f);
     float gap2   = hAlbum  * (kPhi - 1.f) * 0.5f;
     float blockH = hTitle + gap1 + hArtist + gap2 + hAlbum;
@@ -593,12 +584,11 @@ private:
     // Centre text block within art height
     float blockTop = m_artY1 - (artHNdc - blockH) * 0.5f;
 
-    // Bottom-left NDC for each text quad
     m_titleY  = blockTop - hTitle;
-    m_artistY = m_titleY - gap1 - hArtist;
+    m_artistY = m_titleY  - gap1 - hArtist;
     m_albumY  = m_artistY - gap2 - hAlbum;
 
-    // Shift each texture left by its xOff so all baselines start at textX0
+    // Shift each texture left by xOff so all baselines start at textX0
     m_titleX  = textX0 - m_texTitle.xOff  * m_ndcPerPx;
     m_artistX = textX0 - m_texArtist.xOff * m_ndcPerPx;
     m_albumX  = textX0 - m_texAlbum.xOff  * m_ndcPerPx;
@@ -616,12 +606,10 @@ private:
   GLint  m_locTex   = -1;
   GLint  m_locAlpha = -1;
 
-  // Art
   GLuint m_artTex = 0;
   int    m_texW = 0, m_texH = 0;
   float  m_artX0 = 0.f, m_artY0 = 0.f, m_artX1 = 0.f, m_artY1 = 0.f;
 
-  // Text
   TextTex m_texTitle, m_texArtist, m_texAlbum;
   float   m_titleX  = 0.f, m_titleY  = 0.f;
   float   m_artistX = 0.f, m_artistY = 0.f;
@@ -635,7 +623,9 @@ private:
   std::string m_title, m_artist, m_album;
 
   std::vector<uint8_t> m_fontData;
-  stbtt_fontinfo       m_fontInfo = {};
+  stbtt_fontinfo       m_fontInfo       = {};
+  std::vector<uint8_t> m_fontDataItalic;
+  stbtt_fontinfo       m_fontInfoItalic = {};
 };
 
 ADDONCREATOR(CVisualizationAlbumArt)
