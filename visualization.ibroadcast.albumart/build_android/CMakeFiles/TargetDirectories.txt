@@ -1,0 +1,7 @@
+/Users/runner/work/kodi-ibroadcast/kodi-ibroadcast/visualization.ibroadcast.albumart/build_android/CMakeFiles/visualization.ibroadcast.albumart.dir
+/Users/runner/work/kodi-ibroadcast/kodi-ibroadcast/visualization.ibroadcast.albumart/build_android/CMakeFiles/edit_cache.dir
+/Users/runner/work/kodi-ibroadcast/kodi-ibroadcast/visualization.ibroadcast.albumart/build_android/CMakeFiles/rebuild_cache.dir
+/Users/runner/work/kodi-ibroadcast/kodi-ibroadcast/visualization.ibroadcast.albumart/build_android/CMakeFiles/list_install_components.dir
+/Users/runner/work/kodi-ibroadcast/kodi-ibroadcast/visualization.ibroadcast.albumart/build_android/CMakeFiles/install.dir
+/Users/runner/work/kodi-ibroadcast/kodi-ibroadcast/visualization.ibroadcast.albumart/build_android/CMakeFiles/install/local.dir
+/Users/runner/work/kodi-ibroadcast/kodi-ibroadcast/visualization.ibroadcast.albumart/build_android/CMakeFiles/install/strip.dir

@@ -1,0 +1,2459 @@
+
+---
+events:
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineSystem.cmake:12 (find_program)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_UNAME"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "uname"
+    candidate_directories:
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/"
+      - "/opt/homebrew/opt/ruby@3.3/bin/"
+      - "/Users/runner/.local/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/Users/runner/.cargo/bin/"
+      - "/usr/local/opt/curl/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/Users/runner/bin/"
+      - "/Users/runner/.yarn/bin/"
+      - "/Users/runner/Library/Android/sdk/tools/"
+      - "/Users/runner/Library/Android/sdk/platform-tools/"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/Users/runner/.dotnet/tools/"
+    searched_directories:
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/uname"
+      - "/opt/homebrew/opt/ruby@3.3/bin/uname"
+      - "/Users/runner/.local/bin/uname"
+      - "/opt/homebrew/bin/uname"
+      - "/opt/homebrew/sbin/uname"
+      - "/Users/runner/.cargo/bin/uname"
+      - "/usr/local/opt/curl/bin/uname"
+      - "/usr/local/bin/uname"
+      - "/usr/local/sbin/uname"
+      - "/Users/runner/bin/uname"
+      - "/Users/runner/.yarn/bin/uname"
+      - "/Users/runner/Library/Android/sdk/tools/uname"
+      - "/Users/runner/Library/Android/sdk/platform-tools/uname"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/uname"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/uname"
+    found: "/usr/bin/uname"
+    search_context:
+      ENV{PATH}:
+        - "/opt/homebrew/lib/ruby/gems/3.3.0/bin"
+        - "/opt/homebrew/opt/ruby@3.3/bin"
+        - "/Users/runner/.local/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/runner/.cargo/bin"
+        - "/usr/local/opt/curl/bin"
+        - "/usr/local/bin"
+        - "/usr/local/sbin"
+        - "/Users/runner/bin"
+        - "/Users/runner/.yarn/bin"
+        - "/Users/runner/Library/Android/sdk/tools"
+        - "/Users/runner/Library/Android/sdk/platform-tools"
+        - "/Library/Frameworks/Python.framework/Versions/Current/bin"
+        - "/Library/Frameworks/Mono.framework/Versions/Current/Commands"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/Users/runner/.dotnet/tools"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineSystem.cmake:207 (message)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      The target system is: Android - 1 - aarch64
+      The host system is: Darwin - 24.6.0 - arm64
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeUnixFindMake.cmake:5 (find_program)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_MAKE_PROGRAM"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "gmake"
+      - "make"
+      - "smake"
+    candidate_directories:
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sbin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/"
+      - "/opt/homebrew/opt/ruby@3.3/bin/"
+      - "/Users/runner/.local/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/Users/runner/.cargo/bin/"
+      - "/usr/local/opt/curl/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/Users/runner/bin/"
+      - "/Users/runner/.yarn/bin/"
+      - "/Users/runner/Library/Android/sdk/tools/"
+      - "/Users/runner/Library/Android/sdk/platform-tools/"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/Users/runner/.dotnet/tools/"
+      - "/usr/lib/aarch64-linux-android/21/bin/"
+      - "/usr/lib/aarch64-linux-android/21/sbin/"
+      - "/usr/lib/aarch64-linux-android/21/"
+    searched_directories:
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/gmake"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sbin/gmake"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/gmake"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/gmake"
+      - "/opt/homebrew/opt/ruby@3.3/bin/gmake"
+      - "/Users/runner/.local/bin/gmake"
+      - "/opt/homebrew/bin/gmake"
+      - "/opt/homebrew/sbin/gmake"
+      - "/Users/runner/.cargo/bin/gmake"
+      - "/usr/local/opt/curl/bin/gmake"
+      - "/usr/local/bin/gmake"
+      - "/usr/local/sbin/gmake"
+      - "/Users/runner/bin/gmake"
+      - "/Users/runner/.yarn/bin/gmake"
+      - "/Users/runner/Library/Android/sdk/tools/gmake"
+      - "/Users/runner/Library/Android/sdk/platform-tools/gmake"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/gmake"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/gmake"
+      - "/usr/bin/gmake"
+      - "/bin/gmake"
+      - "/usr/sbin/gmake"
+      - "/sbin/gmake"
+      - "/Users/runner/.dotnet/tools/gmake"
+      - "/usr/lib/aarch64-linux-android/21/bin/gmake"
+      - "/usr/lib/aarch64-linux-android/21/sbin/gmake"
+      - "/usr/lib/aarch64-linux-android/21/gmake"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/make"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sbin/make"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/make"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/make"
+      - "/opt/homebrew/opt/ruby@3.3/bin/make"
+      - "/Users/runner/.local/bin/make"
+      - "/opt/homebrew/bin/make"
+      - "/opt/homebrew/sbin/make"
+      - "/Users/runner/.cargo/bin/make"
+      - "/usr/local/opt/curl/bin/make"
+      - "/usr/local/bin/make"
+      - "/usr/local/sbin/make"
+      - "/Users/runner/bin/make"
+      - "/Users/runner/.yarn/bin/make"
+      - "/Users/runner/Library/Android/sdk/tools/make"
+      - "/Users/runner/Library/Android/sdk/platform-tools/make"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/make"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/make"
+    found: "/usr/bin/make"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64"
+      ENV{PATH}:
+        - "/opt/homebrew/lib/ruby/gems/3.3.0/bin"
+        - "/opt/homebrew/opt/ruby@3.3/bin"
+        - "/Users/runner/.local/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/runner/.cargo/bin"
+        - "/usr/local/opt/curl/bin"
+        - "/usr/local/bin"
+        - "/usr/local/sbin"
+        - "/Users/runner/bin"
+        - "/Users/runner/.yarn/bin"
+        - "/Users/runner/Library/Android/sdk/tools"
+        - "/Users/runner/Library/Android/sdk/platform-tools"
+        - "/Library/Frameworks/Python.framework/Versions/Current/bin"
+        - "/Library/Frameworks/Mono.framework/Versions/Current/Commands"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/Users/runner/.dotnet/tools"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/lib/aarch64-linux-android/21"
+      CMAKE_SYSROOT: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+      CMAKE_FIND_ROOT_PATH: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "file"
+    variable: "src_in"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "CMakeCCompilerId.c.in"
+    candidate_directories:
+      - "/opt/homebrew/share/cmake/Modules/"
+    found: "/opt/homebrew/share/cmake/Modules/CMakeCCompilerId.c.in"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64"
+      ENV{PATH}:
+        - "/opt/homebrew/lib/ruby/gems/3.3.0/bin"
+        - "/opt/homebrew/opt/ruby@3.3/bin"
+        - "/Users/runner/.local/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/runner/.cargo/bin"
+        - "/usr/local/opt/curl/bin"
+        - "/usr/local/bin"
+        - "/usr/local/sbin"
+        - "/Users/runner/bin"
+        - "/Users/runner/.yarn/bin"
+        - "/Users/runner/Library/Android/sdk/tools"
+        - "/Users/runner/Library/Android/sdk/platform-tools"
+        - "/Library/Frameworks/Python.framework/Versions/Current/bin"
+        - "/Library/Frameworks/Mono.framework/Versions/Current/Commands"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/Users/runner/.dotnet/tools"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/lib/aarch64-linux-android/21"
+      CMAKE_SYSROOT: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+      CMAKE_FIND_ROOT_PATH: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang 
+      Build flags: -g;-DANDROID;-fdata-sections;-ffunction-sections;-funwind-tables;-fstack-protector-strong;-no-canonical-prefixes;-D_FORTIFY_SOURCE=2;-Wformat;-Werror=format-security
+      Id flags: -c;--target=aarch64-none-linux-android21 
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.o"
+      
+      The C compiler identification is Clang, found in:
+        /Users/runner/work/kodi-ibroadcast/kodi-ibroadcast/visualization.ibroadcast.albumart/build_android/CMakeFiles/4.2.3/CompilerIdC/CMakeCCompilerId.o
+      
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_LINKER"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "ld.lld"
+      - "ld"
+    candidate_directories:
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/"
+      - "/opt/homebrew/opt/ruby@3.3/bin/"
+      - "/Users/runner/.local/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/Users/runner/.cargo/bin/"
+      - "/usr/local/opt/curl/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/Users/runner/bin/"
+      - "/Users/runner/.yarn/bin/"
+      - "/Users/runner/Library/Android/sdk/tools/"
+      - "/Users/runner/Library/Android/sdk/platform-tools/"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/Users/runner/.dotnet/tools/"
+      - "/usr/lib/aarch64-linux-android/21/bin/"
+      - "/usr/lib/aarch64-linux-android/21/sbin/"
+      - "/usr/lib/aarch64-linux-android/21/"
+    found: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld.lld"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64"
+      ENV{PATH}:
+        - "/opt/homebrew/lib/ruby/gems/3.3.0/bin"
+        - "/opt/homebrew/opt/ruby@3.3/bin"
+        - "/Users/runner/.local/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/runner/.cargo/bin"
+        - "/usr/local/opt/curl/bin"
+        - "/usr/local/bin"
+        - "/usr/local/sbin"
+        - "/Users/runner/bin"
+        - "/Users/runner/.yarn/bin"
+        - "/Users/runner/Library/Android/sdk/tools"
+        - "/Users/runner/Library/Android/sdk/platform-tools"
+        - "/Library/Frameworks/Python.framework/Versions/Current/bin"
+        - "/Library/Frameworks/Mono.framework/Versions/Current/Commands"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/Users/runner/.dotnet/tools"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/lib/aarch64-linux-android/21"
+      CMAKE_SYSROOT: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+      CMAKE_FIND_ROOT_PATH: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_NM"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "llvm-nm"
+      - "nm"
+    candidate_directories:
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/"
+      - "/opt/homebrew/opt/ruby@3.3/bin/"
+      - "/Users/runner/.local/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/Users/runner/.cargo/bin/"
+      - "/usr/local/opt/curl/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/Users/runner/bin/"
+      - "/Users/runner/.yarn/bin/"
+      - "/Users/runner/Library/Android/sdk/tools/"
+      - "/Users/runner/Library/Android/sdk/platform-tools/"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/Users/runner/.dotnet/tools/"
+      - "/usr/lib/aarch64-linux-android/21/bin/"
+      - "/usr/lib/aarch64-linux-android/21/sbin/"
+      - "/usr/lib/aarch64-linux-android/21/"
+    found: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-nm"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64"
+      ENV{PATH}:
+        - "/opt/homebrew/lib/ruby/gems/3.3.0/bin"
+        - "/opt/homebrew/opt/ruby@3.3/bin"
+        - "/Users/runner/.local/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/runner/.cargo/bin"
+        - "/usr/local/opt/curl/bin"
+        - "/usr/local/bin"
+        - "/usr/local/sbin"
+        - "/Users/runner/bin"
+        - "/Users/runner/.yarn/bin"
+        - "/Users/runner/Library/Android/sdk/tools"
+        - "/Users/runner/Library/Android/sdk/platform-tools"
+        - "/Library/Frameworks/Python.framework/Versions/Current/bin"
+        - "/Library/Frameworks/Mono.framework/Versions/Current/Commands"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/Users/runner/.dotnet/tools"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/lib/aarch64-linux-android/21"
+      CMAKE_SYSROOT: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+      CMAKE_FIND_ROOT_PATH: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_OBJDUMP"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "llvm-objdump"
+      - "objdump"
+    candidate_directories:
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/"
+      - "/opt/homebrew/opt/ruby@3.3/bin/"
+      - "/Users/runner/.local/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/Users/runner/.cargo/bin/"
+      - "/usr/local/opt/curl/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/Users/runner/bin/"
+      - "/Users/runner/.yarn/bin/"
+      - "/Users/runner/Library/Android/sdk/tools/"
+      - "/Users/runner/Library/Android/sdk/platform-tools/"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/Users/runner/.dotnet/tools/"
+      - "/usr/lib/aarch64-linux-android/21/bin/"
+      - "/usr/lib/aarch64-linux-android/21/sbin/"
+      - "/usr/lib/aarch64-linux-android/21/"
+    found: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-objdump"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64"
+      ENV{PATH}:
+        - "/opt/homebrew/lib/ruby/gems/3.3.0/bin"
+        - "/opt/homebrew/opt/ruby@3.3/bin"
+        - "/Users/runner/.local/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/runner/.cargo/bin"
+        - "/usr/local/opt/curl/bin"
+        - "/usr/local/bin"
+        - "/usr/local/sbin"
+        - "/Users/runner/bin"
+        - "/Users/runner/.yarn/bin"
+        - "/Users/runner/Library/Android/sdk/tools"
+        - "/Users/runner/Library/Android/sdk/platform-tools"
+        - "/Library/Frameworks/Python.framework/Versions/Current/bin"
+        - "/Library/Frameworks/Mono.framework/Versions/Current/Commands"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/Users/runner/.dotnet/tools"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/lib/aarch64-linux-android/21"
+      CMAKE_SYSROOT: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+      CMAKE_FIND_ROOT_PATH: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_OBJCOPY"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "llvm-objcopy"
+      - "objcopy"
+    candidate_directories:
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/"
+      - "/opt/homebrew/opt/ruby@3.3/bin/"
+      - "/Users/runner/.local/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/Users/runner/.cargo/bin/"
+      - "/usr/local/opt/curl/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/Users/runner/bin/"
+      - "/Users/runner/.yarn/bin/"
+      - "/Users/runner/Library/Android/sdk/tools/"
+      - "/Users/runner/Library/Android/sdk/platform-tools/"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/Users/runner/.dotnet/tools/"
+      - "/usr/lib/aarch64-linux-android/21/bin/"
+      - "/usr/lib/aarch64-linux-android/21/sbin/"
+      - "/usr/lib/aarch64-linux-android/21/"
+    found: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-objcopy"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64"
+      ENV{PATH}:
+        - "/opt/homebrew/lib/ruby/gems/3.3.0/bin"
+        - "/opt/homebrew/opt/ruby@3.3/bin"
+        - "/Users/runner/.local/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/runner/.cargo/bin"
+        - "/usr/local/opt/curl/bin"
+        - "/usr/local/bin"
+        - "/usr/local/sbin"
+        - "/Users/runner/bin"
+        - "/Users/runner/.yarn/bin"
+        - "/Users/runner/Library/Android/sdk/tools"
+        - "/Users/runner/Library/Android/sdk/platform-tools"
+        - "/Library/Frameworks/Python.framework/Versions/Current/bin"
+        - "/Library/Frameworks/Mono.framework/Versions/Current/Commands"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/Users/runner/.dotnet/tools"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/lib/aarch64-linux-android/21"
+      CMAKE_SYSROOT: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+      CMAKE_FIND_ROOT_PATH: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_READELF"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "llvm-readelf"
+      - "readelf"
+    candidate_directories:
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/"
+      - "/opt/homebrew/opt/ruby@3.3/bin/"
+      - "/Users/runner/.local/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/Users/runner/.cargo/bin/"
+      - "/usr/local/opt/curl/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/Users/runner/bin/"
+      - "/Users/runner/.yarn/bin/"
+      - "/Users/runner/Library/Android/sdk/tools/"
+      - "/Users/runner/Library/Android/sdk/platform-tools/"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/Users/runner/.dotnet/tools/"
+      - "/usr/lib/aarch64-linux-android/21/bin/"
+      - "/usr/lib/aarch64-linux-android/21/sbin/"
+      - "/usr/lib/aarch64-linux-android/21/"
+    found: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-readelf"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64"
+      ENV{PATH}:
+        - "/opt/homebrew/lib/ruby/gems/3.3.0/bin"
+        - "/opt/homebrew/opt/ruby@3.3/bin"
+        - "/Users/runner/.local/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/runner/.cargo/bin"
+        - "/usr/local/opt/curl/bin"
+        - "/usr/local/bin"
+        - "/usr/local/sbin"
+        - "/Users/runner/bin"
+        - "/Users/runner/.yarn/bin"
+        - "/Users/runner/Library/Android/sdk/tools"
+        - "/Users/runner/Library/Android/sdk/platform-tools"
+        - "/Library/Frameworks/Python.framework/Versions/Current/bin"
+        - "/Library/Frameworks/Mono.framework/Versions/Current/Commands"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/Users/runner/.dotnet/tools"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/lib/aarch64-linux-android/21"
+      CMAKE_SYSROOT: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+      CMAKE_FIND_ROOT_PATH: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_DLLTOOL"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "llvm-dlltool"
+      - "dlltool"
+    candidate_directories:
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/"
+      - "/opt/homebrew/opt/ruby@3.3/bin/"
+      - "/Users/runner/.local/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/Users/runner/.cargo/bin/"
+      - "/usr/local/opt/curl/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/Users/runner/bin/"
+      - "/Users/runner/.yarn/bin/"
+      - "/Users/runner/Library/Android/sdk/tools/"
+      - "/Users/runner/Library/Android/sdk/platform-tools/"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/Users/runner/.dotnet/tools/"
+      - "/usr/lib/aarch64-linux-android/21/bin/"
+      - "/usr/lib/aarch64-linux-android/21/sbin/"
+      - "/usr/lib/aarch64-linux-android/21/"
+    found: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-dlltool"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64"
+      ENV{PATH}:
+        - "/opt/homebrew/lib/ruby/gems/3.3.0/bin"
+        - "/opt/homebrew/opt/ruby@3.3/bin"
+        - "/Users/runner/.local/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/runner/.cargo/bin"
+        - "/usr/local/opt/curl/bin"
+        - "/usr/local/bin"
+        - "/usr/local/sbin"
+        - "/Users/runner/bin"
+        - "/Users/runner/.yarn/bin"
+        - "/Users/runner/Library/Android/sdk/tools"
+        - "/Users/runner/Library/Android/sdk/platform-tools"
+        - "/Library/Frameworks/Python.framework/Versions/Current/bin"
+        - "/Library/Frameworks/Mono.framework/Versions/Current/Commands"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/Users/runner/.dotnet/tools"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/lib/aarch64-linux-android/21"
+      CMAKE_SYSROOT: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+      CMAKE_FIND_ROOT_PATH: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_ADDR2LINE"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "llvm-addr2line"
+      - "addr2line"
+    candidate_directories:
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/"
+      - "/opt/homebrew/opt/ruby@3.3/bin/"
+      - "/Users/runner/.local/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/Users/runner/.cargo/bin/"
+      - "/usr/local/opt/curl/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/Users/runner/bin/"
+      - "/Users/runner/.yarn/bin/"
+      - "/Users/runner/Library/Android/sdk/tools/"
+      - "/Users/runner/Library/Android/sdk/platform-tools/"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/Users/runner/.dotnet/tools/"
+      - "/usr/lib/aarch64-linux-android/21/bin/"
+      - "/usr/lib/aarch64-linux-android/21/sbin/"
+      - "/usr/lib/aarch64-linux-android/21/"
+    found: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-addr2line"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64"
+      ENV{PATH}:
+        - "/opt/homebrew/lib/ruby/gems/3.3.0/bin"
+        - "/opt/homebrew/opt/ruby@3.3/bin"
+        - "/Users/runner/.local/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/runner/.cargo/bin"
+        - "/usr/local/opt/curl/bin"
+        - "/usr/local/bin"
+        - "/usr/local/sbin"
+        - "/Users/runner/bin"
+        - "/Users/runner/.yarn/bin"
+        - "/Users/runner/Library/Android/sdk/tools"
+        - "/Users/runner/Library/Android/sdk/platform-tools"
+        - "/Library/Frameworks/Python.framework/Versions/Current/bin"
+        - "/Library/Frameworks/Mono.framework/Versions/Current/Commands"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/Users/runner/.dotnet/tools"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/lib/aarch64-linux-android/21"
+      CMAKE_SYSROOT: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+      CMAKE_FIND_ROOT_PATH: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_TAPI"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "tapi"
+    candidate_directories:
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/"
+      - "/opt/homebrew/opt/ruby@3.3/bin/"
+      - "/Users/runner/.local/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/Users/runner/.cargo/bin/"
+      - "/usr/local/opt/curl/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/Users/runner/bin/"
+      - "/Users/runner/.yarn/bin/"
+      - "/Users/runner/Library/Android/sdk/tools/"
+      - "/Users/runner/Library/Android/sdk/platform-tools/"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/Users/runner/.dotnet/tools/"
+      - "/usr/lib/aarch64-linux-android/21/bin/"
+      - "/usr/lib/aarch64-linux-android/21/sbin/"
+      - "/usr/lib/aarch64-linux-android/21/"
+    searched_directories:
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/tapi"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/tapi"
+      - "/opt/homebrew/opt/ruby@3.3/bin/tapi"
+      - "/Users/runner/.local/bin/tapi"
+      - "/opt/homebrew/bin/tapi"
+      - "/opt/homebrew/sbin/tapi"
+      - "/Users/runner/.cargo/bin/tapi"
+      - "/usr/local/opt/curl/bin/tapi"
+      - "/usr/local/bin/tapi"
+      - "/usr/local/sbin/tapi"
+      - "/Users/runner/bin/tapi"
+      - "/Users/runner/.yarn/bin/tapi"
+      - "/Users/runner/Library/Android/sdk/tools/tapi"
+      - "/Users/runner/Library/Android/sdk/platform-tools/tapi"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/tapi"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/tapi"
+      - "/usr/bin/tapi"
+      - "/bin/tapi"
+      - "/usr/sbin/tapi"
+      - "/sbin/tapi"
+      - "/Users/runner/.dotnet/tools/tapi"
+      - "/usr/lib/aarch64-linux-android/21/bin/tapi"
+      - "/usr/lib/aarch64-linux-android/21/sbin/tapi"
+      - "/usr/lib/aarch64-linux-android/21/tapi"
+    found: false
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64"
+      ENV{PATH}:
+        - "/opt/homebrew/lib/ruby/gems/3.3.0/bin"
+        - "/opt/homebrew/opt/ruby@3.3/bin"
+        - "/Users/runner/.local/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/runner/.cargo/bin"
+        - "/usr/local/opt/curl/bin"
+        - "/usr/local/bin"
+        - "/usr/local/sbin"
+        - "/Users/runner/bin"
+        - "/Users/runner/.yarn/bin"
+        - "/Users/runner/Library/Android/sdk/tools"
+        - "/Users/runner/Library/Android/sdk/platform-tools"
+        - "/Library/Frameworks/Python.framework/Versions/Current/bin"
+        - "/Library/Frameworks/Mono.framework/Versions/Current/Commands"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/Users/runner/.dotnet/tools"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/lib/aarch64-linux-android/21"
+      CMAKE_SYSROOT: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+      CMAKE_FIND_ROOT_PATH: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/Compiler/Clang-FindBinUtils.cmake:26 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:201 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_C_COMPILER_AR"
+    description: "LLVM archiver"
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "llvm-ar-18.0"
+      - "llvm-ar-18"
+      - "llvm-ar18"
+      - "llvm-ar"
+    candidate_directories:
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/"
+      - "/opt/homebrew/opt/ruby@3.3/bin/"
+      - "/Users/runner/.local/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/Users/runner/.cargo/bin/"
+      - "/usr/local/opt/curl/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/Users/runner/bin/"
+      - "/Users/runner/.yarn/bin/"
+      - "/Users/runner/Library/Android/sdk/tools/"
+      - "/Users/runner/Library/Android/sdk/platform-tools/"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/Users/runner/.dotnet/tools/"
+      - "/usr/lib/aarch64-linux-android/21/bin/"
+      - "/usr/lib/aarch64-linux-android/21/sbin/"
+      - "/usr/lib/aarch64-linux-android/21/"
+    searched_directories:
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ar-18.0"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/llvm-ar-18.0"
+      - "/opt/homebrew/opt/ruby@3.3/bin/llvm-ar-18.0"
+      - "/Users/runner/.local/bin/llvm-ar-18.0"
+      - "/opt/homebrew/bin/llvm-ar-18.0"
+      - "/opt/homebrew/sbin/llvm-ar-18.0"
+      - "/Users/runner/.cargo/bin/llvm-ar-18.0"
+      - "/usr/local/opt/curl/bin/llvm-ar-18.0"
+      - "/usr/local/bin/llvm-ar-18.0"
+      - "/usr/local/sbin/llvm-ar-18.0"
+      - "/Users/runner/bin/llvm-ar-18.0"
+      - "/Users/runner/.yarn/bin/llvm-ar-18.0"
+      - "/Users/runner/Library/Android/sdk/tools/llvm-ar-18.0"
+      - "/Users/runner/Library/Android/sdk/platform-tools/llvm-ar-18.0"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/llvm-ar-18.0"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/llvm-ar-18.0"
+      - "/usr/bin/llvm-ar-18.0"
+      - "/bin/llvm-ar-18.0"
+      - "/usr/sbin/llvm-ar-18.0"
+      - "/sbin/llvm-ar-18.0"
+      - "/Users/runner/.dotnet/tools/llvm-ar-18.0"
+      - "/usr/lib/aarch64-linux-android/21/bin/llvm-ar-18.0"
+      - "/usr/lib/aarch64-linux-android/21/sbin/llvm-ar-18.0"
+      - "/usr/lib/aarch64-linux-android/21/llvm-ar-18.0"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ar-18"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/llvm-ar-18"
+      - "/opt/homebrew/opt/ruby@3.3/bin/llvm-ar-18"
+      - "/Users/runner/.local/bin/llvm-ar-18"
+      - "/opt/homebrew/bin/llvm-ar-18"
+      - "/opt/homebrew/sbin/llvm-ar-18"
+      - "/Users/runner/.cargo/bin/llvm-ar-18"
+      - "/usr/local/opt/curl/bin/llvm-ar-18"
+      - "/usr/local/bin/llvm-ar-18"
+      - "/usr/local/sbin/llvm-ar-18"
+      - "/Users/runner/bin/llvm-ar-18"
+      - "/Users/runner/.yarn/bin/llvm-ar-18"
+      - "/Users/runner/Library/Android/sdk/tools/llvm-ar-18"
+      - "/Users/runner/Library/Android/sdk/platform-tools/llvm-ar-18"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/llvm-ar-18"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/llvm-ar-18"
+      - "/usr/bin/llvm-ar-18"
+      - "/bin/llvm-ar-18"
+      - "/usr/sbin/llvm-ar-18"
+      - "/sbin/llvm-ar-18"
+      - "/Users/runner/.dotnet/tools/llvm-ar-18"
+      - "/usr/lib/aarch64-linux-android/21/bin/llvm-ar-18"
+      - "/usr/lib/aarch64-linux-android/21/sbin/llvm-ar-18"
+      - "/usr/lib/aarch64-linux-android/21/llvm-ar-18"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ar18"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/llvm-ar18"
+      - "/opt/homebrew/opt/ruby@3.3/bin/llvm-ar18"
+      - "/Users/runner/.local/bin/llvm-ar18"
+      - "/opt/homebrew/bin/llvm-ar18"
+      - "/opt/homebrew/sbin/llvm-ar18"
+      - "/Users/runner/.cargo/bin/llvm-ar18"
+      - "/usr/local/opt/curl/bin/llvm-ar18"
+      - "/usr/local/bin/llvm-ar18"
+      - "/usr/local/sbin/llvm-ar18"
+      - "/Users/runner/bin/llvm-ar18"
+      - "/Users/runner/.yarn/bin/llvm-ar18"
+      - "/Users/runner/Library/Android/sdk/tools/llvm-ar18"
+      - "/Users/runner/Library/Android/sdk/platform-tools/llvm-ar18"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/llvm-ar18"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/llvm-ar18"
+      - "/usr/bin/llvm-ar18"
+      - "/bin/llvm-ar18"
+      - "/usr/sbin/llvm-ar18"
+      - "/sbin/llvm-ar18"
+      - "/Users/runner/.dotnet/tools/llvm-ar18"
+      - "/usr/lib/aarch64-linux-android/21/bin/llvm-ar18"
+      - "/usr/lib/aarch64-linux-android/21/sbin/llvm-ar18"
+      - "/usr/lib/aarch64-linux-android/21/llvm-ar18"
+    found: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ar"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64"
+      ENV{PATH}:
+        - "/opt/homebrew/lib/ruby/gems/3.3.0/bin"
+        - "/opt/homebrew/opt/ruby@3.3/bin"
+        - "/Users/runner/.local/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/runner/.cargo/bin"
+        - "/usr/local/opt/curl/bin"
+        - "/usr/local/bin"
+        - "/usr/local/sbin"
+        - "/Users/runner/bin"
+        - "/Users/runner/.yarn/bin"
+        - "/Users/runner/Library/Android/sdk/tools"
+        - "/Users/runner/Library/Android/sdk/platform-tools"
+        - "/Library/Frameworks/Python.framework/Versions/Current/bin"
+        - "/Library/Frameworks/Mono.framework/Versions/Current/Commands"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/Users/runner/.dotnet/tools"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/lib/aarch64-linux-android/21"
+      CMAKE_SYSROOT: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+      CMAKE_FIND_ROOT_PATH: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/Compiler/Clang-FindBinUtils.cmake:38 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:201 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_C_COMPILER_RANLIB"
+    description: "Generate index for LLVM archive"
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "llvm-ranlib-18.0"
+      - "llvm-ranlib-18"
+      - "llvm-ranlib18"
+      - "llvm-ranlib"
+    candidate_directories:
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/"
+      - "/opt/homebrew/opt/ruby@3.3/bin/"
+      - "/Users/runner/.local/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/Users/runner/.cargo/bin/"
+      - "/usr/local/opt/curl/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/Users/runner/bin/"
+      - "/Users/runner/.yarn/bin/"
+      - "/Users/runner/Library/Android/sdk/tools/"
+      - "/Users/runner/Library/Android/sdk/platform-tools/"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/Users/runner/.dotnet/tools/"
+      - "/usr/lib/aarch64-linux-android/21/bin/"
+      - "/usr/lib/aarch64-linux-android/21/sbin/"
+      - "/usr/lib/aarch64-linux-android/21/"
+    searched_directories:
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ranlib-18.0"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/llvm-ranlib-18.0"
+      - "/opt/homebrew/opt/ruby@3.3/bin/llvm-ranlib-18.0"
+      - "/Users/runner/.local/bin/llvm-ranlib-18.0"
+      - "/opt/homebrew/bin/llvm-ranlib-18.0"
+      - "/opt/homebrew/sbin/llvm-ranlib-18.0"
+      - "/Users/runner/.cargo/bin/llvm-ranlib-18.0"
+      - "/usr/local/opt/curl/bin/llvm-ranlib-18.0"
+      - "/usr/local/bin/llvm-ranlib-18.0"
+      - "/usr/local/sbin/llvm-ranlib-18.0"
+      - "/Users/runner/bin/llvm-ranlib-18.0"
+      - "/Users/runner/.yarn/bin/llvm-ranlib-18.0"
+      - "/Users/runner/Library/Android/sdk/tools/llvm-ranlib-18.0"
+      - "/Users/runner/Library/Android/sdk/platform-tools/llvm-ranlib-18.0"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/llvm-ranlib-18.0"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/llvm-ranlib-18.0"
+      - "/usr/bin/llvm-ranlib-18.0"
+      - "/bin/llvm-ranlib-18.0"
+      - "/usr/sbin/llvm-ranlib-18.0"
+      - "/sbin/llvm-ranlib-18.0"
+      - "/Users/runner/.dotnet/tools/llvm-ranlib-18.0"
+      - "/usr/lib/aarch64-linux-android/21/bin/llvm-ranlib-18.0"
+      - "/usr/lib/aarch64-linux-android/21/sbin/llvm-ranlib-18.0"
+      - "/usr/lib/aarch64-linux-android/21/llvm-ranlib-18.0"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ranlib-18"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/llvm-ranlib-18"
+      - "/opt/homebrew/opt/ruby@3.3/bin/llvm-ranlib-18"
+      - "/Users/runner/.local/bin/llvm-ranlib-18"
+      - "/opt/homebrew/bin/llvm-ranlib-18"
+      - "/opt/homebrew/sbin/llvm-ranlib-18"
+      - "/Users/runner/.cargo/bin/llvm-ranlib-18"
+      - "/usr/local/opt/curl/bin/llvm-ranlib-18"
+      - "/usr/local/bin/llvm-ranlib-18"
+      - "/usr/local/sbin/llvm-ranlib-18"
+      - "/Users/runner/bin/llvm-ranlib-18"
+      - "/Users/runner/.yarn/bin/llvm-ranlib-18"
+      - "/Users/runner/Library/Android/sdk/tools/llvm-ranlib-18"
+      - "/Users/runner/Library/Android/sdk/platform-tools/llvm-ranlib-18"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/llvm-ranlib-18"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/llvm-ranlib-18"
+      - "/usr/bin/llvm-ranlib-18"
+      - "/bin/llvm-ranlib-18"
+      - "/usr/sbin/llvm-ranlib-18"
+      - "/sbin/llvm-ranlib-18"
+      - "/Users/runner/.dotnet/tools/llvm-ranlib-18"
+      - "/usr/lib/aarch64-linux-android/21/bin/llvm-ranlib-18"
+      - "/usr/lib/aarch64-linux-android/21/sbin/llvm-ranlib-18"
+      - "/usr/lib/aarch64-linux-android/21/llvm-ranlib-18"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ranlib18"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/llvm-ranlib18"
+      - "/opt/homebrew/opt/ruby@3.3/bin/llvm-ranlib18"
+      - "/Users/runner/.local/bin/llvm-ranlib18"
+      - "/opt/homebrew/bin/llvm-ranlib18"
+      - "/opt/homebrew/sbin/llvm-ranlib18"
+      - "/Users/runner/.cargo/bin/llvm-ranlib18"
+      - "/usr/local/opt/curl/bin/llvm-ranlib18"
+      - "/usr/local/bin/llvm-ranlib18"
+      - "/usr/local/sbin/llvm-ranlib18"
+      - "/Users/runner/bin/llvm-ranlib18"
+      - "/Users/runner/.yarn/bin/llvm-ranlib18"
+      - "/Users/runner/Library/Android/sdk/tools/llvm-ranlib18"
+      - "/Users/runner/Library/Android/sdk/platform-tools/llvm-ranlib18"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/llvm-ranlib18"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/llvm-ranlib18"
+      - "/usr/bin/llvm-ranlib18"
+      - "/bin/llvm-ranlib18"
+      - "/usr/sbin/llvm-ranlib18"
+      - "/sbin/llvm-ranlib18"
+      - "/Users/runner/.dotnet/tools/llvm-ranlib18"
+      - "/usr/lib/aarch64-linux-android/21/bin/llvm-ranlib18"
+      - "/usr/lib/aarch64-linux-android/21/sbin/llvm-ranlib18"
+      - "/usr/lib/aarch64-linux-android/21/llvm-ranlib18"
+    found: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ranlib"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64"
+      ENV{PATH}:
+        - "/opt/homebrew/lib/ruby/gems/3.3.0/bin"
+        - "/opt/homebrew/opt/ruby@3.3/bin"
+        - "/Users/runner/.local/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/runner/.cargo/bin"
+        - "/usr/local/opt/curl/bin"
+        - "/usr/local/bin"
+        - "/usr/local/sbin"
+        - "/Users/runner/bin"
+        - "/Users/runner/.yarn/bin"
+        - "/Users/runner/Library/Android/sdk/tools"
+        - "/Users/runner/Library/Android/sdk/platform-tools"
+        - "/Library/Frameworks/Python.framework/Versions/Current/bin"
+        - "/Library/Frameworks/Mono.framework/Versions/Current/Commands"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/Users/runner/.dotnet/tools"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/lib/aarch64-linux-android/21"
+      CMAKE_SYSROOT: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+      CMAKE_FIND_ROOT_PATH: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/Compiler/Clang-FindBinUtils.cmake:50 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:201 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_C_COMPILER_CLANG_SCAN_DEPS"
+    description: "`clang-scan-deps` dependency scanner"
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "clang-scan-deps-18.0"
+      - "clang-scan-deps-18"
+      - "clang-scan-deps18"
+      - "clang-scan-deps"
+    candidate_directories:
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/"
+      - "/opt/homebrew/opt/ruby@3.3/bin/"
+      - "/Users/runner/.local/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/Users/runner/.cargo/bin/"
+      - "/usr/local/opt/curl/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/Users/runner/bin/"
+      - "/Users/runner/.yarn/bin/"
+      - "/Users/runner/Library/Android/sdk/tools/"
+      - "/Users/runner/Library/Android/sdk/platform-tools/"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/Users/runner/.dotnet/tools/"
+      - "/usr/lib/aarch64-linux-android/21/bin/"
+      - "/usr/lib/aarch64-linux-android/21/sbin/"
+      - "/usr/lib/aarch64-linux-android/21/"
+    searched_directories:
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang-scan-deps-18.0"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/clang-scan-deps-18.0"
+      - "/opt/homebrew/opt/ruby@3.3/bin/clang-scan-deps-18.0"
+      - "/Users/runner/.local/bin/clang-scan-deps-18.0"
+      - "/opt/homebrew/bin/clang-scan-deps-18.0"
+      - "/opt/homebrew/sbin/clang-scan-deps-18.0"
+      - "/Users/runner/.cargo/bin/clang-scan-deps-18.0"
+      - "/usr/local/opt/curl/bin/clang-scan-deps-18.0"
+      - "/usr/local/bin/clang-scan-deps-18.0"
+      - "/usr/local/sbin/clang-scan-deps-18.0"
+      - "/Users/runner/bin/clang-scan-deps-18.0"
+      - "/Users/runner/.yarn/bin/clang-scan-deps-18.0"
+      - "/Users/runner/Library/Android/sdk/tools/clang-scan-deps-18.0"
+      - "/Users/runner/Library/Android/sdk/platform-tools/clang-scan-deps-18.0"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/clang-scan-deps-18.0"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/clang-scan-deps-18.0"
+      - "/usr/bin/clang-scan-deps-18.0"
+      - "/bin/clang-scan-deps-18.0"
+      - "/usr/sbin/clang-scan-deps-18.0"
+      - "/sbin/clang-scan-deps-18.0"
+      - "/Users/runner/.dotnet/tools/clang-scan-deps-18.0"
+      - "/usr/lib/aarch64-linux-android/21/bin/clang-scan-deps-18.0"
+      - "/usr/lib/aarch64-linux-android/21/sbin/clang-scan-deps-18.0"
+      - "/usr/lib/aarch64-linux-android/21/clang-scan-deps-18.0"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang-scan-deps-18"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/clang-scan-deps-18"
+      - "/opt/homebrew/opt/ruby@3.3/bin/clang-scan-deps-18"
+      - "/Users/runner/.local/bin/clang-scan-deps-18"
+      - "/opt/homebrew/bin/clang-scan-deps-18"
+      - "/opt/homebrew/sbin/clang-scan-deps-18"
+      - "/Users/runner/.cargo/bin/clang-scan-deps-18"
+      - "/usr/local/opt/curl/bin/clang-scan-deps-18"
+      - "/usr/local/bin/clang-scan-deps-18"
+      - "/usr/local/sbin/clang-scan-deps-18"
+      - "/Users/runner/bin/clang-scan-deps-18"
+      - "/Users/runner/.yarn/bin/clang-scan-deps-18"
+      - "/Users/runner/Library/Android/sdk/tools/clang-scan-deps-18"
+      - "/Users/runner/Library/Android/sdk/platform-tools/clang-scan-deps-18"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/clang-scan-deps-18"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/clang-scan-deps-18"
+      - "/usr/bin/clang-scan-deps-18"
+      - "/bin/clang-scan-deps-18"
+      - "/usr/sbin/clang-scan-deps-18"
+      - "/sbin/clang-scan-deps-18"
+      - "/Users/runner/.dotnet/tools/clang-scan-deps-18"
+      - "/usr/lib/aarch64-linux-android/21/bin/clang-scan-deps-18"
+      - "/usr/lib/aarch64-linux-android/21/sbin/clang-scan-deps-18"
+      - "/usr/lib/aarch64-linux-android/21/clang-scan-deps-18"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang-scan-deps18"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/clang-scan-deps18"
+      - "/opt/homebrew/opt/ruby@3.3/bin/clang-scan-deps18"
+      - "/Users/runner/.local/bin/clang-scan-deps18"
+      - "/opt/homebrew/bin/clang-scan-deps18"
+      - "/opt/homebrew/sbin/clang-scan-deps18"
+      - "/Users/runner/.cargo/bin/clang-scan-deps18"
+      - "/usr/local/opt/curl/bin/clang-scan-deps18"
+      - "/usr/local/bin/clang-scan-deps18"
+      - "/usr/local/sbin/clang-scan-deps18"
+      - "/Users/runner/bin/clang-scan-deps18"
+      - "/Users/runner/.yarn/bin/clang-scan-deps18"
+      - "/Users/runner/Library/Android/sdk/tools/clang-scan-deps18"
+      - "/Users/runner/Library/Android/sdk/platform-tools/clang-scan-deps18"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/clang-scan-deps18"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/clang-scan-deps18"
+      - "/usr/bin/clang-scan-deps18"
+      - "/bin/clang-scan-deps18"
+      - "/usr/sbin/clang-scan-deps18"
+      - "/sbin/clang-scan-deps18"
+      - "/Users/runner/.dotnet/tools/clang-scan-deps18"
+      - "/usr/lib/aarch64-linux-android/21/bin/clang-scan-deps18"
+      - "/usr/lib/aarch64-linux-android/21/sbin/clang-scan-deps18"
+      - "/usr/lib/aarch64-linux-android/21/clang-scan-deps18"
+    found: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang-scan-deps"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64"
+      ENV{PATH}:
+        - "/opt/homebrew/lib/ruby/gems/3.3.0/bin"
+        - "/opt/homebrew/opt/ruby@3.3/bin"
+        - "/Users/runner/.local/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/runner/.cargo/bin"
+        - "/usr/local/opt/curl/bin"
+        - "/usr/local/bin"
+        - "/usr/local/sbin"
+        - "/Users/runner/bin"
+        - "/Users/runner/.yarn/bin"
+        - "/Users/runner/Library/Android/sdk/tools"
+        - "/Users/runner/Library/Android/sdk/platform-tools"
+        - "/Library/Frameworks/Python.framework/Versions/Current/bin"
+        - "/Library/Frameworks/Mono.framework/Versions/Current/Commands"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/Users/runner/.dotnet/tools"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/lib/aarch64-linux-android/21"
+      CMAKE_SYSROOT: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+      CMAKE_FIND_ROOT_PATH: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "file"
+    variable: "src_in"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "CMakeCXXCompilerId.cpp.in"
+    candidate_directories:
+      - "/opt/homebrew/share/cmake/Modules/"
+    found: "/opt/homebrew/share/cmake/Modules/CMakeCXXCompilerId.cpp.in"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64"
+      ENV{PATH}:
+        - "/opt/homebrew/lib/ruby/gems/3.3.0/bin"
+        - "/opt/homebrew/opt/ruby@3.3/bin"
+        - "/Users/runner/.local/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/runner/.cargo/bin"
+        - "/usr/local/opt/curl/bin"
+        - "/usr/local/bin"
+        - "/usr/local/sbin"
+        - "/Users/runner/bin"
+        - "/Users/runner/.yarn/bin"
+        - "/Users/runner/Library/Android/sdk/tools"
+        - "/Users/runner/Library/Android/sdk/platform-tools"
+        - "/Library/Frameworks/Python.framework/Versions/Current/bin"
+        - "/Library/Frameworks/Mono.framework/Versions/Current/Commands"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/Users/runner/.dotnet/tools"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/lib/aarch64-linux-android/21"
+      CMAKE_SYSROOT: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+      CMAKE_FIND_ROOT_PATH: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ 
+      Build flags: -g;-DANDROID;-fdata-sections;-ffunction-sections;-funwind-tables;-fstack-protector-strong;-no-canonical-prefixes;-D_FORTIFY_SOURCE=2;-Wformat;-Werror=format-security
+      Id flags: -c;--target=aarch64-none-linux-android21 
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.o"
+      
+      The CXX compiler identification is Clang, found in:
+        /Users/runner/work/kodi-ibroadcast/kodi-ibroadcast/visualization.ibroadcast.albumart/build_android/CMakeFiles/4.2.3/CompilerIdCXX/CMakeCXXCompilerId.o
+      
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/Compiler/Clang-FindBinUtils.cmake:26 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:207 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_CXX_COMPILER_AR"
+    description: "LLVM archiver"
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "llvm-ar-18.0"
+      - "llvm-ar-18"
+      - "llvm-ar18"
+      - "llvm-ar"
+    candidate_directories:
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/"
+      - "/opt/homebrew/opt/ruby@3.3/bin/"
+      - "/Users/runner/.local/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/Users/runner/.cargo/bin/"
+      - "/usr/local/opt/curl/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/Users/runner/bin/"
+      - "/Users/runner/.yarn/bin/"
+      - "/Users/runner/Library/Android/sdk/tools/"
+      - "/Users/runner/Library/Android/sdk/platform-tools/"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/Users/runner/.dotnet/tools/"
+      - "/usr/lib/aarch64-linux-android/21/bin/"
+      - "/usr/lib/aarch64-linux-android/21/sbin/"
+      - "/usr/lib/aarch64-linux-android/21/"
+    searched_directories:
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ar-18.0"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/llvm-ar-18.0"
+      - "/opt/homebrew/opt/ruby@3.3/bin/llvm-ar-18.0"
+      - "/Users/runner/.local/bin/llvm-ar-18.0"
+      - "/opt/homebrew/bin/llvm-ar-18.0"
+      - "/opt/homebrew/sbin/llvm-ar-18.0"
+      - "/Users/runner/.cargo/bin/llvm-ar-18.0"
+      - "/usr/local/opt/curl/bin/llvm-ar-18.0"
+      - "/usr/local/bin/llvm-ar-18.0"
+      - "/usr/local/sbin/llvm-ar-18.0"
+      - "/Users/runner/bin/llvm-ar-18.0"
+      - "/Users/runner/.yarn/bin/llvm-ar-18.0"
+      - "/Users/runner/Library/Android/sdk/tools/llvm-ar-18.0"
+      - "/Users/runner/Library/Android/sdk/platform-tools/llvm-ar-18.0"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/llvm-ar-18.0"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/llvm-ar-18.0"
+      - "/usr/bin/llvm-ar-18.0"
+      - "/bin/llvm-ar-18.0"
+      - "/usr/sbin/llvm-ar-18.0"
+      - "/sbin/llvm-ar-18.0"
+      - "/Users/runner/.dotnet/tools/llvm-ar-18.0"
+      - "/usr/lib/aarch64-linux-android/21/bin/llvm-ar-18.0"
+      - "/usr/lib/aarch64-linux-android/21/sbin/llvm-ar-18.0"
+      - "/usr/lib/aarch64-linux-android/21/llvm-ar-18.0"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ar-18"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/llvm-ar-18"
+      - "/opt/homebrew/opt/ruby@3.3/bin/llvm-ar-18"
+      - "/Users/runner/.local/bin/llvm-ar-18"
+      - "/opt/homebrew/bin/llvm-ar-18"
+      - "/opt/homebrew/sbin/llvm-ar-18"
+      - "/Users/runner/.cargo/bin/llvm-ar-18"
+      - "/usr/local/opt/curl/bin/llvm-ar-18"
+      - "/usr/local/bin/llvm-ar-18"
+      - "/usr/local/sbin/llvm-ar-18"
+      - "/Users/runner/bin/llvm-ar-18"
+      - "/Users/runner/.yarn/bin/llvm-ar-18"
+      - "/Users/runner/Library/Android/sdk/tools/llvm-ar-18"
+      - "/Users/runner/Library/Android/sdk/platform-tools/llvm-ar-18"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/llvm-ar-18"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/llvm-ar-18"
+      - "/usr/bin/llvm-ar-18"
+      - "/bin/llvm-ar-18"
+      - "/usr/sbin/llvm-ar-18"
+      - "/sbin/llvm-ar-18"
+      - "/Users/runner/.dotnet/tools/llvm-ar-18"
+      - "/usr/lib/aarch64-linux-android/21/bin/llvm-ar-18"
+      - "/usr/lib/aarch64-linux-android/21/sbin/llvm-ar-18"
+      - "/usr/lib/aarch64-linux-android/21/llvm-ar-18"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ar18"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/llvm-ar18"
+      - "/opt/homebrew/opt/ruby@3.3/bin/llvm-ar18"
+      - "/Users/runner/.local/bin/llvm-ar18"
+      - "/opt/homebrew/bin/llvm-ar18"
+      - "/opt/homebrew/sbin/llvm-ar18"
+      - "/Users/runner/.cargo/bin/llvm-ar18"
+      - "/usr/local/opt/curl/bin/llvm-ar18"
+      - "/usr/local/bin/llvm-ar18"
+      - "/usr/local/sbin/llvm-ar18"
+      - "/Users/runner/bin/llvm-ar18"
+      - "/Users/runner/.yarn/bin/llvm-ar18"
+      - "/Users/runner/Library/Android/sdk/tools/llvm-ar18"
+      - "/Users/runner/Library/Android/sdk/platform-tools/llvm-ar18"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/llvm-ar18"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/llvm-ar18"
+      - "/usr/bin/llvm-ar18"
+      - "/bin/llvm-ar18"
+      - "/usr/sbin/llvm-ar18"
+      - "/sbin/llvm-ar18"
+      - "/Users/runner/.dotnet/tools/llvm-ar18"
+      - "/usr/lib/aarch64-linux-android/21/bin/llvm-ar18"
+      - "/usr/lib/aarch64-linux-android/21/sbin/llvm-ar18"
+      - "/usr/lib/aarch64-linux-android/21/llvm-ar18"
+    found: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ar"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64"
+      ENV{PATH}:
+        - "/opt/homebrew/lib/ruby/gems/3.3.0/bin"
+        - "/opt/homebrew/opt/ruby@3.3/bin"
+        - "/Users/runner/.local/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/runner/.cargo/bin"
+        - "/usr/local/opt/curl/bin"
+        - "/usr/local/bin"
+        - "/usr/local/sbin"
+        - "/Users/runner/bin"
+        - "/Users/runner/.yarn/bin"
+        - "/Users/runner/Library/Android/sdk/tools"
+        - "/Users/runner/Library/Android/sdk/platform-tools"
+        - "/Library/Frameworks/Python.framework/Versions/Current/bin"
+        - "/Library/Frameworks/Mono.framework/Versions/Current/Commands"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/Users/runner/.dotnet/tools"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/lib/aarch64-linux-android/21"
+      CMAKE_SYSROOT: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+      CMAKE_FIND_ROOT_PATH: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/Compiler/Clang-FindBinUtils.cmake:38 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:207 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_CXX_COMPILER_RANLIB"
+    description: "Generate index for LLVM archive"
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "llvm-ranlib-18.0"
+      - "llvm-ranlib-18"
+      - "llvm-ranlib18"
+      - "llvm-ranlib"
+    candidate_directories:
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/"
+      - "/opt/homebrew/opt/ruby@3.3/bin/"
+      - "/Users/runner/.local/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/Users/runner/.cargo/bin/"
+      - "/usr/local/opt/curl/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/Users/runner/bin/"
+      - "/Users/runner/.yarn/bin/"
+      - "/Users/runner/Library/Android/sdk/tools/"
+      - "/Users/runner/Library/Android/sdk/platform-tools/"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/Users/runner/.dotnet/tools/"
+      - "/usr/lib/aarch64-linux-android/21/bin/"
+      - "/usr/lib/aarch64-linux-android/21/sbin/"
+      - "/usr/lib/aarch64-linux-android/21/"
+    searched_directories:
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ranlib-18.0"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/llvm-ranlib-18.0"
+      - "/opt/homebrew/opt/ruby@3.3/bin/llvm-ranlib-18.0"
+      - "/Users/runner/.local/bin/llvm-ranlib-18.0"
+      - "/opt/homebrew/bin/llvm-ranlib-18.0"
+      - "/opt/homebrew/sbin/llvm-ranlib-18.0"
+      - "/Users/runner/.cargo/bin/llvm-ranlib-18.0"
+      - "/usr/local/opt/curl/bin/llvm-ranlib-18.0"
+      - "/usr/local/bin/llvm-ranlib-18.0"
+      - "/usr/local/sbin/llvm-ranlib-18.0"
+      - "/Users/runner/bin/llvm-ranlib-18.0"
+      - "/Users/runner/.yarn/bin/llvm-ranlib-18.0"
+      - "/Users/runner/Library/Android/sdk/tools/llvm-ranlib-18.0"
+      - "/Users/runner/Library/Android/sdk/platform-tools/llvm-ranlib-18.0"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/llvm-ranlib-18.0"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/llvm-ranlib-18.0"
+      - "/usr/bin/llvm-ranlib-18.0"
+      - "/bin/llvm-ranlib-18.0"
+      - "/usr/sbin/llvm-ranlib-18.0"
+      - "/sbin/llvm-ranlib-18.0"
+      - "/Users/runner/.dotnet/tools/llvm-ranlib-18.0"
+      - "/usr/lib/aarch64-linux-android/21/bin/llvm-ranlib-18.0"
+      - "/usr/lib/aarch64-linux-android/21/sbin/llvm-ranlib-18.0"
+      - "/usr/lib/aarch64-linux-android/21/llvm-ranlib-18.0"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ranlib-18"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/llvm-ranlib-18"
+      - "/opt/homebrew/opt/ruby@3.3/bin/llvm-ranlib-18"
+      - "/Users/runner/.local/bin/llvm-ranlib-18"
+      - "/opt/homebrew/bin/llvm-ranlib-18"
+      - "/opt/homebrew/sbin/llvm-ranlib-18"
+      - "/Users/runner/.cargo/bin/llvm-ranlib-18"
+      - "/usr/local/opt/curl/bin/llvm-ranlib-18"
+      - "/usr/local/bin/llvm-ranlib-18"
+      - "/usr/local/sbin/llvm-ranlib-18"
+      - "/Users/runner/bin/llvm-ranlib-18"
+      - "/Users/runner/.yarn/bin/llvm-ranlib-18"
+      - "/Users/runner/Library/Android/sdk/tools/llvm-ranlib-18"
+      - "/Users/runner/Library/Android/sdk/platform-tools/llvm-ranlib-18"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/llvm-ranlib-18"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/llvm-ranlib-18"
+      - "/usr/bin/llvm-ranlib-18"
+      - "/bin/llvm-ranlib-18"
+      - "/usr/sbin/llvm-ranlib-18"
+      - "/sbin/llvm-ranlib-18"
+      - "/Users/runner/.dotnet/tools/llvm-ranlib-18"
+      - "/usr/lib/aarch64-linux-android/21/bin/llvm-ranlib-18"
+      - "/usr/lib/aarch64-linux-android/21/sbin/llvm-ranlib-18"
+      - "/usr/lib/aarch64-linux-android/21/llvm-ranlib-18"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ranlib18"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/llvm-ranlib18"
+      - "/opt/homebrew/opt/ruby@3.3/bin/llvm-ranlib18"
+      - "/Users/runner/.local/bin/llvm-ranlib18"
+      - "/opt/homebrew/bin/llvm-ranlib18"
+      - "/opt/homebrew/sbin/llvm-ranlib18"
+      - "/Users/runner/.cargo/bin/llvm-ranlib18"
+      - "/usr/local/opt/curl/bin/llvm-ranlib18"
+      - "/usr/local/bin/llvm-ranlib18"
+      - "/usr/local/sbin/llvm-ranlib18"
+      - "/Users/runner/bin/llvm-ranlib18"
+      - "/Users/runner/.yarn/bin/llvm-ranlib18"
+      - "/Users/runner/Library/Android/sdk/tools/llvm-ranlib18"
+      - "/Users/runner/Library/Android/sdk/platform-tools/llvm-ranlib18"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/llvm-ranlib18"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/llvm-ranlib18"
+      - "/usr/bin/llvm-ranlib18"
+      - "/bin/llvm-ranlib18"
+      - "/usr/sbin/llvm-ranlib18"
+      - "/sbin/llvm-ranlib18"
+      - "/Users/runner/.dotnet/tools/llvm-ranlib18"
+      - "/usr/lib/aarch64-linux-android/21/bin/llvm-ranlib18"
+      - "/usr/lib/aarch64-linux-android/21/sbin/llvm-ranlib18"
+      - "/usr/lib/aarch64-linux-android/21/llvm-ranlib18"
+    found: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ranlib"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64"
+      ENV{PATH}:
+        - "/opt/homebrew/lib/ruby/gems/3.3.0/bin"
+        - "/opt/homebrew/opt/ruby@3.3/bin"
+        - "/Users/runner/.local/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/runner/.cargo/bin"
+        - "/usr/local/opt/curl/bin"
+        - "/usr/local/bin"
+        - "/usr/local/sbin"
+        - "/Users/runner/bin"
+        - "/Users/runner/.yarn/bin"
+        - "/Users/runner/Library/Android/sdk/tools"
+        - "/Users/runner/Library/Android/sdk/platform-tools"
+        - "/Library/Frameworks/Python.framework/Versions/Current/bin"
+        - "/Library/Frameworks/Mono.framework/Versions/Current/Commands"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/Users/runner/.dotnet/tools"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/lib/aarch64-linux-android/21"
+      CMAKE_SYSROOT: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+      CMAKE_FIND_ROOT_PATH: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/Compiler/Clang-FindBinUtils.cmake:50 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:207 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS"
+    description: "`clang-scan-deps` dependency scanner"
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "clang-scan-deps-18.0"
+      - "clang-scan-deps-18"
+      - "clang-scan-deps18"
+      - "clang-scan-deps"
+    candidate_directories:
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/"
+      - "/opt/homebrew/opt/ruby@3.3/bin/"
+      - "/Users/runner/.local/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/Users/runner/.cargo/bin/"
+      - "/usr/local/opt/curl/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/Users/runner/bin/"
+      - "/Users/runner/.yarn/bin/"
+      - "/Users/runner/Library/Android/sdk/tools/"
+      - "/Users/runner/Library/Android/sdk/platform-tools/"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/Users/runner/.dotnet/tools/"
+      - "/usr/lib/aarch64-linux-android/21/bin/"
+      - "/usr/lib/aarch64-linux-android/21/sbin/"
+      - "/usr/lib/aarch64-linux-android/21/"
+    searched_directories:
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang-scan-deps-18.0"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/clang-scan-deps-18.0"
+      - "/opt/homebrew/opt/ruby@3.3/bin/clang-scan-deps-18.0"
+      - "/Users/runner/.local/bin/clang-scan-deps-18.0"
+      - "/opt/homebrew/bin/clang-scan-deps-18.0"
+      - "/opt/homebrew/sbin/clang-scan-deps-18.0"
+      - "/Users/runner/.cargo/bin/clang-scan-deps-18.0"
+      - "/usr/local/opt/curl/bin/clang-scan-deps-18.0"
+      - "/usr/local/bin/clang-scan-deps-18.0"
+      - "/usr/local/sbin/clang-scan-deps-18.0"
+      - "/Users/runner/bin/clang-scan-deps-18.0"
+      - "/Users/runner/.yarn/bin/clang-scan-deps-18.0"
+      - "/Users/runner/Library/Android/sdk/tools/clang-scan-deps-18.0"
+      - "/Users/runner/Library/Android/sdk/platform-tools/clang-scan-deps-18.0"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/clang-scan-deps-18.0"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/clang-scan-deps-18.0"
+      - "/usr/bin/clang-scan-deps-18.0"
+      - "/bin/clang-scan-deps-18.0"
+      - "/usr/sbin/clang-scan-deps-18.0"
+      - "/sbin/clang-scan-deps-18.0"
+      - "/Users/runner/.dotnet/tools/clang-scan-deps-18.0"
+      - "/usr/lib/aarch64-linux-android/21/bin/clang-scan-deps-18.0"
+      - "/usr/lib/aarch64-linux-android/21/sbin/clang-scan-deps-18.0"
+      - "/usr/lib/aarch64-linux-android/21/clang-scan-deps-18.0"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang-scan-deps-18"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/clang-scan-deps-18"
+      - "/opt/homebrew/opt/ruby@3.3/bin/clang-scan-deps-18"
+      - "/Users/runner/.local/bin/clang-scan-deps-18"
+      - "/opt/homebrew/bin/clang-scan-deps-18"
+      - "/opt/homebrew/sbin/clang-scan-deps-18"
+      - "/Users/runner/.cargo/bin/clang-scan-deps-18"
+      - "/usr/local/opt/curl/bin/clang-scan-deps-18"
+      - "/usr/local/bin/clang-scan-deps-18"
+      - "/usr/local/sbin/clang-scan-deps-18"
+      - "/Users/runner/bin/clang-scan-deps-18"
+      - "/Users/runner/.yarn/bin/clang-scan-deps-18"
+      - "/Users/runner/Library/Android/sdk/tools/clang-scan-deps-18"
+      - "/Users/runner/Library/Android/sdk/platform-tools/clang-scan-deps-18"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/clang-scan-deps-18"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/clang-scan-deps-18"
+      - "/usr/bin/clang-scan-deps-18"
+      - "/bin/clang-scan-deps-18"
+      - "/usr/sbin/clang-scan-deps-18"
+      - "/sbin/clang-scan-deps-18"
+      - "/Users/runner/.dotnet/tools/clang-scan-deps-18"
+      - "/usr/lib/aarch64-linux-android/21/bin/clang-scan-deps-18"
+      - "/usr/lib/aarch64-linux-android/21/sbin/clang-scan-deps-18"
+      - "/usr/lib/aarch64-linux-android/21/clang-scan-deps-18"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang-scan-deps18"
+      - "/opt/homebrew/lib/ruby/gems/3.3.0/bin/clang-scan-deps18"
+      - "/opt/homebrew/opt/ruby@3.3/bin/clang-scan-deps18"
+      - "/Users/runner/.local/bin/clang-scan-deps18"
+      - "/opt/homebrew/bin/clang-scan-deps18"
+      - "/opt/homebrew/sbin/clang-scan-deps18"
+      - "/Users/runner/.cargo/bin/clang-scan-deps18"
+      - "/usr/local/opt/curl/bin/clang-scan-deps18"
+      - "/usr/local/bin/clang-scan-deps18"
+      - "/usr/local/sbin/clang-scan-deps18"
+      - "/Users/runner/bin/clang-scan-deps18"
+      - "/Users/runner/.yarn/bin/clang-scan-deps18"
+      - "/Users/runner/Library/Android/sdk/tools/clang-scan-deps18"
+      - "/Users/runner/Library/Android/sdk/platform-tools/clang-scan-deps18"
+      - "/Library/Frameworks/Python.framework/Versions/Current/bin/clang-scan-deps18"
+      - "/Library/Frameworks/Mono.framework/Versions/Current/Commands/clang-scan-deps18"
+      - "/usr/bin/clang-scan-deps18"
+      - "/bin/clang-scan-deps18"
+      - "/usr/sbin/clang-scan-deps18"
+      - "/sbin/clang-scan-deps18"
+      - "/Users/runner/.dotnet/tools/clang-scan-deps18"
+      - "/usr/lib/aarch64-linux-android/21/bin/clang-scan-deps18"
+      - "/usr/lib/aarch64-linux-android/21/sbin/clang-scan-deps18"
+      - "/usr/lib/aarch64-linux-android/21/clang-scan-deps18"
+    found: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang-scan-deps"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64"
+      ENV{PATH}:
+        - "/opt/homebrew/lib/ruby/gems/3.3.0/bin"
+        - "/opt/homebrew/opt/ruby@3.3/bin"
+        - "/Users/runner/.local/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/runner/.cargo/bin"
+        - "/usr/local/opt/curl/bin"
+        - "/usr/local/bin"
+        - "/usr/local/sbin"
+        - "/Users/runner/bin"
+        - "/Users/runner/.yarn/bin"
+        - "/Users/runner/Library/Android/sdk/tools"
+        - "/Users/runner/Library/Android/sdk/platform-tools"
+        - "/Library/Frameworks/Python.framework/Versions/Current/bin"
+        - "/Library/Frameworks/Mono.framework/Versions/Current/Commands"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/Users/runner/.dotnet/tools"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/lib/aarch64-linux-android/21"
+      CMAKE_SYSROOT: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+      CMAKE_FIND_ROOT_PATH: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724"
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:83 (try_compile)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "/Users/runner/work/kodi-ibroadcast/kodi-ibroadcast/visualization.ibroadcast.albumart/build_android/CMakeFiles/CMakeScratch/TryCompile-8PiHJm"
+      binary: "/Users/runner/work/kodi-ibroadcast/kodi-ibroadcast/visualization.ibroadcast.albumart/build_android/CMakeFiles/CMakeScratch/TryCompile-8PiHJm"
+    cmakeVariables:
+      ANDROID_ABI: "arm64-v8a"
+      ANDROID_ARM_MODE: "thumb"
+      ANDROID_PIE: "TRUE"
+      ANDROID_PLATFORM: "android-21"
+      ANDROID_STL: "c++_static"
+      ANDROID_TOOLCHAIN: "clang"
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang-scan-deps"
+      CMAKE_CXX_COMPILER_TARGET: "aarch64-none-linux-android21"
+      CMAKE_C_COMPILER_TARGET: "aarch64-none-linux-android21"
+      CMAKE_C_FLAGS: "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat "
+      CMAKE_C_FLAGS_DEBUG: "-fno-limit-debug-info "
+      CMAKE_EXE_LINKER_FLAGS: "-static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments  "
+      CMAKE_POSITION_INDEPENDENT_CODE: "TRUE"
+      CMAKE_SYSROOT: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/runner/work/kodi-ibroadcast/kodi-ibroadcast/visualization.ibroadcast.albumart/build_android/CMakeFiles/CMakeScratch/TryCompile-8PiHJm'
+        
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_c74c1/fast
+        /Applications/Xcode_16.4.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_c74c1.dir/build.make CMakeFiles/cmTC_c74c1.dir/build
+        Building C object CMakeFiles/cmTC_c74c1.dir/CMakeCCompilerABI.c.o
+        /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=aarch64-none-linux-android21 --sysroot=/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot   -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat   -fPIE   -v -MD -MT CMakeFiles/cmTC_c74c1.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_c74c1.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_c74c1.dir/CMakeCCompilerABI.c.o -c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c
+        Android (13691557, +pgo, -bolt, +lto, -mlgo, based on r522817d) clang version 18.0.4 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)
+        Target: aarch64-none-linux-android21
+        Thread model: posix
+        InstalledDir: /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin
+         (in-process)
+         "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang" -cc1 -triple aarch64-none-linux-android21 -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=non-leaf -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu generic -target-feature +neon -target-feature +v8a -target-feature +fix-cortex-a53-835769 -target-abi aapcs -debug-info-kind=constructor -dwarf-version=4 -debugger-tuning=gdb -fdebug-compilation-dir=/Users/runner/work/kodi-ibroadcast/kodi-ibroadcast/visualization.ibroadcast.albumart/build_android/CMakeFiles/CMakeScratch/TryCompile-8PiHJm -v -ffunction-sections -fdata-sections -fcoverage-compilation-dir=/Users/runner/work/kodi-ibroadcast/kodi-ibroadcast/visualization.ibroadcast.albumart/build_android/CMakeFiles/CMakeScratch/TryCompile-8PiHJm -resource-dir /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18 -dependency-file CMakeFiles/cmTC_c74c1.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_c74c1.dir/CMakeCCompilerABI.c.o -sys-header-deps -D ANDROID -D _FORTIFY_SOURCE=2 -isysroot /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -internal-isystem /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include -internal-isystem /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/local/include -internal-externc-isystem /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android -internal-externc-isystem /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/include -internal-externc-isystem /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include -Wformat -ferror-limit 19 -femulated-tls -stack-protector 2 -fno-signed-char -fgnuc-version=4.2.1 -target-feature +outline-atomics -target-feature -fmv -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_c74c1.dir/CMakeCCompilerABI.c.o -x c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c
+        clang -cc1 version 18.0.4 based upon LLVM 18.0.4 default target arm64-apple-darwin24.6.0
+        ignoring nonexistent directory "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/local/include"
+        ignoring nonexistent directory "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include
+         /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android
+         /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include
+        End of search list.
+        Linking C executable cmTC_c74c1
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c74c1.dir/link.txt --verbose=1
+        Android (13691557, +pgo, -bolt, +lto, -mlgo, based on r522817d) clang version 18.0.4 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)
+        Target: aarch64-none-linux-android21
+        Thread model: posix
+        InstalledDir: /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin
+         "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld.lld" --sysroot=/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -EL --fix-cortex-a53-843419 -z now -z relro -z max-page-size=4096 --hash-style=both --eh-frame-hdr -m aarch64linux -pie -dynamic-linker /system/bin/linker64 -o cmTC_c74c1 /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21/crtbegin_dynamic.o -L/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64 -L/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21 -L/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android -L/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib --build-id=sha1 --no-rosegment --no-undefined-version --fatal-warnings --no-undefined CMakeFiles/cmTC_c74c1.dir/CMakeCCompilerABI.c.o /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a -l:libunwind.a -ldl -lc /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a -l:libunwind.a -ldl /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21/crtend_android.o
+        /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=aarch64-none-linux-android21 --sysroot=/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat   -static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments   -v CMakeFiles/cmTC_c74c1.dir/CMakeCCompilerABI.c.o -o cmTC_c74c1
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:217 (message)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed C implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include]
+          add: [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android]
+          add: [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include]
+        end of search list found
+        collapse include dir [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include] ==> [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include]
+        collapse include dir [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android] ==> [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android]
+        collapse include dir [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include] ==> [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include]
+        implicit include dirs: [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include;/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android;/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:253 (message)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
+        ignore line: [Change Dir: '/Users/runner/work/kodi-ibroadcast/kodi-ibroadcast/visualization.ibroadcast.albumart/build_android/CMakeFiles/CMakeScratch/TryCompile-8PiHJm']
+        ignore line: []
+        ignore line: [Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_c74c1/fast]
+        ignore line: [/Applications/Xcode_16.4.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_c74c1.dir/build.make CMakeFiles/cmTC_c74c1.dir/build]
+        ignore line: [Building C object CMakeFiles/cmTC_c74c1.dir/CMakeCCompilerABI.c.o]
+        ignore line: [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=aarch64-none-linux-android21 --sysroot=/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot   -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat   -fPIE   -v -MD -MT CMakeFiles/cmTC_c74c1.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_c74c1.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_c74c1.dir/CMakeCCompilerABI.c.o -c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c]
+        ignore line: [Android (13691557  +pgo  -bolt  +lto  -mlgo  based on r522817d) clang version 18.0.4 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)]
+        ignore line: [Target: aarch64-none-linux-android21]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin]
+        ignore line: [ (in-process)]
+        ignore line: [ "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang" -cc1 -triple aarch64-none-linux-android21 -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=non-leaf -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu generic -target-feature +neon -target-feature +v8a -target-feature +fix-cortex-a53-835769 -target-abi aapcs -debug-info-kind=constructor -dwarf-version=4 -debugger-tuning=gdb -fdebug-compilation-dir=/Users/runner/work/kodi-ibroadcast/kodi-ibroadcast/visualization.ibroadcast.albumart/build_android/CMakeFiles/CMakeScratch/TryCompile-8PiHJm -v -ffunction-sections -fdata-sections -fcoverage-compilation-dir=/Users/runner/work/kodi-ibroadcast/kodi-ibroadcast/visualization.ibroadcast.albumart/build_android/CMakeFiles/CMakeScratch/TryCompile-8PiHJm -resource-dir /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18 -dependency-file CMakeFiles/cmTC_c74c1.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_c74c1.dir/CMakeCCompilerABI.c.o -sys-header-deps -D ANDROID -D _FORTIFY_SOURCE=2 -isysroot /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -internal-isystem /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include -internal-isystem /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/local/include -internal-externc-isystem /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android -internal-externc-isystem /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/include -internal-externc-isystem /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include -Wformat -ferror-limit 19 -femulated-tls -stack-protector 2 -fno-signed-char -fgnuc-version=4.2.1 -target-feature +outline-atomics -target-feature -fmv -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_c74c1.dir/CMakeCCompilerABI.c.o -x c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c]
+        ignore line: [clang -cc1 version 18.0.4 based upon LLVM 18.0.4 default target arm64-apple-darwin24.6.0]
+        ignore line: [ignoring nonexistent directory "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/local/include"]
+        ignore line: [ignoring nonexistent directory "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include]
+        ignore line: [ /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android]
+        ignore line: [ /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include]
+        ignore line: [End of search list.]
+        ignore line: [Linking C executable cmTC_c74c1]
+        ignore line: [/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c74c1.dir/link.txt --verbose=1]
+        ignore line: [Android (13691557  +pgo  -bolt  +lto  -mlgo  based on r522817d) clang version 18.0.4 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)]
+        ignore line: [Target: aarch64-none-linux-android21]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin]
+        link line: [ "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld.lld" --sysroot=/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -EL --fix-cortex-a53-843419 -z now -z relro -z max-page-size=4096 --hash-style=both --eh-frame-hdr -m aarch64linux -pie -dynamic-linker /system/bin/linker64 -o cmTC_c74c1 /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21/crtbegin_dynamic.o -L/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64 -L/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21 -L/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android -L/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib --build-id=sha1 --no-rosegment --no-undefined-version --fatal-warnings --no-undefined CMakeFiles/cmTC_c74c1.dir/CMakeCCompilerABI.c.o /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a -l:libunwind.a -ldl -lc /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a -l:libunwind.a -ldl /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21/crtend_android.o]
+          arg [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld.lld] ==> ignore
+          arg [--sysroot=/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot] ==> ignore
+          arg [-EL] ==> ignore
+          arg [--fix-cortex-a53-843419] ==> ignore
+          arg [-znow] ==> ignore
+          arg [-zrelro] ==> ignore
+          arg [-zmax-page-size=4096] ==> ignore
+          arg [--hash-style=both] ==> ignore
+          arg [--eh-frame-hdr] ==> ignore
+          arg [-m] ==> ignore
+          arg [aarch64linux] ==> ignore
+          arg [-pie] ==> ignore
+          arg [-dynamic-linker] ==> ignore
+          arg [/system/bin/linker64] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_c74c1] ==> ignore
+          arg [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21/crtbegin_dynamic.o] ==> obj [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21/crtbegin_dynamic.o]
+          arg [-L/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64] ==> dir [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64]
+          arg [-L/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21] ==> dir [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21]
+          arg [-L/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android] ==> dir [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android]
+          arg [-L/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib] ==> dir [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib]
+          arg [--build-id=sha1] ==> ignore
+          arg [--no-rosegment] ==> ignore
+          arg [--no-undefined-version] ==> ignore
+          arg [--fatal-warnings] ==> ignore
+          arg [--no-undefined] ==> ignore
+          arg [CMakeFiles/cmTC_c74c1.dir/CMakeCCompilerABI.c.o] ==> ignore
+          arg [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a] ==> lib [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a]
+          arg [-l:libunwind.a] ==> lib [-l:libunwind.a]
+          arg [-ldl] ==> lib [dl]
+          arg [-lc] ==> lib [c]
+          arg [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a] ==> lib [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a]
+          arg [-l:libunwind.a] ==> lib [-l:libunwind.a]
+          arg [-ldl] ==> lib [dl]
+          arg [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21/crtend_android.o] ==> obj [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21/crtend_android.o]
+        linker tool for 'C': /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld.lld
+        remove lib [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a]
+        remove lib [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a]
+        collapse library dir [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64] ==> [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64]
+        collapse library dir [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21] ==> [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21]
+        collapse library dir [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android] ==> [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android]
+        collapse library dir [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib] ==> [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib]
+        implicit libs: [-l:libunwind.a;dl;c;-l:libunwind.a;dl]
+        implicit objs: [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21/crtbegin_dynamic.o;/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21/crtend_android.o]
+        implicit dirs: [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64;/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21;/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android;/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/Internal/CMakeDetermineLinkerId.cmake:38 (message)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:299 (cmake_determine_linker_id)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Running the C compiler's linker: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld.lld" "-v"
+      LLD 18.0.4 (compatible with GNU linkers)
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:83 (try_compile)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "/Users/runner/work/kodi-ibroadcast/kodi-ibroadcast/visualization.ibroadcast.albumart/build_android/CMakeFiles/CMakeScratch/TryCompile-V0jWxe"
+      binary: "/Users/runner/work/kodi-ibroadcast/kodi-ibroadcast/visualization.ibroadcast.albumart/build_android/CMakeFiles/CMakeScratch/TryCompile-V0jWxe"
+    cmakeVariables:
+      ANDROID_ABI: "arm64-v8a"
+      ANDROID_ARM_MODE: "thumb"
+      ANDROID_PIE: "TRUE"
+      ANDROID_PLATFORM: "android-21"
+      ANDROID_STL: "c++_static"
+      ANDROID_TOOLCHAIN: "clang"
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang-scan-deps"
+      CMAKE_CXX_COMPILER_TARGET: "aarch64-none-linux-android21"
+      CMAKE_CXX_FLAGS: "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat  "
+      CMAKE_CXX_FLAGS_DEBUG: "-fno-limit-debug-info "
+      CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
+      CMAKE_C_COMPILER_TARGET: "aarch64-none-linux-android21"
+      CMAKE_EXE_LINKER_FLAGS: "-static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments  "
+      CMAKE_POSITION_INDEPENDENT_CODE: "TRUE"
+      CMAKE_SYSROOT: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/runner/work/kodi-ibroadcast/kodi-ibroadcast/visualization.ibroadcast.albumart/build_android/CMakeFiles/CMakeScratch/TryCompile-V0jWxe'
+        
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_b023f/fast
+        /Applications/Xcode_16.4.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_b023f.dir/build.make CMakeFiles/cmTC_b023f.dir/build
+        Building CXX object CMakeFiles/cmTC_b023f.dir/CMakeCXXCompilerABI.cpp.o
+        /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android21 --sysroot=/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot   -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat    -fPIE   -v -MD -MT CMakeFiles/cmTC_b023f.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_b023f.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_b023f.dir/CMakeCXXCompilerABI.cpp.o -c /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+        Android (13691557, +pgo, -bolt, +lto, -mlgo, based on r522817d) clang version 18.0.4 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)
+        Target: aarch64-none-linux-android21
+        Thread model: posix
+        InstalledDir: /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin
+         (in-process)
+         "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++" -cc1 -triple aarch64-none-linux-android21 -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=non-leaf -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu generic -target-feature +neon -target-feature +v8a -target-feature +fix-cortex-a53-835769 -target-abi aapcs -debug-info-kind=constructor -dwarf-version=4 -debugger-tuning=gdb -fdebug-compilation-dir=/Users/runner/work/kodi-ibroadcast/kodi-ibroadcast/visualization.ibroadcast.albumart/build_android/CMakeFiles/CMakeScratch/TryCompile-V0jWxe -v -ffunction-sections -fdata-sections -fcoverage-compilation-dir=/Users/runner/work/kodi-ibroadcast/kodi-ibroadcast/visualization.ibroadcast.albumart/build_android/CMakeFiles/CMakeScratch/TryCompile-V0jWxe -resource-dir /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18 -dependency-file CMakeFiles/cmTC_b023f.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_b023f.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -D ANDROID -D _FORTIFY_SOURCE=2 -isysroot /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -internal-isystem /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1 -internal-isystem /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include -internal-isystem /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/local/include -internal-externc-isystem /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android -internal-externc-isystem /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/include -internal-externc-isystem /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include -Wformat -fdeprecated-macro -ferror-limit 19 -femulated-tls -stack-protector 2 -fno-signed-char -fgnuc-version=4.2.1 -fcxx-exceptions -fexceptions -target-feature +outline-atomics -target-feature -fmv -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_b023f.dir/CMakeCXXCompilerABI.cpp.o -x c++ /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+        clang -cc1 version 18.0.4 based upon LLVM 18.0.4 default target arm64-apple-darwin24.6.0
+        ignoring nonexistent directory "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/local/include"
+        ignoring nonexistent directory "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1
+         /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include
+         /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android
+         /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include
+        End of search list.
+        Linking CXX executable cmTC_b023f
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b023f.dir/link.txt --verbose=1
+        Android (13691557, +pgo, -bolt, +lto, -mlgo, based on r522817d) clang version 18.0.4 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)
+        Target: aarch64-none-linux-android21
+        Thread model: posix
+        InstalledDir: /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin
+         "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld.lld" --sysroot=/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -EL --fix-cortex-a53-843419 -z now -z relro -z max-page-size=4096 --hash-style=both --eh-frame-hdr -m aarch64linux -pie -dynamic-linker /system/bin/linker64 -o cmTC_b023f /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21/crtbegin_dynamic.o -L/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64 -L/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21 -L/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android -L/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib --build-id=sha1 --no-rosegment --no-undefined-version --fatal-warnings --no-undefined CMakeFiles/cmTC_b023f.dir/CMakeCXXCompilerABI.cpp.o -Bstatic -lc++ -Bdynamic -lm /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a -l:libunwind.a -ldl -lc /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a -l:libunwind.a -ldl /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21/crtend_android.o
+        /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android21 --sysroot=/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat    -static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments   -v CMakeFiles/cmTC_b023f.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_b023f
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:217 (message)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed CXX implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1]
+          add: [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include]
+          add: [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android]
+          add: [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include]
+        end of search list found
+        collapse include dir [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1] ==> [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1]
+        collapse include dir [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include] ==> [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include]
+        collapse include dir [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android] ==> [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android]
+        collapse include dir [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include] ==> [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include]
+        implicit include dirs: [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1;/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include;/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android;/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:253 (message)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
+        ignore line: [Change Dir: '/Users/runner/work/kodi-ibroadcast/kodi-ibroadcast/visualization.ibroadcast.albumart/build_android/CMakeFiles/CMakeScratch/TryCompile-V0jWxe']
+        ignore line: []
+        ignore line: [Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_b023f/fast]
+        ignore line: [/Applications/Xcode_16.4.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_b023f.dir/build.make CMakeFiles/cmTC_b023f.dir/build]
+        ignore line: [Building CXX object CMakeFiles/cmTC_b023f.dir/CMakeCXXCompilerABI.cpp.o]
+        ignore line: [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android21 --sysroot=/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot   -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat    -fPIE   -v -MD -MT CMakeFiles/cmTC_b023f.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_b023f.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_b023f.dir/CMakeCXXCompilerABI.cpp.o -c /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Android (13691557  +pgo  -bolt  +lto  -mlgo  based on r522817d) clang version 18.0.4 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)]
+        ignore line: [Target: aarch64-none-linux-android21]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin]
+        ignore line: [ (in-process)]
+        ignore line: [ "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++" -cc1 -triple aarch64-none-linux-android21 -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=non-leaf -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu generic -target-feature +neon -target-feature +v8a -target-feature +fix-cortex-a53-835769 -target-abi aapcs -debug-info-kind=constructor -dwarf-version=4 -debugger-tuning=gdb -fdebug-compilation-dir=/Users/runner/work/kodi-ibroadcast/kodi-ibroadcast/visualization.ibroadcast.albumart/build_android/CMakeFiles/CMakeScratch/TryCompile-V0jWxe -v -ffunction-sections -fdata-sections -fcoverage-compilation-dir=/Users/runner/work/kodi-ibroadcast/kodi-ibroadcast/visualization.ibroadcast.albumart/build_android/CMakeFiles/CMakeScratch/TryCompile-V0jWxe -resource-dir /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18 -dependency-file CMakeFiles/cmTC_b023f.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_b023f.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -D ANDROID -D _FORTIFY_SOURCE=2 -isysroot /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -internal-isystem /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1 -internal-isystem /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include -internal-isystem /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/local/include -internal-externc-isystem /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android -internal-externc-isystem /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/include -internal-externc-isystem /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include -Wformat -fdeprecated-macro -ferror-limit 19 -femulated-tls -stack-protector 2 -fno-signed-char -fgnuc-version=4.2.1 -fcxx-exceptions -fexceptions -target-feature +outline-atomics -target-feature -fmv -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_b023f.dir/CMakeCXXCompilerABI.cpp.o -x c++ /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [clang -cc1 version 18.0.4 based upon LLVM 18.0.4 default target arm64-apple-darwin24.6.0]
+        ignore line: [ignoring nonexistent directory "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/local/include"]
+        ignore line: [ignoring nonexistent directory "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1]
+        ignore line: [ /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include]
+        ignore line: [ /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android]
+        ignore line: [ /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include]
+        ignore line: [End of search list.]
+        ignore line: [Linking CXX executable cmTC_b023f]
+        ignore line: [/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b023f.dir/link.txt --verbose=1]
+        ignore line: [Android (13691557  +pgo  -bolt  +lto  -mlgo  based on r522817d) clang version 18.0.4 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)]
+        ignore line: [Target: aarch64-none-linux-android21]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin]
+        link line: [ "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld.lld" --sysroot=/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -EL --fix-cortex-a53-843419 -z now -z relro -z max-page-size=4096 --hash-style=both --eh-frame-hdr -m aarch64linux -pie -dynamic-linker /system/bin/linker64 -o cmTC_b023f /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21/crtbegin_dynamic.o -L/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64 -L/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21 -L/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android -L/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib --build-id=sha1 --no-rosegment --no-undefined-version --fatal-warnings --no-undefined CMakeFiles/cmTC_b023f.dir/CMakeCXXCompilerABI.cpp.o -Bstatic -lc++ -Bdynamic -lm /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a -l:libunwind.a -ldl -lc /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a -l:libunwind.a -ldl /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21/crtend_android.o]
+          arg [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld.lld] ==> ignore
+          arg [--sysroot=/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot] ==> ignore
+          arg [-EL] ==> ignore
+          arg [--fix-cortex-a53-843419] ==> ignore
+          arg [-znow] ==> ignore
+          arg [-zrelro] ==> ignore
+          arg [-zmax-page-size=4096] ==> ignore
+          arg [--hash-style=both] ==> ignore
+          arg [--eh-frame-hdr] ==> ignore
+          arg [-m] ==> ignore
+          arg [aarch64linux] ==> ignore
+          arg [-pie] ==> ignore
+          arg [-dynamic-linker] ==> ignore
+          arg [/system/bin/linker64] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_b023f] ==> ignore
+          arg [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21/crtbegin_dynamic.o] ==> obj [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21/crtbegin_dynamic.o]
+          arg [-L/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64] ==> dir [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64]
+          arg [-L/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21] ==> dir [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21]
+          arg [-L/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android] ==> dir [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android]
+          arg [-L/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib] ==> dir [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib]
+          arg [--build-id=sha1] ==> ignore
+          arg [--no-rosegment] ==> ignore
+          arg [--no-undefined-version] ==> ignore
+          arg [--fatal-warnings] ==> ignore
+          arg [--no-undefined] ==> ignore
+          arg [CMakeFiles/cmTC_b023f.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [-Bstatic] ==> search static
+          arg [-lc++] ==> lib [c++]
+          arg [-Bdynamic] ==> search dynamic
+          arg [-lm] ==> lib [m]
+          arg [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a] ==> lib [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a]
+          arg [-l:libunwind.a] ==> lib [-l:libunwind.a]
+          arg [-ldl] ==> lib [dl]
+          arg [-lc] ==> lib [c]
+          arg [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a] ==> lib [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a]
+          arg [-l:libunwind.a] ==> lib [-l:libunwind.a]
+          arg [-ldl] ==> lib [dl]
+          arg [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21/crtend_android.o] ==> obj [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21/crtend_android.o]
+        linker tool for 'CXX': /Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld.lld
+        remove lib [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a]
+        remove lib [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a]
+        collapse library dir [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64] ==> [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64]
+        collapse library dir [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21] ==> [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21]
+        collapse library dir [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android] ==> [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android]
+        collapse library dir [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib] ==> [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib]
+        implicit libs: [c++;m;-l:libunwind.a;dl;c;-l:libunwind.a;dl]
+        implicit objs: [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21/crtbegin_dynamic.o;/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21/crtend_android.o]
+        implicit dirs: [/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64;/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21;/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android;/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/Internal/CMakeDetermineLinkerId.cmake:38 (message)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:299 (cmake_determine_linker_id)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Running the CXX compiler's linker: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld.lld" "-v"
+      LLD 18.0.4 (compatible with GNU linkers)
+  -
+    kind: "find-v1"
+    backtrace:
+      - "CMakeLists.txt:31 (find_library)"
+    mode: "library"
+    variable: "GLES_LIBRARY"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "GLESv2"
+    candidate_directories:
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/opt/homebrew/lib/ruby/gems/3.3.0/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/opt/homebrew/opt/ruby@3.3/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/Users/runner/.local/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/opt/homebrew/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/opt/homebrew/sbin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/Users/runner/.cargo/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/local/opt/curl/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/local/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/local/sbin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/Users/runner/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/Users/runner/.yarn/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/Users/runner/Library/Android/sdk/tools/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/Users/runner/Library/Android/sdk/platform-tools/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/Library/Frameworks/Python.framework/Versions/Current/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/Library/Frameworks/Mono.framework/Versions/Current/Commands/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/sbin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/sbin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/Users/runner/.dotnet/tools/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/lib/aarch64-linux-android/21/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/lib/aarch64-linux-android/21/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/lib/aarch64-linux-android/21/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/local/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/local/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/local/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/opt/homebrew/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/opt/homebrew/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/opt/homebrew/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/X11R6/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/X11R6/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/X11R6/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/pkg/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/pkg/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/pkg/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/opt/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/opt/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/opt/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/lib/X11/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/opt/homebrew/lib/ruby/gems/3.3.0/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/opt/homebrew/opt/ruby@3.3/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/Users/runner/.local/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/opt/homebrew/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/opt/homebrew/sbin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/Users/runner/.cargo/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/local/opt/curl/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/local/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/local/sbin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/Users/runner/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/Users/runner/.yarn/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/Users/runner/Library/Android/sdk/tools/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/Users/runner/Library/Android/sdk/platform-tools/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/Library/Frameworks/Python.framework/Versions/Current/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/Library/Frameworks/Mono.framework/Versions/Current/Commands/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/sbin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/sbin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/Users/runner/.dotnet/tools/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/local/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/local/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/local/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/opt/homebrew/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/opt/homebrew/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/opt/homebrew/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/X11R6/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/X11R6/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/X11R6/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/pkg/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/pkg/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/pkg/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/opt/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/opt/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/opt/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/X11/"
+    searched_directories:
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/opt/homebrew/lib/ruby/gems/3.3.0/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/opt/homebrew/opt/ruby@3.3/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/Users/runner/.local/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/opt/homebrew/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/opt/homebrew/sbin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/Users/runner/.cargo/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/local/opt/curl/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/local/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/local/sbin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/Users/runner/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/Users/runner/.yarn/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/Users/runner/Library/Android/sdk/tools/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/Users/runner/Library/Android/sdk/platform-tools/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/Library/Frameworks/Python.framework/Versions/Current/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/Library/Frameworks/Mono.framework/Versions/Current/Commands/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/sbin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/sbin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/Users/runner/.dotnet/tools/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/lib/aarch64-linux-android/21/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/lib/aarch64-linux-android/21/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/lib/aarch64-linux-android/21/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/local/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/local/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/local/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/opt/homebrew/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/opt/homebrew/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/opt/homebrew/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/X11R6/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/X11R6/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/X11R6/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/pkg/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/pkg/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/pkg/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/opt/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/opt/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/opt/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/usr/lib/X11/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/lib/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/opt/homebrew/lib/ruby/gems/3.3.0/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/opt/homebrew/opt/ruby@3.3/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/Users/runner/.local/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/opt/homebrew/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/opt/homebrew/sbin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/Users/runner/.cargo/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/local/opt/curl/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/local/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/local/sbin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/Users/runner/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/Users/runner/.yarn/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/Users/runner/Library/Android/sdk/tools/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/Users/runner/Library/Android/sdk/platform-tools/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/Library/Frameworks/Python.framework/Versions/Current/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/Library/Frameworks/Mono.framework/Versions/Current/Commands/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/bin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/sbin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/sbin/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/Users/runner/.dotnet/tools/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21/lib/aarch64-linux-android/"
+      - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21/lib/"
+    found: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/21/libGLESv2.so"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64"
+      ENV{PATH}:
+        - "/opt/homebrew/lib/ruby/gems/3.3.0/bin"
+        - "/opt/homebrew/opt/ruby@3.3/bin"
+        - "/Users/runner/.local/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/runner/.cargo/bin"
+        - "/usr/local/opt/curl/bin"
+        - "/usr/local/bin"
+        - "/usr/local/sbin"
+        - "/Users/runner/bin"
+        - "/Users/runner/.yarn/bin"
+        - "/Users/runner/Library/Android/sdk/tools"
+        - "/Users/runner/Library/Android/sdk/platform-tools"
+        - "/Library/Frameworks/Python.framework/Versions/Current/bin"
+        - "/Library/Frameworks/Mono.framework/Versions/Current/Commands"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/Users/runner/.dotnet/tools"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/lib/aarch64-linux-android/21"
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/opt/homebrew"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+      CMAKE_SYSROOT: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+      CMAKE_FIND_ROOT_PATH: "/Users/runner/Library/Android/sdk/ndk/27.3.13750724"
+...

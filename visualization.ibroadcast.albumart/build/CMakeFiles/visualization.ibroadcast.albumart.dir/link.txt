@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG -arch arm64 -bundle -Wl,-headerpad_max_install_names -o visualization.ibroadcast.albumart.dylib CMakeFiles/visualization.ibroadcast.albumart.dir/src/main.cpp.o  -framework OpenGL -framework OpenGL
