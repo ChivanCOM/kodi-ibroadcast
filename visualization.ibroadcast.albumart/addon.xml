@@ -2,8 +2,12 @@
 <addon id="visualization.ibroadcast.albumart"
        name="iBroadcast Album Art"
        version="1.0.0"
-       provider-name="FOBO">
-<extension point="xbmc.player.musicviz"
+       provider-name="ChivanCOM">
+  <requires>
+    <import addon="kodi.binary.global.main" version="2.0.0"/>
+    <import addon="kodi.binary.instance.visualization" version="4.0.0"/>
+  </requires>
+  <extension point="xbmc.player.musicviz"
              library_osx="visualization.ibroadcast.albumart.dylib"
              library_linux="visualization.ibroadcast.albumart.so"
              library_android="visualization.ibroadcast.albumart.so"
