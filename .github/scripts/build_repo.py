@@ -1,22 +1,25 @@
 """
 Builds the Kodi repository:
-  - Creates a zip for every addon that has changed (or is missing a zip)
-  - Regenerates addons.xml and addons.xml.md5
+  - Creates zips/<addon-id>/<addon-id>-<version>.zip for every addon
+  - Copies icon.png into each zips/<addon-id>/ directory
+  - Regenerates addons.xml and addons.xml.md5 at repo root
 """
 
 import hashlib
 import os
-import re
+import shutil
 import zipfile
 import xml.etree.ElementTree as ET
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+ZIPS_DIR = os.path.join(ROOT, "zips")
 
 ADDON_DIRS = [
     d for d in os.listdir(ROOT)
     if os.path.isdir(os.path.join(ROOT, d))
     and os.path.exists(os.path.join(ROOT, d, "addon.xml"))
     and not d.startswith(".")
+    and d != "zips"
 ]
 
 
@@ -28,21 +31,30 @@ def get_version(addon_dir):
 def build_zip(addon_dir):
     version = get_version(addon_dir)
     zip_name = f"{addon_dir}-{version}.zip"
-    zip_path = os.path.join(ROOT, addon_dir, zip_name)
 
-    # Remove all existing zips for this addon (always rebuild fresh)
-    for f in os.listdir(os.path.join(ROOT, addon_dir)):
+    # Destination: zips/<addon-id>/
+    dest_dir = os.path.join(ZIPS_DIR, addon_dir)
+    os.makedirs(dest_dir, exist_ok=True)
+
+    # Remove existing zips in dest (always rebuild fresh)
+    for f in os.listdir(dest_dir):
         if f.endswith(".zip"):
-            os.remove(os.path.join(ROOT, addon_dir, f))
+            os.remove(os.path.join(dest_dir, f))
 
-    # Directories and file extensions to exclude from every zip
-    SKIP_DIRS = {"build", "build_android", "src", "__pycache__", ".git"}
-    SKIP_EXTS = {".zip", ".cpp", ".h", ".sh"}
+    # Remove stale zips left in the addon dir itself (old structure cleanup)
+    addon_path = os.path.join(ROOT, addon_dir)
+    for f in os.listdir(addon_path):
+        if f.endswith(".zip"):
+            os.remove(os.path.join(addon_path, f))
+
+    zip_path = os.path.join(dest_dir, zip_name)
+
+    SKIP_DIRS  = {"build", "build_android", "src", "__pycache__", ".git"}
+    SKIP_EXTS  = {".zip", ".cpp", ".h", ".sh"}
     SKIP_FILES = {"CMakeLists.txt"}
 
-    print(f"  Zipping {addon_dir} v{version}")
+    print(f"  Zipping {addon_dir} v{version} -> zips/{addon_dir}/{zip_name}")
     with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
-        addon_path = os.path.join(ROOT, addon_dir)
         for dirpath, dirnames, filenames in os.walk(addon_path):
             dirnames[:] = [d for d in dirnames if d not in SKIP_DIRS]
             for filename in filenames:
@@ -53,6 +65,11 @@ def build_zip(addon_dir):
                 full_path = os.path.join(dirpath, filename)
                 arcname = os.path.relpath(full_path, ROOT)
                 zf.write(full_path, arcname)
+
+    # Copy icon.png so Kodi's browser can show it
+    icon_src = os.path.join(addon_path, "icon.png")
+    if os.path.exists(icon_src):
+        shutil.copy2(icon_src, os.path.join(dest_dir, "icon.png"))
 
 
 def build_addons_xml():
@@ -78,20 +95,18 @@ def build_addons_xml():
 
 def build_index_html():
     """Generate index.html files so Kodi's HTTP browser can navigate the repo."""
-    # Root index — lists addon subdirectories
-    root_links = "\n".join(
-        f'    <a href="{d}/">{d}/</a><br>' for d in sorted(ADDON_DIRS)
+    addon_links = "\n".join(
+        f'    <a href="zips/{d}/">{d}/</a><br>' for d in sorted(ADDON_DIRS)
     )
     root_html = f"""<!DOCTYPE html>
 <html><body>
 <h1>iBroadcast Kodi Repository</h1>
-{root_links}
+{addon_links}
 </body></html>
 """
     with open(os.path.join(ROOT, "index.html"), "w") as f:
         f.write(root_html)
 
-    # Per-addon index — lists the zip file
     for addon_dir in ADDON_DIRS:
         version = get_version(addon_dir)
         zip_name = f"{addon_dir}-{version}.zip"
@@ -101,14 +116,17 @@ def build_index_html():
     <a href="{zip_name}">{zip_name}</a><br>
 </body></html>
 """
-        with open(os.path.join(ROOT, addon_dir, "index.html"), "w") as f:
+        dest_dir = os.path.join(ZIPS_DIR, addon_dir)
+        os.makedirs(dest_dir, exist_ok=True)
+        with open(os.path.join(dest_dir, "index.html"), "w") as f:
             f.write(addon_html)
 
-    print(f"  index.html files written")
+    print("  index.html files written")
 
 
 if __name__ == "__main__":
     print("Building Kodi repository...")
+    os.makedirs(ZIPS_DIR, exist_ok=True)
     for addon_dir in sorted(ADDON_DIRS):
         build_zip(addon_dir)
     build_addons_xml()

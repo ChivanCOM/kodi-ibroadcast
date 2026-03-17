@@ -37,7 +37,6 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add addons.xml addons.xml.md5 index.html
-          git add '*/index.html' '*/plugin.*.zip' '*/visualization.*.zip' 2>/dev/null || true
+          git add -A
           git diff --cached --quiet || git commit -m "chore: update repository [skip ci]"
           git push
