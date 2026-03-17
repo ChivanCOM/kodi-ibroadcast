@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
-  <addon id="plugin.audio.ibroadcast" name="iBroadcast Music" version="1.2.3" provider-name="ChivanCOM">
+  <addon id="plugin.audio.ibroadcast" name="iBroadcast Music" version="1.2.4" provider-name="ChivanCOM">
     <requires>
       <import addon="xbmc.python" version="3.0.0" />
     </requires>
@@ -16,7 +16,7 @@
       <platform>all</platform>
     </extension>
   </addon>
-  <addon id="plugin.repository.ibroadcast" name="iBroadcast Repository" version="1.0.1" provider-name="ChivanCOM">
+  <addon id="plugin.repository.chivancom" name="iBroadcast Repository" version="1.0.3" provider-name="ChivanCOM">
     <extension point="xbmc.addon.repository" name="iBroadcast Repository">
       <info compressed="false">https://ChivanCOM.github.io/kodi-repository/addons.xml</info>
       <checksum>https://ChivanCOM.github.io/kodi-repository/addons.xml.md5</checksum>
@@ -31,15 +31,34 @@
       <platform>all</platform>
     </extension>
   </addon>
-  <addon id="plugin.visualization.albumart" name="iBroadcast Album Art" version="1.0.0" provider-name="ChivanCOM">
-    <extension point="xbmc.player.musicviz" library_osx="plugin.visualization.albumart.dylib" library_linux="plugin.visualization.albumart.so" library_android="plugin.visualization.albumart.so" library_windows="plugin.visualization.albumart.dll" />
+  <addon id="plugin.visualization.albumart" name="iBroadcast Album Art" version="1.0.1+osx" provider-name="ChivanCOM">
+    <requires>
+      <import addon="kodi.binary.global.main" version="2.0.0" />
+      <import addon="kodi.binary.instance.visualization" version="4.0.0" />
+    </requires>
+    <extension point="xbmc.player.musicviz" library="plugin.visualization.albumart.dylib" />
     <extension point="xbmc.addon.metadata">
       <assets>
         <icon>icon.png</icon>
       </assets>
       <summary lang="en_GB">Album Art Visualizer</summary>
       <description lang="en_GB">Displays the current track album art full-screen during playback.</description>
-      <platform>all</platform>
+      <platform>osx</platform>
+    </extension>
+  </addon>
+  <addon id="plugin.visualization.albumart" name="iBroadcast Album Art" version="1.0.1+android" provider-name="ChivanCOM">
+    <requires>
+      <import addon="kodi.binary.global.main" version="2.0.0" />
+      <import addon="kodi.binary.instance.visualization" version="4.0.0" />
+    </requires>
+    <extension point="xbmc.player.musicviz" library="plugin.visualization.albumart.so" />
+    <extension point="xbmc.addon.metadata">
+      <assets>
+        <icon>icon.png</icon>
+      </assets>
+      <summary lang="en_GB">Album Art Visualizer</summary>
+      <description lang="en_GB">Displays the current track album art full-screen during playback.</description>
+      <platform>android</platform>
     </extension>
   </addon>
 </addons>
