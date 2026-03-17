@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.repository.chivancom"
-       name="iBroadcast Repository"
+       name="ChivanCOM Repository"
        version="1.0.3"
        provider-name="ChivanCOM">
-<extension point="xbmc.addon.repository" name="iBroadcast Repository">
+<extension point="xbmc.addon.repository" name="ChivanCOM Repository">
     <info compressed="false">https://ChivanCOM.github.io/kodi-repository/addons.xml</info>
     <checksum>https://ChivanCOM.github.io/kodi-repository/addons.xml.md5</checksum>
     <datadir zip="true">https://ChivanCOM.github.io/kodi-repository/zips/</datadir>
@@ -12,7 +12,7 @@
     <assets>
       <icon>icon.png</icon>
     </assets>
-    <summary lang="en_GB">iBroadcast Repository</summary>
+    <summary lang="en_GB">ChivanCOM Repository</summary>
     <description lang="en_GB">Repository for iBroadcast Kodi addons.</description>
     <platform>all</platform>
   </extension>
