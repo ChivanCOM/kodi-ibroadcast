@@ -46,14 +46,14 @@ jobs:
           INSTALL_REPO_TOKEN: ${{ secrets.INSTALL_REPO_TOKEN }}
         run: |
           [ -z "$INSTALL_REPO_TOKEN" ] && echo "INSTALL_REPO_TOKEN not set, skipping." && exit 0
-          ZIP=$(ls zips/plugin.repository.ibroadcast/*.zip 2>/dev/null | head -1)
+          ZIP=$(ls zips/plugin.repository.chivancom/*.zip 2>/dev/null | head -1)
           [ -z "$ZIP" ] && echo "No installer zip found, skipping." && exit 0
           ZIP_NAME=$(basename "$ZIP")
 
           git clone "https://x-access-token:${INSTALL_REPO_TOKEN}@github.com/ChivanCOM/kodi-repository-install.git" /tmp/kodi-repo-install
 
           cp "$ZIP" /tmp/kodi-repo-install/
-          cp zips/plugin.repository.ibroadcast/icon.png /tmp/kodi-repo-install/ 2>/dev/null || true
+          cp zips/plugin.repository.chivancom/icon.png /tmp/kodi-repo-install/ 2>/dev/null || true
 
           cat > /tmp/kodi-repo-install/index.html <<EOF
           <!DOCTYPE html>
