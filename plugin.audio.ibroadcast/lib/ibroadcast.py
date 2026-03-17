@@ -325,7 +325,7 @@ class IBroadcastAPI:
         })
         return f"{server}{file_path}?{params}"
 
-    def get_artwork_url(self, artwork_id, size=300):
+    def get_artwork_url(self, artwork_id, size=1000):
         if not artwork_id:
             return None
         server = self._artwork_server or "https://artwork.ibroadcast.com"
