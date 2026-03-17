@@ -390,12 +390,12 @@ private:
 
     // Bundled Roboto first, then system fallbacks
     std::vector<std::string> reg = {
-      kodi::GetAddonPath("fonts/Roboto-Regular.ttf"),
+      kodi::addon::GetAddonPath("fonts/Roboto-Regular.ttf"),
       "special://xbmc/media/Fonts/arial.ttf",
       "special://xbmc/media/Fonts/NotoSans-Regular.ttf",
     };
     std::vector<std::string> ital = {
-      kodi::GetAddonPath("fonts/Roboto-Italic.ttf"),
+      kodi::addon::GetAddonPath("fonts/Roboto-Italic.ttf"),
     };
 #if defined(TARGET_DARWIN)
     reg.push_back("/Library/Fonts/Arial.ttf");
