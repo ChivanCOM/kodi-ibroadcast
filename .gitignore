@@ -1,7 +1,7 @@
 .DS_Store
 .claude/
-visualization.ibroadcast.albumart/build/
-visualization.ibroadcast.albumart/build_android/
-visualization.ibroadcast.albumart/src/stb_image.h
-visualization.ibroadcast.albumart/*.dylib
-visualization.ibroadcast.albumart/*.so
+plugin.visualization.albumart/build/
+plugin.visualization.albumart/build_android/
+plugin.visualization.albumart/src/stb_image.h
+plugin.visualization.albumart/*.dylib
+plugin.visualization.albumart/*.so

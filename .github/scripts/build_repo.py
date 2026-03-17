@@ -20,18 +20,18 @@ ZIPS_DIR = os.path.join(ROOT, "zips")
 # library  = filename to reference inside the zip's addon.xml
 # kodi     = value for the <platform> tag understood by Kodi
 BINARY_PLATFORMS = {
-    "visualization.ibroadcast.albumart": [
+    "plugin.visualization.albumart": [
         {
             "tag":     "osx",
             "kodi":    "osx",
-            "lib_src": "visualization.ibroadcast.albumart.dylib",
-            "library": "visualization.ibroadcast.albumart.dylib",
+            "lib_src": "plugin.visualization.albumart.dylib",
+            "library": "plugin.visualization.albumart.dylib",
         },
         {
             "tag":     "android",
             "kodi":    "android",
-            "lib_src": "visualization.ibroadcast.albumart.so",
-            "library": "visualization.ibroadcast.albumart.so",
+            "lib_src": "plugin.visualization.albumart.so",
+            "library": "plugin.visualization.albumart.so",
         },
     ]
 }

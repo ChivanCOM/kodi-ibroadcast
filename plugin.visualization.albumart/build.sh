@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ─────────────────────────────────────────────────────────────────────────────
-# Build script for visualization.ibroadcast.albumart (macOS)
+# Build script for plugin.visualization.albumart (macOS)
 #
 # Usage:  ./build.sh          — first-time setup + build
 #         ./build.sh rebuild  — clean rebuild
@@ -65,7 +65,7 @@ echo "→ Building..."
 cmake --build "$BUILD_DIR" --config Release
 
 # ── 6. Copy .dylib next to addon.xml ─────────────────────────────────────────
-LIB_NAME="visualization.ibroadcast.albumart.dylib"
+LIB_NAME="plugin.visualization.albumart.dylib"
 SRC_LIB="${BUILD_DIR}/${LIB_NAME}"
 DST_LIB="${SCRIPT_DIR}/${LIB_NAME}"
 
@@ -77,7 +77,7 @@ if [[ -f "$SRC_LIB" ]]; then
   echo "Next steps:"
   echo "  1. Zip the addon folder:"
   echo "     cd \"$(dirname "$SCRIPT_DIR")\""
-  echo "     zip -r visualization.ibroadcast.albumart-1.0.0.zip visualization.ibroadcast.albumart"
+  echo "     zip -r plugin.visualization.albumart-1.0.0.zip plugin.visualization.albumart"
   echo "  2. Install in Kodi: Settings → Add-ons → Install from zip file"
   echo "  3. Select it: Settings → Music → Visualisation → iBroadcast Album Art"
 else

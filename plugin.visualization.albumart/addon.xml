@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="visualization.ibroadcast.albumart"
+<addon id="plugin.visualization.albumart"
        name="iBroadcast Album Art"
        version="1.0.1"
        provider-name="ChivanCOM">
@@ -8,10 +8,10 @@
     <import addon="kodi.binary.instance.visualization" version="4.0.0"/>
   </requires>
   <extension point="xbmc.player.musicviz"
-             library_osx="visualization.ibroadcast.albumart.dylib"
-             library_linux="visualization.ibroadcast.albumart.so"
-             library_android="visualization.ibroadcast.albumart.so"
-             library_windows="visualization.ibroadcast.albumart.dll"/>
+             library_osx="plugin.visualization.albumart.dylib"
+             library_linux="plugin.visualization.albumart.so"
+             library_android="plugin.visualization.albumart.so"
+             library_windows="plugin.visualization.albumart.dll"/>
   <extension point="xbmc.addon.metadata">
     <assets>
       <icon>icon.png</icon>
