@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings version="3">
+  <section id="general">
+    <category id="general" label="32100">
+      <group id="1">
+        <setting id="shader" type="integer" label="32000">
+          <level>0</level>
+          <default>0</default>
+          <constraints>
+            <options>
+              <option label="32001" value="0"/>
+              <option label="32002" value="1"/>
+            </options>
+          </constraints>
+          <control type="spinner"/>
+        </setting>
+      </group>
+    </category>
+  </section>
+</settings>

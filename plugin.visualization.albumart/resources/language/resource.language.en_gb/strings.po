@@ -1,0 +1,22 @@
+# Kodi Media Center language file
+# Addon Name: ChivanCOM Album Art
+# Addon id: plugin.visualization.albumart
+# Addon Provider: ChivanCOM
+msgid ""
+msgstr ""
+
+msgctxt "#32000"
+msgid "Background Shader"
+msgstr ""
+
+msgctxt "#32001"
+msgid "Audio Visualizer"
+msgstr ""
+
+msgctxt "#32002"
+msgid "Metaballs"
+msgstr ""
+
+msgctxt "#32100"
+msgid "General"
+msgstr ""

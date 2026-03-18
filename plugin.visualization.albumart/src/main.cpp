@@ -2,7 +2,7 @@
  * ChivanCOM Album Art Visualizer for Kodi
  *
  * Layout (golden ratio):
- *   - Background: audio-reactive shader (adapted from "Simple audio visualizer" by chronos)
+ *   - Background: selectable audio-reactive shader (settings → Background Shader)
  *   - Album art: left side, 60% of usable height, aspect-correct
  *   - Right panel: Title (large) / Artist (italic) / Album — golden-ratio spacing
  *   - Font: bundled Roboto Regular + Italic via stb_truetype
@@ -69,11 +69,10 @@ static const char* FRAG_SRC =
   "}\n";
 #endif
 
-// ── Background audio-reactive fragment shader ────────────────────────────────
-// Adapted from "Simple audio visualizer" by chronos (Shadertoy)
-// Audio texture layout: row 0 (y≈0.25) = FFT magnitude, row 1 (y≈0.75) = waveform
+// ── BG shader 0: Audio Visualizer (chronos, Shadertoy CC0) ───────────────────
+// Audio texture: row 0 (y≈0.25) = FFT magnitude, row 1 (y≈0.75) = waveform
 
-static const char* BG_FRAG_SRC =
+static const char* BG0_FRAG_SRC =
 #if defined(HAS_GLES)
   "precision mediump float;\n"
   "uniform vec2      iResolution;\n"
@@ -165,6 +164,108 @@ static const char* BG_FRAG_SRC =
   "}\n";
 #endif
 
+// ── BG shader 1: Metaballs ray-marcher (Shadertoy) ───────────────────────────
+
+static const char* BG1_FRAG_SRC =
+#if defined(HAS_GLES)
+  "#ifdef GL_FRAGMENT_PRECISION_HIGH\n"
+  "precision highp float;\n"
+  "#else\n"
+  "precision mediump float;\n"
+  "#endif\n"
+  "uniform vec2  iResolution;\n"
+  "uniform float iTime;\n"
+  "\n"
+  "float opSmoothUnion(float d1,float d2,float k){\n"
+  "  float h=clamp(0.5+0.5*(d2-d1)/k,0.0,1.0);\n"
+  "  return mix(d2,d1,h)-k*h*(1.0-h);\n"
+  "}\n"
+  "float sdSphere(vec3 p,float s){return length(p)-s;}\n"
+  "float mapScene(vec3 p){\n"
+  "  float d=2.0;\n"
+  "  for(int i=0;i<16;i++){\n"
+  "    float fi=float(i);\n"
+  "    float t=iTime*(fract(fi*412.531+0.513)-0.5)*2.0;\n"
+  "    d=opSmoothUnion(\n"
+  "      sdSphere(p+sin(t+fi*vec3(52.5126,64.62744,632.25))*vec3(2.0,2.0,0.8),\n"
+  "               mix(0.5,1.0,fract(fi*412.531+0.5124))),d,0.4);\n"
+  "  }\n"
+  "  return d;\n"
+  "}\n"
+  "vec3 calcNormal(vec3 p){\n"
+  "  float h=0.00001;\n"
+  "  vec2 k=vec2(1.0,-1.0);\n"
+  "  return normalize(k.xyy*mapScene(p+k.xyy*h)+k.yyx*mapScene(p+k.yyx*h)\n"
+  "                  +k.yxy*mapScene(p+k.yxy*h)+k.xxx*mapScene(p+k.xxx*h));\n"
+  "}\n"
+  "void main(){\n"
+  "  vec2 uv=gl_FragCoord.xy/iResolution.xy;\n"
+  "  vec3 ro=vec3((uv-0.5)*vec2(iResolution.x/iResolution.y,1.0)*6.0,3.0);\n"
+  "  vec3 rd=vec3(0.0,0.0,-1.0);\n"
+  "  float depth=0.0;\n"
+  "  vec3 p=ro;\n"
+  "  for(int i=0;i<64;i++){\n"
+  "    p=ro+rd*depth;\n"
+  "    float dist=mapScene(p);\n"
+  "    depth+=dist;\n"
+  "    if(dist<0.00001)break;\n"
+  "  }\n"
+  "  depth=min(6.0,depth);\n"
+  "  vec3 n=calcNormal(p);\n"
+  "  float b=max(0.0,dot(n,vec3(0.577)));\n"
+  "  vec3 col=(0.5+0.5*cos((b+iTime*3.0)+uv.xyx*2.0+vec3(0.0,2.0,4.0)))*(0.85+b*0.35);\n"
+  "  col*=exp(-depth*0.15);\n"
+  "  gl_FragColor=vec4(col,1.0);\n"
+  "}\n";
+#else
+  "#version 150\n"
+  "uniform vec2  iResolution;\n"
+  "uniform float iTime;\n"
+  "out vec4 fragColor;\n"
+  "\n"
+  "float opSmoothUnion(float d1,float d2,float k){\n"
+  "  float h=clamp(0.5+0.5*(d2-d1)/k,0.0,1.0);\n"
+  "  return mix(d2,d1,h)-k*h*(1.0-h);\n"
+  "}\n"
+  "float sdSphere(vec3 p,float s){return length(p)-s;}\n"
+  "float mapScene(vec3 p){\n"
+  "  float d=2.0;\n"
+  "  for(int i=0;i<16;i++){\n"
+  "    float fi=float(i);\n"
+  "    float t=iTime*(fract(fi*412.531+0.513)-0.5)*2.0;\n"
+  "    d=opSmoothUnion(\n"
+  "      sdSphere(p+sin(t+fi*vec3(52.5126,64.62744,632.25))*vec3(2.0,2.0,0.8),\n"
+  "               mix(0.5,1.0,fract(fi*412.531+0.5124))),d,0.4);\n"
+  "  }\n"
+  "  return d;\n"
+  "}\n"
+  "vec3 calcNormal(vec3 p){\n"
+  "  float h=1e-5;\n"
+  "  vec2 k=vec2(1.0,-1.0);\n"
+  "  return normalize(k.xyy*mapScene(p+k.xyy*h)+k.yyx*mapScene(p+k.yyx*h)\n"
+  "                  +k.yxy*mapScene(p+k.yxy*h)+k.xxx*mapScene(p+k.xxx*h));\n"
+  "}\n"
+  "void main(){\n"
+  "  vec2 uv=gl_FragCoord.xy/iResolution.xy;\n"
+  "  vec3 ro=vec3((uv-0.5)*vec2(iResolution.x/iResolution.y,1.0)*6.0,3.0);\n"
+  "  vec3 rd=vec3(0.0,0.0,-1.0);\n"
+  "  float depth=0.0;\n"
+  "  vec3 p=ro;\n"
+  "  for(int i=0;i<64;i++){\n"
+  "    p=ro+rd*depth;\n"
+  "    float dist=mapScene(p);\n"
+  "    depth+=dist;\n"
+  "    if(dist<1e-6)break;\n"
+  "  }\n"
+  "  depth=min(6.0,depth);\n"
+  "  vec3 n=calcNormal(p);\n"
+  "  float b=max(0.0,dot(n,vec3(0.577)));\n"
+  "  vec3 col=(0.5+0.5*cos((b+iTime*3.0)+uv.xyx*2.0+vec3(0.0,2.0,4.0)))*(0.85+b*0.35);\n"
+  "  col*=exp(-depth*0.15);\n"
+  "  fragColor=vec4(col,1.0);\n"
+  "}\n";
+#endif
+
 // ── FFT (Cooley-Tukey radix-2) ────────────────────────────────────────────────
 
 static void ComputeFFTMagnitudes(const float* mono, int n, float* out)
@@ -228,10 +329,21 @@ class CVisualizationAlbumArt
 {
 public:
   CVisualizationAlbumArt() = default;
-
   ~CVisualizationAlbumArt() override { DeinitGL(); }
 
-  ADDON_STATUS Create() override { return ADDON_STATUS_OK; }
+  ADDON_STATUS Create() override
+  {
+    kodi::addon::CheckSettingInt("shader", m_shaderIdx);
+    return ADDON_STATUS_OK;
+  }
+
+  ADDON_STATUS SetSetting(const std::string& settingName,
+                          const kodi::addon::CSettingValue& settingValue) override
+  {
+    if (settingName == "shader")
+      m_shaderIdx = settingValue.GetInt();
+    return ADDON_STATUS_OK;
+  }
 
   bool Start(int /*channels*/, int /*samplesPerSec*/, int /*bitsPerSample*/,
              const std::string& /*songName*/) override
@@ -248,7 +360,6 @@ public:
 
   void AudioData(const float* data, size_t length) override
   {
-    // Mix interleaved stereo → mono, clamp to kAudioW samples
     float mono[kAudioW];
     int count = std::min((int)length / 2, kAudioW);
     for (int i = 0; i < count; i++)
@@ -256,11 +367,9 @@ public:
     for (int i = count; i < kAudioW; i++)
       mono[i] = 0.f;
 
-    // Waveform: [-1,1] → [0,1]
     for (int i = 0; i < kAudioW; i++)
       m_waveData[i] = mono[i] * 0.5f + 0.5f;
 
-    // Frequency: FFT magnitudes, normalised
     ComputeFFTMagnitudes(mono, kAudioW, m_freqData);
     float peak = 0.f;
     for (int i = 1; i < kAudioW / 2; i++) peak = std::max(peak, m_freqData[i]);
@@ -298,16 +407,25 @@ public:
       { m_pendingText = false; RebuildLayout(vw, vh); }
     if (m_audioTexDirty) { m_audioTexDirty = false; UploadAudioTex(); }
 
-    // Background
     float elapsed = std::chrono::duration<float>(
         std::chrono::steady_clock::now() - m_startTime).count();
 
-    glUseProgram(m_bgProgram);
-    glUniform2f(m_locResolution, (float)vw, (float)vh);
-    glUniform1f(m_locTime, elapsed);
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, m_audioTex);
-    glUniform1i(m_locAudio, 0);
+    // Background
+    if (m_shaderIdx == 1)
+    {
+      glUseProgram(m_bgProgram1);
+      glUniform2f(m_locResolution1, (float)vw, (float)vh);
+      glUniform1f(m_locTime1, elapsed);
+    }
+    else
+    {
+      glUseProgram(m_bgProgram0);
+      glUniform2f(m_locResolution0, (float)vw, (float)vh);
+      glUniform1f(m_locTime0, elapsed);
+      glActiveTexture(GL_TEXTURE0);
+      glBindTexture(GL_TEXTURE_2D, m_audioTex);
+      glUniform1i(m_locAudio0, 0);
+    }
     DrawFullscreen();
 
     // Art + text
@@ -369,17 +487,26 @@ private:
 
   bool InitGL()
   {
+    // Art + text program
     m_program = LinkProgram(VERT_SRC, FRAG_SRC);
     if (!m_program) return false;
     m_locTex   = glGetUniformLocation(m_program, "u_tex");
     m_locAlpha = glGetUniformLocation(m_program, "u_alpha");
 
-    m_bgProgram = LinkProgram(VERT_SRC, BG_FRAG_SRC);
-    if (!m_bgProgram) return false;
-    m_locResolution = glGetUniformLocation(m_bgProgram, "iResolution");
-    m_locTime       = glGetUniformLocation(m_bgProgram, "iTime");
-    m_locAudio      = glGetUniformLocation(m_bgProgram, "iChannel3");
+    // BG shader 0: audio visualizer
+    m_bgProgram0 = LinkProgram(VERT_SRC, BG0_FRAG_SRC);
+    if (!m_bgProgram0) return false;
+    m_locResolution0 = glGetUniformLocation(m_bgProgram0, "iResolution");
+    m_locTime0       = glGetUniformLocation(m_bgProgram0, "iTime");
+    m_locAudio0      = glGetUniformLocation(m_bgProgram0, "iChannel3");
 
+    // BG shader 1: metaballs
+    m_bgProgram1 = LinkProgram(VERT_SRC, BG1_FRAG_SRC);
+    if (!m_bgProgram1) return false;
+    m_locResolution1 = glGetUniformLocation(m_bgProgram1, "iResolution");
+    m_locTime1       = glGetUniformLocation(m_bgProgram1, "iTime");
+
+    // Shared VBO / VAO
     glGenBuffers(1, &m_vbo);
 #if !defined(HAS_GLES)
     glGenVertexArrays(1, &m_vao);
@@ -398,7 +525,6 @@ private:
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     // Audio texture: kAudioW × 2 RGBA
-    // Row 0 (y≈0.25) = frequency,  Row 1 (y≈0.75) = waveform
     glGenTextures(1, &m_audioTex);
     glBindTexture(GL_TEXTURE_2D, m_audioTex);
     std::vector<uint8_t> blank(kAudioW * 2 * 4, 128);
@@ -433,13 +559,14 @@ private:
   {
     DeleteArtTexture();
     m_texTitle.destroy(); m_texArtist.destroy(); m_texAlbum.destroy();
-    if (m_audioTex)  { glDeleteTextures(1, &m_audioTex);   m_audioTex = 0; }
-    if (m_vbo)       { glDeleteBuffers(1, &m_vbo);          m_vbo = 0; }
+    if (m_audioTex)   { glDeleteTextures(1, &m_audioTex);    m_audioTex = 0; }
+    if (m_vbo)        { glDeleteBuffers(1, &m_vbo);           m_vbo = 0; }
 #if !defined(HAS_GLES)
-    if (m_vao)       { glDeleteVertexArrays(1, &m_vao);     m_vao = 0; }
+    if (m_vao)        { glDeleteVertexArrays(1, &m_vao);      m_vao = 0; }
 #endif
-    if (m_bgProgram) { glDeleteProgram(m_bgProgram);        m_bgProgram = 0; }
-    if (m_program)   { glDeleteProgram(m_program);          m_program = 0; }
+    if (m_bgProgram1) { glDeleteProgram(m_bgProgram1);        m_bgProgram1 = 0; }
+    if (m_bgProgram0) { glDeleteProgram(m_bgProgram0);        m_bgProgram0 = 0; }
+    if (m_program)    { glDeleteProgram(m_program);           m_program = 0; }
     m_glReady = false;
   }
 
@@ -460,9 +587,7 @@ private:
     glEnableVertexAttribArray(1);
     glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 #else
-    glBindVertexArray(m_vao);
-    glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-    glBindVertexArray(0);
+    glBindVertexArray(m_vao); glDrawArrays(GL_TRIANGLE_FAN, 0, 4); glBindVertexArray(0);
 #endif
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -746,27 +871,39 @@ private:
   bool   m_pendingLoad   = false;
   bool   m_pendingText   = false;
   bool   m_audioTexDirty = false;
+  int    m_shaderIdx     = 0;
 
+  // Art + text program
   GLuint m_program  = 0;
   GLint  m_locTex   = -1;
   GLint  m_locAlpha = -1;
 
-  GLuint m_bgProgram      = 0;
-  GLint  m_locResolution  = -1;
-  GLint  m_locTime        = -1;
-  GLint  m_locAudio       = -1;
+  // BG shader 0 (audio visualizer)
+  GLuint m_bgProgram0     = 0;
+  GLint  m_locResolution0 = -1;
+  GLint  m_locTime0       = -1;
+  GLint  m_locAudio0      = -1;
 
+  // BG shader 1 (metaballs)
+  GLuint m_bgProgram1     = 0;
+  GLint  m_locResolution1 = -1;
+  GLint  m_locTime1       = -1;
+
+  // Shared geometry
   GLuint m_vao = 0;
   GLuint m_vbo = 0;
 
+  // Audio texture
   GLuint m_audioTex = 0;
   float  m_freqData[kAudioW] = {};
   float  m_waveData[kAudioW] = {};
 
+  // Art
   GLuint m_artTex = 0;
   int    m_texW = 0, m_texH = 0;
   float  m_artX0 = 0.f, m_artY0 = 0.f, m_artX1 = 0.f, m_artY1 = 0.f;
 
+  // Text
   TextTex m_texTitle, m_texArtist, m_texAlbum;
   float   m_titleX  = 0.f, m_titleY  = 0.f;
   float   m_artistX = 0.f, m_artistY = 0.f;
