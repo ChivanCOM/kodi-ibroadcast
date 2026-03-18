@@ -433,7 +433,7 @@ static const char* BG3_FRAG_SRC =
   "float squared(float v){return v*v;}\n"
   "float getAmp(float f){return texture2D(iChannel0,vec2(f/512.0,0.0)).x;}\n"
   "float getWeight(float f){\n"
-  "  return(getAmp(f-2.0)+getAmp(f-1.0)+getAmp(f+2.0)+getAmp(f+1.0)+getAmp(f))/5.0;\n"
+  "  return(getAmp(f-1.0)+getAmp(f)+getAmp(f+1.0))/3.0;\n"
   "}\n"
   "void main() {\n"
   "  vec2 uvT=gl_FragCoord.xy/iResolution.xy;\n"
@@ -462,7 +462,7 @@ static const char* BG3_FRAG_SRC =
   "float squared(float v){return v*v;}\n"
   "float getAmp(float f){return texture(iChannel0,vec2(f/512.0,0.0)).x;}\n"
   "float getWeight(float f){\n"
-  "  return(getAmp(f-2.0)+getAmp(f-1.0)+getAmp(f+2.0)+getAmp(f+1.0)+getAmp(f))/5.0;\n"
+  "  return(getAmp(f-1.0)+getAmp(f)+getAmp(f+1.0))/3.0;\n"
   "}\n"
   "void main() {\n"
   "  vec2 uvT=gl_FragCoord.xy/iResolution.xy;\n"
@@ -594,12 +594,176 @@ static const char* BG6_FRAG_SRC =
   "}\n";
 #endif
 
+// ── BG shader 7: Spectrum analyser bars (audio-reactive) ─────────────────────
+// 48 rounded capsule bars, log frequency mapping, bloom, screen blend.
+// No iTime — purely audio-reactive.
+
+static const char* BG7_FRAG_SRC =
+#if defined(HAS_GLES)
+  "precision mediump float;\n"
+  "uniform vec2      iResolution;\n"
+  "uniform sampler2D iChannel0;\n"
+  "#define BAR_WIDTH 0.008\n"
+  "#define BAR_SPACING 0.014\n"
+  "#define MAX_BAR_HEIGHT 0.7\n"
+  "#define BLOOM_SIZE 12.0\n"
+  "#define BLOOM_INTENSITY 0.3\n"
+  "#define BLOOM_FALLOFF 2.0\n"
+  "#define COLOR_SCHEME 0\n"
+  "#define SINGLE_COLOR vec3(1.0,1.0,1.0)\n"
+  "#define LOG_SCALE_FACTOR 0.5\n"
+  "#define CENTER_LINE_THICKNESS 0.006\n"
+  "#define CENTER_LINE_OVERHANG 0.05\n"
+  "#define CENTER_LINE_COLOR vec3(0.6,0.6,0.6)\n"
+  "#define NUM_BARS 48\n"
+  "#define CENTER_Y 0.5\n"
+  "#define WAVEFORM_WIDTH 0.8\n"
+  "#define COLOR_LOW  vec3(1.0,0.2,0.1)\n"
+  "#define COLOR_MID  vec3(1.0,1.0,0.2)\n"
+  "#define COLOR_HIGH vec3(0.2,0.4,1.0)\n"
+  "float getFreqPos(int i){\n"
+  "  float t=float(i)/float(NUM_BARS-1);\n"
+  "  return pow(t,LOG_SCALE_FACTOR);\n"
+  "}\n"
+  "float getFreq(int i){\n"
+  "  return texture2D(iChannel0,vec2(clamp(getFreqPos(i),0.0,1.0),0.0)).x;\n"
+  "}\n"
+  "vec3 hsv2rgb(vec3 c){\n"
+  "  vec4 K=vec4(1.0,2.0/3.0,1.0/3.0,3.0);\n"
+  "  vec3 p=abs(fract(c.xxx+K.xyz)*6.0-K.www);\n"
+  "  return c.z*mix(K.xxx,clamp(p-K.xxx,0.0,1.0),c.y);\n"
+  "}\n"
+  "vec3 getColor(int i){\n"
+  "  float t=float(i)/float(NUM_BARS-1);\n"
+  "  if(COLOR_SCHEME==1)return SINGLE_COLOR;\n"
+  "  if(COLOR_SCHEME==2)return hsv2rgb(vec3(t*0.8,1.0,1.0));\n"
+  "  if(COLOR_SCHEME==3)return mix(vec3(0.3,0.1,0.5),vec3(0.8,0.4,1.0),t);\n"
+  "  if(COLOR_SCHEME==4)return mix(vec3(0.1,0.3,0.1),vec3(0.4,1.0,0.4),t);\n"
+  "  if(COLOR_SCHEME==5)return mix(vec3(0.1,0.2,0.5),vec3(0.4,0.8,1.0),t);\n"
+  "  return t<0.5?mix(COLOR_LOW,COLOR_MID,t*2.0):mix(COLOR_MID,COLOR_HIGH,(t-0.5)*2.0);\n"
+  "}\n"
+  "float distBar(vec2 uv,float cx,float w,float h){\n"
+  "  vec2 p=uv-vec2(cx,CENTER_Y);\n"
+  "  float r=w*0.5;\n"
+  "  float hh=max(h*0.5,r);\n"
+  "  vec2 q=p-vec2(0.0,clamp(p.y,-(hh-r),hh-r));\n"
+  "  return length(q)-r;\n"
+  "}\n"
+  "float distLine(vec2 uv,float x0,float x1){\n"
+  "  return length(uv-vec2(clamp(uv.x,x0,x1),CENTER_Y));\n"
+  "}\n"
+  "void main(){\n"
+  "  vec2 uv=gl_FragCoord.xy/iResolution.xy;\n"
+  "  vec3 col=vec3(0.0);\n"
+  "  vec2 px=1.0/iResolution.xy;\n"
+  "  float sp=min(BAR_SPACING,(WAVEFORM_WIDTH-float(NUM_BARS)*BAR_WIDTH)/float(NUM_BARS-1));\n"
+  "  float ww=float(NUM_BARS)*BAR_WIDTH+float(NUM_BARS-1)*sp;\n"
+  "  float sx=0.5-ww*0.5;\n"
+  "  float lx0=max(sx-CENTER_LINE_OVERHANG*WAVEFORM_WIDTH,0.0);\n"
+  "  float lx1=min(sx+ww+CENTER_LINE_OVERHANG*WAVEFORM_WIDTH,1.0);\n"
+  "  float cd=distLine(uv,lx0,lx1);\n"
+  "  col+=CENTER_LINE_COLOR*(1.0-smoothstep(0.0,CENTER_LINE_THICKNESS,cd)\n"
+  "    +exp(-cd*BLOOM_FALLOFF/(BLOOM_SIZE*0.5*length(px)))*BLOOM_INTENSITY*0.3);\n"
+  "  for(int i=0;i<NUM_BARS;i++){\n"
+  "    float freq=getFreq(i);\n"
+  "    vec3 bc=getColor(i);\n"
+  "    float bx=sx+float(i)*(BAR_WIDTH+sp)+BAR_WIDTH*0.5;\n"
+  "    float d=distBar(uv,bx,BAR_WIDTH,max(freq*MAX_BAR_HEIGHT,BAR_WIDTH));\n"
+  "    float gs=BLOOM_SIZE*length(px);\n"
+  "    vec3 lc=bc*((1.0-smoothstep(-px.x,px.x,d))\n"
+  "      +exp(-max(d,0.0)*BLOOM_FALLOFF/gs)*BLOOM_INTENSITY\n"
+  "      +exp(-max(d,0.0)*(BLOOM_FALLOFF*0.5)/(gs*2.0))*(BLOOM_INTENSITY*0.5));\n"
+  "    col=col+lc-col*lc;\n"
+  "  }\n"
+  "  gl_FragColor=vec4(col,1.0);\n"
+  "}\n";
+#else
+  "#version 150\n"
+  "uniform vec2      iResolution;\n"
+  "uniform sampler2D iChannel0;\n"
+  "out vec4 fragColor;\n"
+  "#define BAR_WIDTH 0.008\n"
+  "#define BAR_SPACING 0.014\n"
+  "#define MAX_BAR_HEIGHT 0.7\n"
+  "#define BLOOM_SIZE 12.0\n"
+  "#define BLOOM_INTENSITY 0.3\n"
+  "#define BLOOM_FALLOFF 2.0\n"
+  "#define COLOR_SCHEME 0\n"
+  "#define SINGLE_COLOR vec3(1.0,1.0,1.0)\n"
+  "#define LOG_SCALE_FACTOR 0.5\n"
+  "#define CENTER_LINE_THICKNESS 0.006\n"
+  "#define CENTER_LINE_OVERHANG 0.05\n"
+  "#define CENTER_LINE_COLOR vec3(0.6,0.6,0.6)\n"
+  "#define NUM_BARS 48\n"
+  "#define CENTER_Y 0.5\n"
+  "#define WAVEFORM_WIDTH 0.8\n"
+  "#define COLOR_LOW  vec3(1.0,0.2,0.1)\n"
+  "#define COLOR_MID  vec3(1.0,1.0,0.2)\n"
+  "#define COLOR_HIGH vec3(0.2,0.4,1.0)\n"
+  "float getFreqPos(int i){\n"
+  "  float t=float(i)/float(NUM_BARS-1);\n"
+  "  return pow(t,LOG_SCALE_FACTOR);\n"
+  "}\n"
+  "float getFreq(int i){\n"
+  "  return texture(iChannel0,vec2(clamp(getFreqPos(i),0.0,1.0),0.0)).x;\n"
+  "}\n"
+  "vec3 hsv2rgb(vec3 c){\n"
+  "  vec4 K=vec4(1.0,2.0/3.0,1.0/3.0,3.0);\n"
+  "  vec3 p=abs(fract(c.xxx+K.xyz)*6.0-K.www);\n"
+  "  return c.z*mix(K.xxx,clamp(p-K.xxx,0.0,1.0),c.y);\n"
+  "}\n"
+  "vec3 getColor(int i){\n"
+  "  float t=float(i)/float(NUM_BARS-1);\n"
+  "  if(COLOR_SCHEME==1)return SINGLE_COLOR;\n"
+  "  if(COLOR_SCHEME==2)return hsv2rgb(vec3(t*0.8,1.0,1.0));\n"
+  "  if(COLOR_SCHEME==3)return mix(vec3(0.3,0.1,0.5),vec3(0.8,0.4,1.0),t);\n"
+  "  if(COLOR_SCHEME==4)return mix(vec3(0.1,0.3,0.1),vec3(0.4,1.0,0.4),t);\n"
+  "  if(COLOR_SCHEME==5)return mix(vec3(0.1,0.2,0.5),vec3(0.4,0.8,1.0),t);\n"
+  "  return t<0.5?mix(COLOR_LOW,COLOR_MID,t*2.0):mix(COLOR_MID,COLOR_HIGH,(t-0.5)*2.0);\n"
+  "}\n"
+  "float distBar(vec2 uv,float cx,float w,float h){\n"
+  "  vec2 p=uv-vec2(cx,CENTER_Y);\n"
+  "  float r=w*0.5;\n"
+  "  float hh=max(h*0.5,r);\n"
+  "  vec2 q=p-vec2(0.0,clamp(p.y,-(hh-r),hh-r));\n"
+  "  return length(q)-r;\n"
+  "}\n"
+  "float distLine(vec2 uv,float x0,float x1){\n"
+  "  return length(uv-vec2(clamp(uv.x,x0,x1),CENTER_Y));\n"
+  "}\n"
+  "void main(){\n"
+  "  vec2 uv=gl_FragCoord.xy/iResolution.xy;\n"
+  "  vec3 col=vec3(0.0);\n"
+  "  vec2 px=1.0/iResolution.xy;\n"
+  "  float sp=min(BAR_SPACING,(WAVEFORM_WIDTH-float(NUM_BARS)*BAR_WIDTH)/float(NUM_BARS-1));\n"
+  "  float ww=float(NUM_BARS)*BAR_WIDTH+float(NUM_BARS-1)*sp;\n"
+  "  float sx=0.5-ww*0.5;\n"
+  "  float lx0=max(sx-CENTER_LINE_OVERHANG*WAVEFORM_WIDTH,0.0);\n"
+  "  float lx1=min(sx+ww+CENTER_LINE_OVERHANG*WAVEFORM_WIDTH,1.0);\n"
+  "  float cd=distLine(uv,lx0,lx1);\n"
+  "  col+=CENTER_LINE_COLOR*(1.0-smoothstep(0.0,CENTER_LINE_THICKNESS,cd)\n"
+  "    +exp(-cd*BLOOM_FALLOFF/(BLOOM_SIZE*0.5*length(px)))*BLOOM_INTENSITY*0.3);\n"
+  "  for(int i=0;i<NUM_BARS;i++){\n"
+  "    float freq=getFreq(i);\n"
+  "    vec3 bc=getColor(i);\n"
+  "    float bx=sx+float(i)*(BAR_WIDTH+sp)+BAR_WIDTH*0.5;\n"
+  "    float d=distBar(uv,bx,BAR_WIDTH,max(freq*MAX_BAR_HEIGHT,BAR_WIDTH));\n"
+  "    float gs=BLOOM_SIZE*length(px);\n"
+  "    vec3 lc=bc*((1.0-smoothstep(-px.x,px.x,d))\n"
+  "      +exp(-max(d,0.0)*BLOOM_FALLOFF/gs)*BLOOM_INTENSITY\n"
+  "      +exp(-max(d,0.0)*(BLOOM_FALLOFF*0.5)/(gs*2.0))*(BLOOM_INTENSITY*0.5));\n"
+  "    col=col+lc-col*lc;\n"
+  "  }\n"
+  "  fragColor=vec4(col,1.0);\n"
+  "}\n";
+#endif
+
 // ── FFT (Cooley-Tukey radix-2) ────────────────────────────────────────────────
 
 static void ComputeFFTMagnitudes(const float* mono, int n, float* out,
                                   std::vector<std::complex<float>>& a)
 {
-  a.resize(n);
+  // a is pre-allocated to size n — no resize needed
   for (int i = 0; i < n; i++)
   {
     float w = 0.5f * (1.f - cosf(2.f * (float)M_PI * i / (n - 1)));
@@ -684,7 +848,8 @@ public:
     m_currentArt.clear();
     m_pendingLoad = true;
     m_pendingText = true;
-    m_startTime   = std::chrono::steady_clock::now();
+    m_startTime = std::chrono::steady_clock::now();
+    m_prevFBO   = -1;  // re-capture on first render after track start
     return true;
   }
 
@@ -692,17 +857,16 @@ public:
 
   void AudioData(const float* data, size_t length) override
   {
-    float mono[kAudioW];
     int count = std::min((int)length / 2, kAudioW);
     for (int i = 0; i < count; i++)
-      mono[i] = (data[i * 2] + data[i * 2 + 1]) * 0.5f;
+      m_monoBuf[i] = (data[i * 2] + data[i * 2 + 1]) * 0.5f;
     for (int i = count; i < kAudioW; i++)
-      mono[i] = 0.f;
+      m_monoBuf[i] = 0.f;
 
     for (int i = 0; i < kAudioW; i++)
-      m_waveData[i] = mono[i] * 0.5f + 0.5f;
+      m_waveData[i] = m_monoBuf[i] * 0.5f + 0.5f;
 
-    ComputeFFTMagnitudes(mono, kAudioW, m_freqData, m_fftBuf);
+    ComputeFFTMagnitudes(m_monoBuf.data(), kAudioW, m_freqData, m_fftBuf);
     float peak = 0.f;
     for (int i = 1; i < kAudioW / 2; i++) peak = std::max(peak, m_freqData[i]);
     if (peak > 0.f)
@@ -740,18 +904,21 @@ public:
       m_pendingText = false;
       RebuildLayout(vw, vh);   // also (re)creates FBOs on size change
     }
-    if (m_audioTexDirty) { m_audioTexDirty = false; UploadAudioTex(); }
+    // Only upload audio texture when the active shader actually reads it
+    static const bool kUsesAudio[] = {true,false,false,true,false,false,true,true};
+    bool needsAudio = (m_shaderIdx >= 0 && m_shaderIdx <= 7) && kUsesAudio[m_shaderIdx];
+    if (m_audioTexDirty && needsAudio) { m_audioTexDirty = false; UploadAudioTex(); }
 
     float elapsed = std::fmod(
         std::chrono::duration<float>(
             std::chrono::steady_clock::now() - m_startTime).count(),
         3600.0f);   // wrap at 1 h — keeps sin/cos args small on old GPU
 
-    // Save Kodi's framebuffer and viewport so we can restore them
-    GLint prevFBO = 0;
-    glGetIntegerv(GL_FRAMEBUFFER_BINDING, &prevFBO);
-    GLint vp[4];
-    glGetIntegerv(GL_VIEWPORT, vp);
+    // Cache Kodi's framebuffer binding (queried once per track, not every frame)
+    if (m_prevFBO < 0)
+      glGetIntegerv(GL_FRAMEBUFFER_BINDING, &m_prevFBO);
+    GLint prevFBO = m_prevFBO;
+    // Viewport is always (0,0,vw,vh) when Kodi calls Render() — use directly
 
     // ── Pass 1: render background into half-res FBO A ────────────────────────
     if (m_fboA)
@@ -801,6 +968,14 @@ public:
       glBindTexture(GL_TEXTURE_2D, m_audioTex);
       glUniform1i(m_locAudio6, 0);
     }
+    else if (m_shaderIdx == 7)
+    {
+      glUseProgram(m_bgProgram7);
+      glUniform2f(m_locResolution7, (float)m_fboW, (float)m_fboH);
+      glActiveTexture(GL_TEXTURE0);
+      glBindTexture(GL_TEXTURE_2D, m_audioTex);
+      glUniform1i(m_locAudio7, 0);
+    }
     else
     {
       glUseProgram(m_bgProgram0);
@@ -825,7 +1000,7 @@ public:
 
       // ── Pass 3: vertical blur FBO B → screen ─────────────────────────────
       glBindFramebuffer(GL_FRAMEBUFFER, (GLuint)prevFBO);
-      glViewport(vp[0], vp[1], vp[2], vp[3]);
+      glViewport(0, 0, vw, vh);
       glBindTexture(GL_TEXTURE_2D, m_fboTexB);
       glUniform2f(m_locBlurDir, 0.f, 1.f / (float)m_fboH);
       DrawFullscreen();
@@ -834,7 +1009,7 @@ public:
     {
       // Blur disabled — blit FBO A to screen unblurred
       glBindFramebuffer(GL_FRAMEBUFFER, (GLuint)prevFBO);
-      glViewport(vp[0], vp[1], vp[2], vp[3]);
+      glViewport(0, 0, vw, vh);
       glUseProgram(m_program);
       glUniform1f(m_locAlpha, 1.0f);
       glActiveTexture(GL_TEXTURE0);
@@ -845,7 +1020,7 @@ public:
     else
     {
       glBindFramebuffer(GL_FRAMEBUFFER, (GLuint)prevFBO);
-      glViewport(vp[0], vp[1], vp[2], vp[3]);
+      glViewport(0, 0, vw, vh);
     }
 
     // ── Art + text on top ─────────────────────────────────────────────────────
@@ -950,6 +1125,11 @@ private:
     m_locTime6       = glGetUniformLocation(m_bgProgram6, "iTime");
     m_locAudio6      = glGetUniformLocation(m_bgProgram6, "iChannel0");
 
+    m_bgProgram7 = LinkProgram(VERT_SRC, BG7_FRAG_SRC);
+    if (!m_bgProgram7) return false;
+    m_locResolution7 = glGetUniformLocation(m_bgProgram7, "iResolution");
+    m_locAudio7      = glGetUniformLocation(m_bgProgram7, "iChannel0");
+
     glGenBuffers(1, &m_vbo);
 #if !defined(HAS_GLES)
     glGenVertexArrays(1, &m_vao);
@@ -1052,6 +1232,7 @@ private:
 #if !defined(HAS_GLES)
     if (m_vao)         { glDeleteVertexArrays(1, &m_vao);      m_vao = 0; }
 #endif
+    if (m_bgProgram7)  { glDeleteProgram(m_bgProgram7);        m_bgProgram7 = 0; }
     if (m_bgProgram6)  { glDeleteProgram(m_bgProgram6);        m_bgProgram6 = 0; }
     if (m_bgProgram4)  { glDeleteProgram(m_bgProgram4);        m_bgProgram4 = 0; }
     if (m_bgProgram3)  { glDeleteProgram(m_bgProgram3);        m_bgProgram3 = 0; }
@@ -1405,6 +1586,10 @@ private:
   GLint  m_locTime6       = -1;
   GLint  m_locAudio6      = -1;
 
+  GLuint m_bgProgram7     = 0;
+  GLint  m_locResolution7 = -1;
+  GLint  m_locAudio7      = -1;
+
   // Blur FBOs (half-res: bg→fboA, H-blur→fboB, V-blur→screen)
   GLuint m_fboA = 0, m_fboTexA = 0;
   GLuint m_fboB = 0, m_fboTexB = 0;
@@ -1416,7 +1601,8 @@ private:
   GLuint m_audioTex = 0;
   float  m_freqData[kAudioW] = {};
   float  m_waveData[kAudioW] = {};
-  std::vector<std::complex<float>> m_fftBuf    = std::vector<std::complex<float>>(kAudioW);
+  std::vector<float>               m_monoBuf     = std::vector<float>(kAudioW, 0.f);
+  std::vector<std::complex<float>> m_fftBuf      = std::vector<std::complex<float>>(kAudioW);
   std::vector<uint8_t>             m_audioPixels = std::vector<uint8_t>(kAudioW * 2 * 4, 128);
 
   GLuint m_artTex = 0;
@@ -1441,6 +1627,7 @@ private:
   stbtt_fontinfo       m_fontInfoItalic = {};
 
   std::chrono::steady_clock::time_point m_startTime;
+  GLint m_prevFBO = -1;
 };
 
 ADDONCREATOR(CVisualizationAlbumArt)

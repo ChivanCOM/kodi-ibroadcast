@@ -14,13 +14,12 @@
               <option label="32005">4</option>
               <option label="32006">5</option>
               <option label="32007">6</option>
+              <option label="32008">7</option>
             </options>
           </constraints>
           <control type="list" format="string"/>
         </setting>
-        <setting id="blur_enabled" type="bool" label="32010">
-          <default>true</default>
-        </setting>
+        <setting id="blur_enabled" type="bool" label="32010" default="true"/>
       </group>
     </category>
   </section>
