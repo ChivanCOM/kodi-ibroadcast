@@ -1573,6 +1573,24 @@ private:
 
   // ── Text rasterization ──────────────────────────────────────────────────────
 
+  // Decode one UTF-8 codepoint from s at position i, advance i.
+  static int Utf8Next(const std::string& s, size_t& i)
+  {
+    unsigned char c0 = (unsigned char)s[i];
+    if (c0 < 0x80) { i++; return c0; }
+    int len, cp;
+    if      ((c0 & 0xE0) == 0xC0) { len = 2; cp = c0 & 0x1F; }
+    else if ((c0 & 0xF0) == 0xE0) { len = 3; cp = c0 & 0x0F; }
+    else if ((c0 & 0xF8) == 0xF0) { len = 4; cp = c0 & 0x07; }
+    else { i++; return 0xFFFD; }
+    for (int j = 1; j < len; j++) {
+      if (i + j >= s.size() || ((unsigned char)s[i+j] & 0xC0) != 0x80) { i++; return 0xFFFD; }
+      cp = (cp << 6) | ((unsigned char)s[i+j] & 0x3F);
+    }
+    i += len;
+    return cp;
+  }
+
   TextTex MakeTextTex(const std::string& text, float pixelH, bool italic)
   {
     TextTex out;
@@ -1586,10 +1604,11 @@ private:
     int dsc   = (int)(descent * scale - 0.5f);
     int lineH = asc - dsc;
     int totalW = 0;
-    for (unsigned char c : text)
+    for (size_t i = 0; i < text.size(); )
     {
-      if (c < 32 || c > 126) continue;
-      int adv, lsb; stbtt_GetCodepointHMetrics(&fi, c, &adv, &lsb);
+      int cp = Utf8Next(text, i);
+      if (cp < 32) continue;
+      int adv, lsb; stbtt_GetCodepointHMetrics(&fi, cp, &adv, &lsb);
       totalW += (int)(adv * scale + 0.5f);
     }
     if (totalW <= 0) return out;
@@ -1600,17 +1619,18 @@ private:
     int   imgH   = lineH + 2;
     std::vector<uint8_t> bitmap(imgW * imgH, 0);
     int penX = extraL + 1;
-    for (unsigned char c : text)
+    for (size_t i = 0; i < text.size(); )
     {
-      if (c < 32 || c > 126) continue;
-      int adv, lsb; stbtt_GetCodepointHMetrics(&fi, c, &adv, &lsb);
+      int cp = Utf8Next(text, i);
+      if (cp < 32) continue;
+      int adv, lsb; stbtt_GetCodepointHMetrics(&fi, cp, &adv, &lsb);
       int x0g, y0g, x1g, y1g;
-      stbtt_GetCodepointBitmapBox(&fi, c, scale, scale, &x0g, &y0g, &x1g, &y1g);
+      stbtt_GetCodepointBitmapBox(&fi, cp, scale, scale, &x0g, &y0g, &x1g, &y1g);
       int gw = x1g - x0g, gh = y1g - y0g;
       if (gw > 0 && gh > 0)
       {
         std::vector<uint8_t> glyph(gw * gh);
-        stbtt_MakeCodepointBitmap(&fi, glyph.data(), gw, gh, gw, scale, scale, c);
+        stbtt_MakeCodepointBitmap(&fi, glyph.data(), gw, gh, gw, scale, scale, cp);
         int dstX = penX + (int)(lsb * scale), dstY = asc + y0g;
         for (int py = 0; py < gh; ++py)
         {
