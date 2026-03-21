@@ -1552,12 +1552,16 @@ private:
     std::vector<std::string> ital = {
       kodi::addon::GetAddonPath("fonts/Roboto-Italic.ttf"),
     };
+    std::vector<std::string> med = {
+      kodi::addon::GetAddonPath("fonts/Roboto-Medium.ttf"),
+    };
 #if defined(TARGET_DARWIN)
     reg.push_back("/Library/Fonts/Arial.ttf");
     reg.push_back("/System/Library/Fonts/Supplemental/Arial.ttf");
 #elif defined(TARGET_ANDROID)
     reg.push_back("/system/fonts/Roboto-Regular.ttf");
     ital.push_back("/system/fonts/Roboto-Italic.ttf");
+    med.push_back("/system/fonts/Roboto-Medium.ttf");
 #else
     reg.push_back("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf");
     reg.push_back("/usr/share/fonts/TTF/DejaVuSans.ttf");
@@ -1568,6 +1572,7 @@ private:
       return false;
     }
     LoadFontFromCandidates(ital, m_fontDataItalic, m_fontInfoItalic);
+    LoadFontFromCandidates(med,  m_fontDataMedium,  m_fontInfoMedium);
     return true;
   }
 
@@ -1591,12 +1596,14 @@ private:
     return cp;
   }
 
-  TextTex MakeTextTex(const std::string& text, float pixelH, bool italic)
+  TextTex MakeTextTex(const std::string& text, float pixelH, bool italic, bool bold = false)
   {
     TextTex out;
     if (text.empty() || m_fontData.empty()) return out;
     bool useShear      = italic && m_fontDataItalic.empty();
-    stbtt_fontinfo& fi = (italic && !m_fontDataItalic.empty()) ? m_fontInfoItalic : m_fontInfo;
+    stbtt_fontinfo& fi = bold   && !m_fontDataMedium.empty()   ? m_fontInfoMedium  :
+                         italic && !m_fontDataItalic.empty()   ? m_fontInfoItalic  :
+                                                                  m_fontInfo;
     float scale = stbtt_ScaleForPixelHeight(&fi, pixelH);
     int ascent, descent, lineGap;
     stbtt_GetFontVMetrics(&fi, &ascent, &descent, &lineGap);
@@ -1699,7 +1706,7 @@ private:
 
     LoadFont();
     m_texTitle.destroy(); m_texArtist.destroy(); m_texAlbum.destroy();
-    m_texTitle  = MakeTextTex(m_title.empty()  ? " " : m_title,  szTitle,  false);
+    m_texTitle  = MakeTextTex(m_title.empty()  ? " " : m_title,  szTitle,  false, true);
     m_texArtist = MakeTextTex(m_artist.empty() ? " " : m_artist, szArtist, true);
     m_texAlbum  = MakeTextTex(m_album.empty()  ? " " : m_album,  szAlbum,  false);
 
@@ -1715,13 +1722,16 @@ private:
     float hTitle  = m_texTitle.h  * m_ndcPerPxH;
     float hArtist = m_texArtist.h * m_ndcPerPxH;
     float hAlbum  = m_texAlbum.h  * m_ndcPerPxH;
-    float gap     = (hArtist + hAlbum) * 0.5f * (kPhi - 1.f) * 0.5f;
-    float blockH  = hTitle + gap + hArtist + gap + hAlbum;
+    // Title → Artist gap (larger): golden-ratio proportion of average text height
+    float gapTA   = (hTitle + hArtist) * 0.5f * (kPhi - 1.f) * 0.5f;
+    // Artist → Album gap (tighter by φ): artist and album are related metadata
+    float gapAA   = gapTA / kPhi;
+    float blockH  = hTitle + gapTA + hArtist + gapAA + hAlbum;
 
     float blockTop = m_artY1 - (artHNdc - blockH) * 0.5f;
-    m_titleY  = blockTop - hTitle;
-    m_artistY = m_titleY  - gap - hArtist;
-    m_albumY  = m_artistY - gap - hAlbum;
+    m_titleY  = blockTop  - hTitle;
+    m_artistY = m_titleY  - gapTA - hArtist;
+    m_albumY  = m_artistY - gapAA - hAlbum;
 
     m_titleX  = textX0 - m_texTitle.xOff  * m_ndcPerPx;
     m_artistX = textX0 - m_texArtist.xOff * m_ndcPerPx;
@@ -1817,6 +1827,8 @@ private:
   stbtt_fontinfo       m_fontInfo       = {};
   std::vector<uint8_t> m_fontDataItalic;
   stbtt_fontinfo       m_fontInfoItalic = {};
+  std::vector<uint8_t> m_fontDataMedium;
+  stbtt_fontinfo       m_fontInfoMedium = {};
 
   std::chrono::steady_clock::time_point m_startTime;
   GLint m_prevFBO = -1;
