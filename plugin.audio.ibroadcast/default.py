@@ -139,11 +139,15 @@ def list_artists():
         return
 
     xbmcplugin.setContent(HANDLE, "artists")
-    for aid, name in api.get_artists():
-        li = xbmcgui.ListItem(label=name)
-        li.setInfo("music", {"artist": name})
-        li.setArt({"icon": "DefaultArtist.png"})
-        xbmcplugin.addDirectoryItem(HANDLE, build_url("artist_albums", artist_id=aid), li, True)
+    for artist in api.get_artists():
+        li = xbmcgui.ListItem(label=artist["name"])
+        li.setInfo("music", {"artist": artist["name"]})
+        art_url = api.get_artwork_url(artist.get("artwork_id"))
+        if art_url:
+            li.setArt({"thumb": art_url, "icon": art_url, "fanart": art_url})
+        else:
+            li.setArt({"icon": "DefaultArtist.png"})
+        xbmcplugin.addDirectoryItem(HANDLE, build_url("artist_albums", artist_id=artist["id"]), li, True)
 
     xbmcplugin.addSortMethod(HANDLE, xbmcplugin.SORT_METHOD_LABEL_IGNORE_THE)
     end_directory("artists")

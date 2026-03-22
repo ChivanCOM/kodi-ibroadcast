@@ -182,14 +182,18 @@ class IBroadcastAPI:
     # ------------------------------------------------------------------
 
     def get_artists(self):
-        """Return sorted list of (artist_id, name) tuples."""
+        """Return sorted list of artist dicts with id, name, and artwork_id."""
         if not self._library:
             return []
         results = [
-            (a["artist_id"], a.get("name") or f"Artist {a['artist_id']}")
+            {
+                "id":         a["artist_id"],
+                "name":       a.get("name") or f"Artist {a['artist_id']}",
+                "artwork_id": a.get("artwork_id"),
+            }
             for a in self._library["artists"].values()
         ]
-        return sorted(results, key=lambda x: x[1].casefold())
+        return sorted(results, key=lambda x: x["name"].casefold())
 
     def get_albums(self, artist_id=None):
         """Return sorted list of album dicts, optionally filtered by artist."""
