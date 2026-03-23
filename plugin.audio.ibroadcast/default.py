@@ -5,6 +5,7 @@ Entry point and URL router.
 
 import sys
 import os
+import threading
 import urllib.parse
 
 import xbmc
@@ -42,13 +43,10 @@ def _get_meta():
     )
 
 
-def _prefetch_metadata(api, force=False):
-    """
-    Pre-warm the metadata cache for all artists and albums.
-    force=False  only fetches entries that are missing or expired (fast on repeat runs).
-    force=True   re-scrapes everything regardless of cache (full rebuild).
-    """
-    meta = _get_meta()
+def _run_prefetch_bg(api, force):
+    """Background worker: fetch metadata for all artists and albums without blocking the UI."""
+    meta    = _get_meta()
+    monitor = xbmc.Monitor()
 
     artists = [(a["id"], a["name"]) for a in api.get_artists()]
     albums  = [
@@ -57,40 +55,32 @@ def _prefetch_metadata(api, force=False):
         if api.get_artist_name(alb["artist_id"])
     ]
 
-    pd = xbmcgui.DialogProgress()
-    label = "Rebuilding metadata…" if force else "Updating metadata…"
-    pd.create("iBroadcast", label)
+    def cancelled():
+        return monitor.abortRequested()
 
-    # counts are only known after pending lists are built inside prefetch_*,
-    # so we use a mutable cell to carry totals into the callbacks
-    ctx = {"artist_total": 0, "album_total": 0}
+    fa,  sa  = meta.prefetch_artists(artists, is_cancelled=cancelled, force=force)
+    fal, sal = meta.prefetch_albums(albums,   is_cancelled=cancelled, force=force)
 
-    def on_artist(i, total, name):
-        ctx["artist_total"] = total
-        if pd.iscanceled():
-            return
-        pct = int(i * 50 / max(total, 1))
-        pd.update(pct, f"Artists ({i + 1}/{total}): {name}")
+    if not monitor.abortRequested():
+        xbmc.log(
+            f"[iBroadcast/meta] prefetch done: {fa} artists, {fal} albums fetched; "
+            f"{sa + sal} skipped",
+            xbmc.LOGINFO,
+        )
+        xbmcgui.Dialog().notification(
+            "iBroadcast",
+            f"Metadata done: {fa} artists, {fal} albums",
+            xbmcgui.NOTIFICATION_INFO,
+            4000,
+        )
 
-    def on_album(i, total, name):
-        ctx["album_total"] = total
-        if pd.iscanceled():
-            return
-        pct = 50 + int(i * 50 / max(total, 1))
-        pd.update(pct, f"Albums ({i + 1}/{total}): {name}")
 
-    fetched_a, skipped_a = meta.prefetch_artists(
-        artists, on_progress=on_artist, is_cancelled=pd.iscanceled, force=force)
-    fetched_al, skipped_al = meta.prefetch_albums(
-        albums, on_progress=on_album, is_cancelled=pd.iscanceled, force=force)
-
-    pd.close()
-
-    if not force:
-        msg = (f"Metadata up to date.\n"
-               f"Updated {fetched_a} artists, {fetched_al} albums  "
-               f"({skipped_a + skipped_al} already cached)")
-        xbmcgui.Dialog().notification("iBroadcast", msg, xbmcgui.NOTIFICATION_INFO, 4000)
+def _prefetch_metadata(api, force=False):
+    """Start metadata prefetch in a background thread and return immediately."""
+    t = threading.Thread(target=_run_prefetch_bg, args=(api, force), daemon=False)
+    t.start()
+    label = "Rebuilding metadata in background…" if force else "Updating metadata in background…"
+    xbmcgui.Dialog().notification("iBroadcast", label, xbmcgui.NOTIFICATION_INFO, 3000)
 
 
 # ---------------------------------------------------------------------------
@@ -533,7 +523,6 @@ def rebuild_metadata():
     ):
         return
     _prefetch_metadata(api, force=True)
-    xbmcgui.Dialog().notification("iBroadcast", "Metadata rebuild complete", xbmcgui.NOTIFICATION_INFO)
 
 
 # ---------------------------------------------------------------------------
