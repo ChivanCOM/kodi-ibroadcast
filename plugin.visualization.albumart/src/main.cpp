@@ -66,7 +66,7 @@ static const char* FRAG_SRC =
   "#ifdef GL_FRAGMENT_PRECISION_HIGH\n"
   "  highp vec3 rnd = fract(sin(vec3(dot(v_uv,vec2(127.1,311.7)),\n"
   "                               dot(v_uv,vec2(269.5,183.3)),\n"
-  "                               dot(v_uv,vec2(419.2,371.9)))*43758.5453);\n"
+  "                               dot(v_uv,vec2(419.2,371.9)))*43758.5453));\n"
   "  col.rgb += (rnd - 0.5) / 255.0;\n"
   "#endif\n"
   "  gl_FragColor = col;\n"
@@ -81,7 +81,7 @@ static const char* FRAG_SRC =
   "  vec4 col = texture(u_tex, v_uv) * vec4(1.0, 1.0, 1.0, u_alpha);\n"
   "  vec3 rnd = fract(sin(vec3(dot(v_uv,vec2(127.1,311.7)),\n"
   "                           dot(v_uv,vec2(269.5,183.3)),\n"
-  "                           dot(v_uv,vec2(419.2,371.9)))*43758.5453);\n"
+  "                           dot(v_uv,vec2(419.2,371.9)))*43758.5453));\n"
   "  col.rgb += (rnd - 0.5) / 255.0;\n"
   "  fragColor = col;\n"
   "}\n";
@@ -122,7 +122,7 @@ static const char* BLUR_FRAG_SRC =
   "#ifdef GL_FRAGMENT_PRECISION_HIGH\n"
   "  highp vec3 rnd = fract(sin(vec3(dot(v_uv,vec2(127.1,311.7)),\n"
   "                               dot(v_uv,vec2(269.5,183.3)),\n"
-  "                               dot(v_uv,vec2(419.2,371.9)))*43758.5453);\n"
+  "                               dot(v_uv,vec2(419.2,371.9)))*43758.5453));\n"
   "  dith = (rnd - 0.5) / 255.0;\n"
   "#endif\n"
   "  gl_FragColor = vec4(c.rgb*0.65+dith, 1.0);\n"
@@ -142,7 +142,7 @@ static const char* BLUR_FRAG_SRC =
   "         + texture(u_tex, v_uv + d*2.0 ) * 0.0625;\n"
   "  vec3 rnd = fract(sin(vec3(dot(v_uv,vec2(127.1,311.7)),\n"
   "                           dot(v_uv,vec2(269.5,183.3)),\n"
-  "                           dot(v_uv,vec2(419.2,371.9)))*43758.5453);\n"
+  "                           dot(v_uv,vec2(419.2,371.9)))*43758.5453));\n"
   "  fragColor = vec4(c.rgb*0.65+(rnd-0.5)/255.0, 1.0);\n"
   "}\n";
 #endif
