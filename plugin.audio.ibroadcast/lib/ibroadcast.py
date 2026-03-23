@@ -214,7 +214,7 @@ class IBroadcastAPI:
             results.append({
                 "id":         alb_id,
                 "name":       alb.get("name") or f"Album {alb_id}",
-                "artist_id":  alb.get("uid"),
+                "artist_id":  alb.get("artist_id"),
                 "year":       alb.get("year", ""),
                 "artwork_id": artwork_id,
             })

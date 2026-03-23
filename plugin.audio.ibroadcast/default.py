@@ -42,41 +42,55 @@ def _get_meta():
     )
 
 
-def _prefetch_metadata(api):
-    """Pre-warm the metadata cache for all artists and albums. Called by refresh_library."""
+def _prefetch_metadata(api, force=False):
+    """
+    Pre-warm the metadata cache for all artists and albums.
+    force=False  only fetches entries that are missing or expired (fast on repeat runs).
+    force=True   re-scrapes everything regardless of cache (full rebuild).
+    """
     meta = _get_meta()
 
-    artists      = api.get_artists()
-    artist_names = [a["name"] for a in artists]
-
-    albums = api.get_albums()
+    artist_names = [a["name"] for a in api.get_artists()]
     artist_album_pairs = [
         (api.get_artist_name(alb["artist_id"]), alb["name"])
-        for alb in albums
+        for alb in api.get_albums()
         if api.get_artist_name(alb["artist_id"])
     ]
 
     pd = xbmcgui.DialogProgress()
-    pd.create("iBroadcast", "Prefetching metadata…")
+    label = "Rebuilding metadata…" if force else "Updating metadata…"
+    pd.create("iBroadcast", label)
 
-    total = len(artist_names) + len(artist_album_pairs)
+    # counts are only known after pending lists are built inside prefetch_*,
+    # so we use a mutable cell to carry totals into the callbacks
+    ctx = {"artist_total": 0, "album_total": 0}
 
-    def on_artist(i, _total, name):
+    def on_artist(i, total, name):
+        ctx["artist_total"] = total
         if pd.iscanceled():
             return
-        pct = int(i * 100 / total)
-        pd.update(pct, f"Artists ({i + 1}/{len(artist_names)}): {name}")
+        pct = int(i * 50 / max(total, 1))
+        pd.update(pct, f"Artists ({i + 1}/{total}): {name}")
 
-    def on_album(i, _total, name):
+    def on_album(i, total, name):
+        ctx["album_total"] = total
         if pd.iscanceled():
             return
-        pct = int((len(artist_names) + i) * 100 / total)
-        pd.update(pct, f"Albums ({i + 1}/{len(artist_album_pairs)}): {name}")
+        pct = 50 + int(i * 50 / max(total, 1))
+        pd.update(pct, f"Albums ({i + 1}/{total}): {name}")
 
-    meta.prefetch_artists(artist_names,      on_progress=on_artist, is_cancelled=pd.iscanceled)
-    meta.prefetch_albums(artist_album_pairs, on_progress=on_album,  is_cancelled=pd.iscanceled)
+    fetched_a, skipped_a = meta.prefetch_artists(
+        artist_names, on_progress=on_artist, is_cancelled=pd.iscanceled, force=force)
+    fetched_al, skipped_al = meta.prefetch_albums(
+        artist_album_pairs, on_progress=on_album, is_cancelled=pd.iscanceled, force=force)
 
     pd.close()
+
+    if not force:
+        msg = (f"Metadata up to date.\n"
+               f"Updated {fetched_a} artists, {fetched_al} albums  "
+               f"({skipped_a + skipped_al} already cached)")
+        xbmcgui.Dialog().notification("iBroadcast", msg, xbmcgui.NOTIFICATION_INFO, 4000)
 
 
 # ---------------------------------------------------------------------------
@@ -169,7 +183,8 @@ def main_menu():
         ("Playlists",       build_url("playlists"), True),
         ("All Tracks",      build_url("tracks"),    True),
         ("Search",          build_url("search"),    True),
-        ("Refresh Library", build_url("refresh"),   False),
+        ("Refresh Library",   build_url("refresh"),          False),
+        ("Rebuild Metadata",  build_url("rebuild_metadata"),  False),
     ]
     for label, url, is_folder in items:
         li = xbmcgui.ListItem(label=label)
@@ -200,11 +215,18 @@ def list_artists():
             if cached.get("clearlogo"): art["clearlogo"] = cached["clearlogo"]
             if cached.get("clearart"):  art["clearart"]  = cached["clearart"]
             if cached.get("banner"):    art["banner"]    = cached["banner"]
-            if cached.get("biography"): info["comment"]  = cached["biography"]
             if cached.get("genre"):     info["genre"]    = cached["genre"]
 
         li.setInfo("music", info)
         li.setArt(art)
+        # setProperty() exposes data to skins via ListItem.Property(key)
+        if cached:
+            if cached.get("biography"):  li.setProperty("Artist_Description", cached["biography"])
+            if cached.get("genre"):      li.setProperty("Artist_Genre",        cached["genre"])
+            if cached.get("style"):      li.setProperty("Artist_Style",        cached["style"])
+            if cached.get("mood"):       li.setProperty("Artist_Mood",         cached["mood"])
+            if cached.get("born_year"):  li.setProperty("Artist_Born",         str(cached["born_year"]))
+            if cached.get("country"):    li.setProperty("Artist_Country",      cached["country"])
         xbmcplugin.addDirectoryItem(HANDLE, build_url("artist_albums", artist_id=artist["id"]), li, True)
 
     xbmcplugin.addSortMethod(HANDLE, xbmcplugin.SORT_METHOD_LABEL_IGNORE_THE)
@@ -233,22 +255,34 @@ def list_albums(artist_id=None):
     xbmcplugin.setContent(HANDLE, "albums")
     for album in albums:
         artist_name = api.get_artist_name(album["artist_id"])
+        alb_meta = meta.get_album_info_cached(artist_name, album["name"]) if artist_name else {}
+
         li = xbmcgui.ListItem(label=album["name"])
         info = {"album": album["name"], "artist": artist_name}
         if album.get("year"):
             info["year"] = int(album["year"])
-        if artist_meta.get("biography"): info["comment"] = artist_meta["biography"]
-        if artist_meta.get("genre"):     info["genre"]   = artist_meta["genre"]
+        genre = alb_meta.get("genre") or artist_meta.get("genre") or ""
+        if genre: info["genre"] = genre
+        if alb_meta.get("description"): info["comment"] = alb_meta["description"]
 
         art_url = api.get_artwork_url(album.get("artwork_id"))
-        art = {"thumb": art_url, "icon": art_url} if art_url else {"icon": "DefaultAlbumCover.png"}
-        if artist_meta.get("fanart"):    art["fanart"]    = artist_meta["fanart"]
+        art = {"thumb": art_url, "icon": art_url} if art_url else {}
+        if not art_url and alb_meta.get("thumb"): art["thumb"] = art["icon"] = alb_meta["thumb"]
+        if not art: art["icon"] = "DefaultAlbumCover.png"
+        # clearlogo/clearart/banner per-item are fine; fanart is NOT set per-item (causes black screen)
+        # — directory fanart is set via setPluginFanart() above
         if artist_meta.get("clearlogo"): art["clearlogo"] = artist_meta["clearlogo"]
         if artist_meta.get("clearart"):  art["clearart"]  = artist_meta["clearart"]
         if artist_meta.get("banner"):    art["banner"]    = artist_meta["banner"]
 
         li.setInfo("music", info)
         li.setArt(art)
+        if alb_meta.get("description"): li.setProperty("Album_Description", alb_meta["description"])
+        if alb_meta.get("genre"):       li.setProperty("Album_Genre",        alb_meta["genre"])
+        if alb_meta.get("style"):       li.setProperty("Album_Style",        alb_meta["style"])
+        if alb_meta.get("mood"):        li.setProperty("Album_Mood",         alb_meta["mood"])
+        if alb_meta.get("theme"):       li.setProperty("Album_Theme",        alb_meta["theme"])
+        if alb_meta.get("rating"):      li.setProperty("Album_Rating",       str(alb_meta["rating"]))
         xbmcplugin.addDirectoryItem(
             HANDLE, build_url("album_tracks", album_id=album["id"]), li, True
         )
@@ -290,6 +324,11 @@ def list_tracks(album_id=None, artist_id=None, playlist_id=None):
             info["year"] = int(track["year"])
         if album_meta.get("description"): info["comment"] = album_meta["description"]
         li.setInfo("music", info)
+        if album_meta.get("description"): li.setProperty("Album_Description", album_meta["description"])
+        if album_meta.get("genre"):       li.setProperty("Album_Genre",        album_meta["genre"])
+        if album_meta.get("style"):       li.setProperty("Album_Style",        album_meta["style"])
+        if album_meta.get("mood"):        li.setProperty("Album_Mood",         album_meta["mood"])
+        if album_meta.get("theme"):       li.setProperty("Album_Theme",        album_meta["theme"])
 
         art_url = api.get_artwork_url(track.get("artwork_id"))
         art = {"thumb": art_url, "icon": art_url} if art_url else {}
@@ -436,7 +475,21 @@ def refresh_library():
         xbmcgui.Dialog().ok("iBroadcast", "Failed to refresh library.")
         return
     xbmcgui.Dialog().notification("iBroadcast", "Library refreshed", xbmcgui.NOTIFICATION_INFO)
-    _prefetch_metadata(api)
+    _prefetch_metadata(api, force=False)
+
+
+def rebuild_metadata():
+    api = get_api(require_library=True)
+    if not api:
+        return
+    if not xbmcgui.Dialog().yesno(
+        "iBroadcast",
+        "Re-scrape metadata for all artists and albums?\n"
+        "This replaces all cached metadata and may take a while."
+    ):
+        return
+    _prefetch_metadata(api, force=True)
+    xbmcgui.Dialog().notification("iBroadcast", "Metadata rebuild complete", xbmcgui.NOTIFICATION_INFO)
 
 
 # ---------------------------------------------------------------------------
@@ -471,6 +524,8 @@ def router():
         account_action()
     elif mode == "refresh":
         refresh_library()
+    elif mode == "rebuild_metadata":
+        rebuild_metadata()
     else:
         main_menu()
 

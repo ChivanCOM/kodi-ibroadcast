@@ -29,7 +29,7 @@ except ImportError:
         print(f"[meta] {msg}")
 
 MB_BASE   = "https://musicbrainz.org/ws/2"
-MB_UA     = "iBroadcast-Kodi/1.2.12 (https://github.com/ChivanCOM/kodi-repository)"
+MB_UA     = "iBroadcast-Kodi/1.2.13 (https://github.com/ChivanCOM/kodi-repository)"
 TADB_BASE = "https://www.theaudiodb.com/api/v1/json/2"
 FTV_BASE  = "https://webservice.fanart.tv/v3/music"
 CACHE_TTL = 30 * 86400  # 30 days
@@ -263,28 +263,47 @@ class MetadataClient:
 
     # ── bulk prefetch ────────────────────────────────────────────────────────
 
-    def prefetch_artists(self, artist_names, on_progress=None, is_cancelled=None):
+    def _needs_fetch(self, *ck_parts):
+        """True when cache entry is absent or expired."""
+        return self._load(self._ck(*ck_parts)) is None
+
+    def prefetch_artists(self, artist_names, on_progress=None, is_cancelled=None, force=False):
         """
         Pre-warm the cache for a list of artist names.
-        on_progress(current, total, name) — optional progress callback.
-        is_cancelled()                    — optional cancel check; return True to abort.
+        force=False  — skip artists already in cache (subsequent refreshes are fast).
+        force=True   — re-fetch every artist regardless of cache (full rebuild).
+        on_progress(fetched, total_to_fetch, name) — called only for items being fetched.
+        is_cancelled() — return True to abort.
+        Returns (fetched, skipped) counts.
         """
-        total = len(artist_names)
-        for i, name in enumerate(artist_names):
+        pending = artist_names if force else [n for n in artist_names if self._needs_fetch("ar", n)]
+        total   = len(pending)
+        for i, name in enumerate(pending):
             if is_cancelled and is_cancelled():
                 break
             if on_progress:
                 on_progress(i, total, name)
-            self.get_artist_info(name)  # no-op if already cached
+            if force:
+                # bypass cache so the entry is always re-fetched and overwritten
+                self._save(self._ck("ar", name), {})
+            self.get_artist_info(name)
+        return total, len(artist_names) - total
 
-    def prefetch_albums(self, artist_album_pairs, on_progress=None, is_cancelled=None):
+    def prefetch_albums(self, artist_album_pairs, on_progress=None, is_cancelled=None, force=False):
         """
         Pre-warm the cache for a list of (artist_name, album_name) tuples.
+        force=True re-fetches every album regardless of cache.
+        Returns (fetched, skipped) counts.
         """
-        total = len(artist_album_pairs)
-        for i, (artist_name, album_name) in enumerate(artist_album_pairs):
+        pending = (artist_album_pairs if force
+                   else [(ar, al) for ar, al in artist_album_pairs if self._needs_fetch("al", ar, al)])
+        total   = len(pending)
+        for i, (artist_name, album_name) in enumerate(pending):
             if is_cancelled and is_cancelled():
                 break
             if on_progress:
                 on_progress(i, total, album_name)
+            if force:
+                self._save(self._ck("al", artist_name, album_name), {})
             self.get_album_info(artist_name, album_name)
+        return total, len(artist_album_pairs) - total
