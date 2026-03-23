@@ -211,15 +211,19 @@ def list_artists():
         if cached:
             if cached.get("thumb") and not ib_art:
                 art["thumb"] = art["icon"] = cached["thumb"]
+            if art.get("thumb"):        art["poster"]    = art["thumb"]
             if cached.get("fanart"):    art["fanart"]    = cached["fanart"]
+            if cached.get("fanart"):    art["landscape"] = cached["fanart"]
+            if cached.get("fanart2"):   art["fanart2"]   = cached["fanart2"]
+            if cached.get("fanart3"):   art["fanart3"]   = cached["fanart3"]
             if cached.get("clearlogo"): art["clearlogo"] = cached["clearlogo"]
             if cached.get("clearart"):  art["clearart"]  = cached["clearart"]
             if cached.get("banner"):    art["banner"]    = cached["banner"]
             if cached.get("genre"):     info["genre"]    = cached["genre"]
+            if cached.get("mbid"):      info["musicbrainzartistid"] = cached["mbid"]
 
         li.setInfo("music", info)
         li.setArt(art)
-        # setProperty() exposes data to skins via ListItem.Property(key)
         if cached:
             if cached.get("biography"):  li.setProperty("Artist_Description", cached["biography"])
             if cached.get("genre"):      li.setProperty("Artist_Genre",        cached["genre"])
@@ -241,36 +245,49 @@ def list_albums(artist_id=None):
     meta   = _get_meta()
     albums = api.get_albums(artist_id=artist_id)
 
-    artist_meta = {}
+    # Pre-load single artist meta when filtering by artist; otherwise look up per album below
+    _fixed_artist_meta = {}
     if artist_id:
         artist_name_for_meta = api.get_artist_name(artist_id)
         if artist_name_for_meta:
-            artist_meta = meta.get_artist_info_cached(artist_name_for_meta)
-            if artist_meta.get("fanart"):
-                try:
-                    xbmcplugin.setPluginFanart(HANDLE, artist_meta["fanart"])
-                except Exception:
-                    pass
+            _fixed_artist_meta = meta.get_artist_info_cached(artist_name_for_meta) or {}
+    _artist_meta_cache = {}  # dedup reads when browsing all albums
 
     xbmcplugin.setContent(HANDLE, "albums")
     for album in albums:
         artist_name = api.get_artist_name(album["artist_id"])
-        alb_meta = meta.get_album_info_cached(artist_name, album["name"]) if artist_name else {}
+        alb_meta    = meta.get_album_info_cached(artist_name, album["name"]) if artist_name else {}
+
+        # Per-album artist meta (needed in "all albums" view where artist changes per item)
+        if artist_id:
+            artist_meta = _fixed_artist_meta
+        elif artist_name:
+            if artist_name not in _artist_meta_cache:
+                _artist_meta_cache[artist_name] = meta.get_artist_info_cached(artist_name) or {}
+            artist_meta = _artist_meta_cache[artist_name]
+        else:
+            artist_meta = {}
 
         li = xbmcgui.ListItem(label=album["name"])
         info = {"album": album["name"], "artist": artist_name}
         if album.get("year"):
             info["year"] = int(album["year"])
         genre = alb_meta.get("genre") or artist_meta.get("genre") or ""
-        if genre: info["genre"] = genre
+        if genre:                   info["genre"]   = genre
         if alb_meta.get("description"): info["comment"] = alb_meta["description"]
+        if alb_meta.get("rating"):  info["rating"]  = float(alb_meta["rating"])
 
         art_url = api.get_artwork_url(album.get("artwork_id"))
         art = {"thumb": art_url, "icon": art_url} if art_url else {}
         if not art_url and alb_meta.get("thumb"): art["thumb"] = art["icon"] = alb_meta["thumb"]
         if not art: art["icon"] = "DefaultAlbumCover.png"
-        # clearlogo/clearart/banner per-item are fine; fanart is NOT set per-item (causes black screen)
-        # — directory fanart is set via setPluginFanart() above
+        if art.get("thumb"):             art["poster"]    = art["thumb"]
+        if alb_meta.get("discart"):      art["discart"]   = alb_meta["discart"]
+        if alb_meta.get("back"):         art["back"]      = alb_meta["back"]
+        if artist_meta.get("fanart"):    art["fanart"]    = artist_meta["fanart"]
+        if artist_meta.get("fanart"):    art["landscape"] = artist_meta["fanart"]
+        if artist_meta.get("fanart2"):   art["fanart2"]   = artist_meta["fanart2"]
+        if artist_meta.get("fanart3"):   art["fanart3"]   = artist_meta["fanart3"]
         if artist_meta.get("clearlogo"): art["clearlogo"] = artist_meta["clearlogo"]
         if artist_meta.get("clearart"):  art["clearart"]  = artist_meta["clearart"]
         if artist_meta.get("banner"):    art["banner"]    = artist_meta["banner"]
@@ -322,7 +339,8 @@ def list_tracks(album_id=None, artist_id=None, playlist_id=None):
         }
         if track.get("year"):
             info["year"] = int(track["year"])
-        if album_meta.get("description"): info["comment"] = album_meta["description"]
+        if album_meta.get("description"): info["comment"]  = album_meta["description"]
+        if album_meta.get("rating"):      info["rating"]   = float(album_meta["rating"])
         li.setInfo("music", info)
         if album_meta.get("description"): li.setProperty("Album_Description", album_meta["description"])
         if album_meta.get("genre"):       li.setProperty("Album_Genre",        album_meta["genre"])
@@ -332,9 +350,11 @@ def list_tracks(album_id=None, artist_id=None, playlist_id=None):
 
         art_url = api.get_artwork_url(track.get("artwork_id"))
         art = {"thumb": art_url, "icon": art_url} if art_url else {}
-        if album_meta.get("discart"): art["discart"] = album_meta["discart"]
-        if album_meta.get("back"):    art["back"]    = album_meta["back"]
-        if album_meta.get("fanart") and not art_url: art["fanart"] = album_meta["fanart"]
+        if art.get("thumb"):          art["poster"]    = art["thumb"]
+        if album_meta.get("discart"): art["discart"]   = album_meta["discart"]
+        if album_meta.get("back"):    art["back"]      = album_meta["back"]
+        if album_meta.get("fanart"):  art["fanart"]    = album_meta["fanart"]
+        if album_meta.get("fanart"):  art["landscape"] = album_meta["fanart"]
         if art:
             li.setArt(art)
         li.setProperty("IsPlayable", "true")

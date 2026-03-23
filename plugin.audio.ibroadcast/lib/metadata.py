@@ -172,34 +172,35 @@ class MetadataClient:
 
         _log(f"artist: {name}")
         a = self._tadb_search_artist(name)
-        if not a:
-            self._save(k, {})
-            return {}
 
-        d = {
-            "mbid":      a.get("strMusicBrainzID") or "",
-            "biography": a.get("strBiographyEN") or "",
-            "genre":     a.get("strGenre") or "",
-            "style":     a.get("strStyle") or "",
-            "mood":      a.get("strMood") or "",
-            "country":   a.get("strCountry") or "",
-            "born_year": a.get("intFormedYear") or a.get("intBornYear") or "",
-            "thumb":     a.get("strArtistThumb") or "",
-            "fanart":    a.get("strArtistFanart") or "",
-            "fanart2":   a.get("strArtistFanart2") or "",
-            "fanart3":   a.get("strArtistFanart3") or "",
-            "banner":    a.get("strArtistBanner") or "",
-            "clearlogo": a.get("strArtistLogo") or "",
-            "clearart":  a.get("strArtistClearArt") or "",
-        }
+        if a:
+            d = {
+                "mbid":      a.get("strMusicBrainzID") or "",
+                "biography": a.get("strBiographyEN") or "",
+                "genre":     a.get("strGenre") or "",
+                "style":     a.get("strStyle") or "",
+                "mood":      a.get("strMood") or "",
+                "country":   a.get("strCountry") or "",
+                "born_year": a.get("intFormedYear") or a.get("intBornYear") or "",
+                "thumb":     a.get("strArtistThumb") or "",
+                "fanart":    a.get("strArtistFanart") or "",
+                "fanart2":   a.get("strArtistFanart2") or "",
+                "fanart3":   a.get("strArtistFanart3") or "",
+                "banner":    a.get("strArtistBanner") or "",
+                "clearlogo": a.get("strArtistLogo") or "",
+                "clearart":  a.get("strArtistClearArt") or "",
+            }
+        else:
+            d = {}
 
-        # FanArt.tv — higher quality, overrides TADB images
+        # FanArt.tv — higher quality, overrides TADB images; also sole source when TADB has nothing
         if self._ftv_key:
-            mbid = d["mbid"] or self._mb_artist_mbid(name)
+            mbid = d.get("mbid") or self._mb_artist_mbid(name)
             if mbid:
                 d["mbid"] = mbid
                 self._apply_ftv_artist(self._ftv_by_mbid(mbid), d)
 
+        d["_ftv_checked"] = bool(self._ftv_key)
         self._save(k, d)
         return d
 
@@ -222,25 +223,25 @@ class MetadataClient:
 
         _log(f"album: {artist_name} / {album_name}")
         alb = self._tadb_search_album(artist_name, album_name)
-        if not alb:
-            self._save(k, {})
-            return {}
 
-        d = {
-            "description": alb.get("strDescriptionEN") or "",
-            "genre":       alb.get("strGenre") or "",
-            "style":       alb.get("strStyle") or "",
-            "mood":        alb.get("strMood") or "",
-            "theme":       alb.get("strTheme") or "",
-            "year":        alb.get("intYearReleased") or "",
-            "rating":      alb.get("intScore") or "",
-            "thumb":       alb.get("strAlbumThumbHQ") or alb.get("strAlbumThumb") or "",
-            "discart":     alb.get("strAlbumCDart") or "",
-            "back":        alb.get("strAlbumBack") or "",
-            "fanart":      "",
-        }
+        if alb:
+            d = {
+                "description": alb.get("strDescriptionEN") or "",
+                "genre":       alb.get("strGenre") or "",
+                "style":       alb.get("strStyle") or "",
+                "mood":        alb.get("strMood") or "",
+                "theme":       alb.get("strTheme") or "",
+                "year":        alb.get("intYearReleased") or "",
+                "rating":      alb.get("intScore") or "",
+                "thumb":       alb.get("strAlbumThumbHQ") or alb.get("strAlbumThumb") or "",
+                "discart":     alb.get("strAlbumCDart") or "",
+                "back":        alb.get("strAlbumBack") or "",
+                "fanart":      "",
+            }
+        else:
+            d = {}
 
-        # FanArt.tv album art requires artist MBID + release-group MBID from MusicBrainz
+        # FanArt.tv album art — also sole source when TADB has nothing
         if self._ftv_key:
             _, rg_mbid, artist_mbid = self._mb_release_mbids(artist_name, album_name)
             if artist_mbid and rg_mbid:
@@ -252,6 +253,7 @@ class MetadataClient:
                     if ftv.get("artistbackground"):
                         d["fanart"] = ftv["artistbackground"][0]["url"]
 
+        d["_ftv_checked"] = bool(self._ftv_key)
         self._save(k, d)
         return d
 
@@ -264,8 +266,14 @@ class MetadataClient:
     # ── bulk prefetch ────────────────────────────────────────────────────────
 
     def _needs_fetch(self, *ck_parts):
-        """True when cache entry is absent or expired."""
-        return self._load(self._ck(*ck_parts)) is None
+        """True when cache entry is absent, expired, or was cached without FTV but key is now set."""
+        d = self._load(self._ck(*ck_parts))
+        if d is None:
+            return True
+        # Re-fetch if a FTV key is configured now but wasn't used when this entry was written
+        if self._ftv_key and not d.get("_ftv_checked"):
+            return True
+        return False
 
     def prefetch_artists(self, artist_names, on_progress=None, is_cancelled=None, force=False):
         """
