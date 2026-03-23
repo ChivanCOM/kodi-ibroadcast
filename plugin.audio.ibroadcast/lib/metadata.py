@@ -66,6 +66,21 @@ class MetadataClient:
 
     # ── cache ───────────────────────────────────────────────────────────────
 
+    def clear_cache(self):
+        """Delete all cached metadata files (call before a forced full rebuild)."""
+        removed = 0
+        try:
+            for fname in os.listdir(self._dir):
+                if fname.endswith(".json"):
+                    try:
+                        os.remove(os.path.join(self._dir, fname))
+                        removed += 1
+                    except Exception:
+                        pass
+        except Exception:
+            pass
+        _log(f"cache cleared: {removed} files removed")
+
     def _ck(self, prefix, item_id):
         """Cache filename keyed by iBroadcast integer ID — safe for any artist/album name."""
         return f"{prefix}_{item_id}.json"

@@ -182,9 +182,19 @@ class IBroadcastAPI:
     # ------------------------------------------------------------------
 
     def get_artists(self):
-        """Return sorted list of artist dicts with id, name, and artwork_id."""
+        """Return sorted list of album artists (artists that are primary artist on ≥1 album).
+
+        iBroadcast creates artist records for every collaborator/producer on every track,
+        resulting in thousands of noise entries with no albums.  We filter to only those
+        artists whose id appears as artist_id on at least one album.
+        """
         if not self._library:
             return []
+        album_artist_ids = {
+            alb.get("artist_id")
+            for alb in self._library["albums"].values()
+            if alb.get("artist_id") is not None
+        }
         results = [
             {
                 "id":         a["artist_id"],
@@ -192,6 +202,7 @@ class IBroadcastAPI:
                 "artwork_id": a.get("artwork_id"),
             }
             for a in self._library["artists"].values()
+            if a["artist_id"] in album_artist_ids
         ]
         return sorted(results, key=lambda x: x["name"].casefold())
 
@@ -223,9 +234,22 @@ class IBroadcastAPI:
         return sorted(results, key=lambda x: x["name"].casefold())
 
     def get_tracks(self, album_id=None, artist_id=None, playlist_id=None):
-        """Return sorted list of track dicts, optionally filtered."""
+        """Return sorted list of track dicts, optionally filtered.
+
+        artist_id on each returned track is the album's primary artist_id, not the
+        track-level artist_id (which can be a collaboration combo like
+        "Flying Lotus, George Clinton").  The original track-level artist_id is
+        preserved as track_artist_id so it can be displayed as additional credits.
+        """
         if not self._library:
             return []
+
+        # album_id → album's primary artist_id (used to override track-level artist_id)
+        album_artist_map = {
+            int(alb_id): alb.get("artist_id")
+            for alb_id, alb in self._library["albums"].items()
+            if isinstance(alb, dict)
+        }
 
         playlist_ids = None
         if playlist_id:
@@ -237,24 +261,33 @@ class IBroadcastAPI:
 
         results = []
         for trk in self._library["tracks"].values():
-            tid = trk["track_id"]
+            tid        = trk["track_id"]
+            trk_alb_id = trk.get("album_id")
+            alb_artist = album_artist_map.get(int(trk_alb_id)) if trk_alb_id is not None else None
+            # Primary artist for this track = album artist; fall back to track artist
+            primary_artist_id = alb_artist or trk.get("artist_id")
+
             if playlist_ids is not None and tid not in playlist_ids:
                 continue
-            if album_id and str(trk.get("album_id", "")) != str(album_id):
+            if album_id and str(trk_alb_id or "") != str(album_id):
                 continue
-            if artist_id and str(trk.get("artist_id", "")) != str(artist_id):
+            # Filter by artist uses the album artist so browsing by artist shows all
+            # tracks from that artist's albums (even collab tracks)
+            if artist_id and str(primary_artist_id or "") != str(artist_id):
                 continue
+
             results.append({
-                "id":           tid,
-                "title":        trk.get("title") or f"Track {tid}",
-                "album_id":     trk.get("album_id"),
-                "artist_id":    trk.get("artist_id"),
-                "artwork_id":   trk.get("artwork_id"),
-                "track_number": int(trk.get("track") or 0),
-                "year":         trk.get("year", ""),
-                "duration":     int(trk.get("length") or 0),
-                "genre":        trk.get("genre", "") or "",
-                "file":         trk.get("file"),
+                "id":              tid,
+                "title":           trk.get("title") or f"Track {tid}",
+                "album_id":        trk_alb_id,
+                "artist_id":       primary_artist_id,   # album's primary artist
+                "track_artist_id": trk.get("artist_id"), # original track-level artist (credits)
+                "artwork_id":      trk.get("artwork_id"),
+                "track_number":    int(trk.get("track") or 0),
+                "year":            trk.get("year", ""),
+                "duration":        int(trk.get("length") or 0),
+                "genre":           trk.get("genre", "") or "",
+                "file":            trk.get("file"),
             })
         return sorted(results, key=lambda x: (x["track_number"], x["title"].casefold()))
 

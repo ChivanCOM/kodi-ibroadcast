@@ -58,6 +58,9 @@ def _run_prefetch_bg(api, force):
     def cancelled():
         return monitor.abortRequested()
 
+    if force:
+        meta.clear_cache()
+
     fa,  sa  = meta.prefetch_artists(artists, is_cancelled=cancelled, force=force)
     fal, sal = meta.prefetch_albums(albums,   is_cancelled=cancelled, force=force)
 
@@ -311,18 +314,24 @@ def list_tracks(album_id=None, artist_id=None, playlist_id=None):
     meta   = _get_meta()
     tracks = api.get_tracks(album_id=album_id, artist_id=artist_id, playlist_id=playlist_id)
 
-    album_meta  = {}
-    artist_meta = {}
-    if tracks:
-        if album_id:
-            album_meta  = meta.get_album_info_cached(album_id)
-        # artist_meta: from album's artist (album view) or the filtered artist (artist view)
-        ref_artist_id = tracks[0]["artist_id"] if album_id else (artist_id or None)
-        if ref_artist_id:
-            artist_meta = meta.get_artist_info_cached(ref_artist_id)
+    # Preload album and artist metadata for every unique id in this tracklist.
+    # track["artist_id"] is always the album's primary artist (set in ibroadcast.py),
+    # so every track gets the correct fanart/logo regardless of view type.
+    _album_meta_cache  = {}
+    _artist_meta_cache = {}
+    for t in tracks:
+        aid = t.get("album_id")
+        if aid is not None and aid not in _album_meta_cache:
+            _album_meta_cache[aid]  = meta.get_album_info_cached(aid)
+        ar_id = t.get("artist_id")
+        if ar_id is not None and ar_id not in _artist_meta_cache:
+            _artist_meta_cache[ar_id] = meta.get_artist_info_cached(ar_id)
 
     xbmcplugin.setContent(HANDLE, "songs")
     for track in tracks:
+        album_meta  = _album_meta_cache.get(track.get("album_id"), {})
+        artist_meta = _artist_meta_cache.get(track.get("artist_id"), {})
+
         artist_name = api.get_artist_name(track["artist_id"])
         album_name  = api.get_album_name(track["album_id"])
         li = xbmcgui.ListItem(label=track["title"])
@@ -348,6 +357,13 @@ def list_tracks(album_id=None, artist_id=None, playlist_id=None):
         if album_meta.get("style"):       li.setProperty("Album_Style",        album_meta["style"])
         if album_meta.get("mood"):        li.setProperty("Album_Mood",         album_meta["mood"])
         if album_meta.get("theme"):       li.setProperty("Album_Theme",        album_meta["theme"])
+        # Track-level artist credit (e.g. "Flying Lotus, George Clinton") when it
+        # differs from the album artist — stored as a property for skins that show it
+        track_artist_id = track.get("track_artist_id")
+        if track_artist_id and track_artist_id != track.get("artist_id"):
+            track_artist_name = api.get_artist_name(track_artist_id)
+            if track_artist_name:
+                li.setProperty("Track_Artist", track_artist_name)
 
         art_url = api.get_artwork_url(track.get("artwork_id"))
         art = {"thumb": art_url, "icon": art_url} if art_url else {}
