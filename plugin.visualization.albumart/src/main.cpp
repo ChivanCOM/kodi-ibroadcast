@@ -29,9 +29,12 @@
 #include <cmath>
 #include <algorithm>
 
-// Desktop only: 16-bit float FBO for banding-free gradients
+// 16-bit float FBO constants — GLES 2.0 headers may not define these
 #ifndef GL_RGBA16F
 #  define GL_RGBA16F 0x881A
+#endif
+#ifndef GL_HALF_FLOAT_OES
+#  define GL_HALF_FLOAT_OES 0x8D61
 #endif
 
 // ── Shared vertex shader ─────────────────────────────────────────────────────
@@ -1203,6 +1206,7 @@ public:
       float bx = 4.f * m_ndcPerPx, by = 4.f * m_ndcPerPxH;
       DrawSolidRect(m_artX0 - bx, m_artY0 - by, m_artX1 + bx, m_artY1 + by,
                     m_highlightColor[0], m_highlightColor[1], m_highlightColor[2], 0.80f);
+      glUseProgram(m_program); // DrawSolidRect switches program; restore for texture draw
       DrawQuad(m_artTex, m_artX0, m_artY0, m_artX1, m_artY1, 1.0f);
     }
 
@@ -1363,13 +1367,16 @@ private:
     {
       glGenTextures(1, texs[i]);
       glBindTexture(GL_TEXTURE_2D, *texs[i]);
+      // Prefer 16-bit float for banding-free gradients; fall back to 8-bit if
+      // the driver rejects the format (e.g. GLES 2.0 without OES_texture_half_float).
+      glGetError();
 #if defined(HAS_GLES)
-      // GLES: plain 8-bit — reliable on all Android drivers
-      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_fboW, m_fboH, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, m_fboW, m_fboH, 0, GL_RGBA, GL_HALF_FLOAT_OES, nullptr);
 #else
-      // Desktop: 16-bit float for banding-free gradients
       glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, m_fboW, m_fboH, 0, GL_RGBA, GL_FLOAT, nullptr);
 #endif
+      if (glGetError() != GL_NO_ERROR)
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_fboW, m_fboH, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
