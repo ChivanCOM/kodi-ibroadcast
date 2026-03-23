@@ -1,11 +1,11 @@
 /*
  * ChivanCOM Album Art Visualizer for Kodi
  *
- * Layout (golden ratio):
+ * Layout (matches layout.svg):
  *   - Background: selectable audio-reactive shader (settings → Background Shader)
  *     rendered at half-res and blurred before compositing
- *   - Album art: left side, 60% of usable height, aspect-correct
- *   - Right panel: Title (large) / Artist (italic) / Album — golden-ratio spacing
+ *   - Album art: left side, 42.5% of canvas height, aspect-correct, centred vertically
+ *   - Right panel: Title (bold) / Artist (italic) / Album — SVG baseline-to-baseline spacing
  *   - Font: bundled Roboto Regular + Italic via stb_truetype
  */
 
@@ -57,7 +57,12 @@ static const char* FRAG_SRC =
   "uniform   sampler2D u_tex;\n"
   "uniform   float     u_alpha;\n"
   "void main() {\n"
-  "  gl_FragColor = texture2D(u_tex, v_uv) * vec4(1.0, 1.0, 1.0, u_alpha);\n"
+  "  vec4 col = texture2D(u_tex, v_uv) * vec4(1.0, 1.0, 1.0, u_alpha);\n"
+  "  vec3 rnd = fract(sin(vec3(dot(v_uv,vec2(127.1,311.7)),\n"
+  "                           dot(v_uv,vec2(269.5,183.3)),\n"
+  "                           dot(v_uv,vec2(419.2,371.9)))*43758.5453);\n"
+  "  col.rgb += (rnd - 0.5) / 255.0;\n"
+  "  gl_FragColor = col;\n"
   "}\n";
 #else
   "#version 150\n"
@@ -66,7 +71,12 @@ static const char* FRAG_SRC =
   "uniform sampler2D u_tex;\n"
   "uniform float     u_alpha;\n"
   "void main() {\n"
-  "  fragColor = texture(u_tex, v_uv) * vec4(1.0, 1.0, 1.0, u_alpha);\n"
+  "  vec4 col = texture(u_tex, v_uv) * vec4(1.0, 1.0, 1.0, u_alpha);\n"
+  "  vec3 rnd = fract(sin(vec3(dot(v_uv,vec2(127.1,311.7)),\n"
+  "                           dot(v_uv,vec2(269.5,183.3)),\n"
+  "                           dot(v_uv,vec2(419.2,371.9)))*43758.5453);\n"
+  "  col.rgb += (rnd - 0.5) / 255.0;\n"
+  "  fragColor = col;\n"
   "}\n";
 #endif
 
@@ -101,8 +111,10 @@ static const char* BLUR_FRAG_SRC =
   "         + texture2D(u_tex, v_uv         ) * 0.375\n"
   "         + texture2D(u_tex, v_uv + d     ) * 0.25\n"
   "         + texture2D(u_tex, v_uv + d*2.0 ) * 0.0625;\n"
-  "  float n = fract(sin(v_uv.x*127.1+v_uv.y*311.7)*43758.5453) * (1.0/255.0);\n"
-  "  gl_FragColor = c * 0.65 + n;\n"
+  "  vec3 rnd = fract(sin(vec3(dot(v_uv,vec2(127.1,311.7)),\n"
+  "                           dot(v_uv,vec2(269.5,183.3)),\n"
+  "                           dot(v_uv,vec2(419.2,371.9)))*43758.5453);\n"
+  "  gl_FragColor = vec4(c.rgb*0.65+(rnd-0.5)/255.0, 1.0);\n"
   "}\n";
 #else
   "#version 150\n"
@@ -117,8 +129,10 @@ static const char* BLUR_FRAG_SRC =
   "         + texture(u_tex, v_uv         ) * 0.375\n"
   "         + texture(u_tex, v_uv + d     ) * 0.25\n"
   "         + texture(u_tex, v_uv + d*2.0 ) * 0.0625;\n"
-  "  float n = fract(sin(v_uv.x*127.1+v_uv.y*311.7)*43758.5453) * (1.0/255.0);\n"
-  "  fragColor = c * 0.65 + n;\n"
+  "  vec3 rnd = fract(sin(vec3(dot(v_uv,vec2(127.1,311.7)),\n"
+  "                           dot(v_uv,vec2(269.5,183.3)),\n"
+  "                           dot(v_uv,vec2(419.2,371.9)))*43758.5453);\n"
+  "  fragColor = vec4(c.rgb*0.65+(rnd-0.5)/255.0, 1.0);\n"
   "}\n";
 #endif
 
@@ -1338,7 +1352,16 @@ private:
     {
       glGenTextures(1, texs[i]);
       glBindTexture(GL_TEXTURE_2D, *texs[i]);
-      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_fboW, m_fboH, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+      // Prefer 16-bit float for banding-free gradients; fall back to 8-bit if
+      // the driver rejects the format (e.g. GLES 2.0 without float-buffer ext).
+      glGetError();
+#if defined(HAS_GLES)
+      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, m_fboW, m_fboH, 0, GL_RGBA, GL_HALF_FLOAT, nullptr);
+#else
+      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, m_fboW, m_fboH, 0, GL_RGBA, GL_FLOAT, nullptr);
+#endif
+      if (glGetError() != GL_NO_ERROR)
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_fboW, m_fboH, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -1732,25 +1755,31 @@ private:
     m_ndcPerPx  = 2.f / (float)vw;
     m_ndcPerPxH = 2.f / (float)vh;
 
-    float mxNdc   = 2.f * 0.05f;
-    float myNdc   = 2.f * 0.07f;
-    float usableH = 2.f - 2.f * myNdc;
-    float artHNdc = usableH * 0.60f;
+    // ── Album art ──────────────────────────────────────────────────────────
+    // Left margin 6.1 % of canvas width; art height 42.5 % of canvas height;
+    // art centred vertically; aspect-ratio preserved (max 55 % of canvas width).
+    float mxNdc   = 2.f * 0.061f;
+    float artHNdc = 2.f * 0.425f;
     float artAR   = (m_texW > 0 && m_texH > 0) ? (float)m_texW / (float)m_texH : 1.f;
-    float artWNdc = std::min(artHNdc * artAR * ((float)vh / (float)vw), 0.90f);
+    float artWNdc = std::min(artHNdc * artAR * ((float)vh / (float)vw), 0.55f);
 
     m_artX0 = -1.f + mxNdc;
     m_artX1 =  m_artX0 + artWNdc;
     m_artY0 = -artHNdc * 0.5f;
     m_artY1 =  artHNdc * 0.5f;
 
-    float textX0   = m_artX1 + 2.f * 0.05f;
+    // ── Text panel ─────────────────────────────────────────────────────────
+    // 6.1 % of canvas width gap between art right edge and text; right margin
+    // matches left margin.
+    float textX0   = m_artX1 + 2.f * 0.061f;
     float textX1   = 1.f - mxNdc * 0.8f;
     float textWNdc = textX1 - textX0;
 
-    float szTitle  = std::max(18.f, std::min(68.f, (float)vh * 0.065f));
-    float szArtist = szTitle  / kPhi;
-    float szAlbum  = szArtist / kPhi;
+    // Font sizes from layout.svg (as fraction of canvas height):
+    //   title 5.93 %, artist 3.46 %, album 2.96 %
+    float szTitle  = std::max(16.f, std::min(70.f, (float)vh * 0.0593f));
+    float szArtist = std::max(10.f, std::min(42.f, (float)vh * 0.0346f));
+    float szAlbum  = std::max( 8.f, std::min(36.f, (float)vh * 0.0296f));
 
     LoadFont();
     m_texTitle.destroy(); m_texArtist.destroy(); m_texAlbum.destroy();
@@ -1770,13 +1799,21 @@ private:
     float hTitle  = m_texTitle.h  * m_ndcPerPxH;
     float hArtist = m_texArtist.h * m_ndcPerPxH;
     float hAlbum  = m_texAlbum.h  * m_ndcPerPxH;
-    // Title → Artist gap (larger): golden-ratio proportion of average text height
-    float gapTA   = (hTitle + hArtist) * 0.5f * (kPhi - 1.f) * 0.5f;
-    // Artist → Album gap (half of title→artist): album clusters tightly under artist
-    float gapAA   = gapTA * 0.5f;
-    float blockH  = hTitle + gapTA + hArtist + gapAA + hAlbum;
 
-    float blockTop = m_artY1 - (artHNdc - blockH) * 0.5f;
+    // Baseline-to-baseline gaps from layout.svg:
+    //   title→artist  0.920 × title line height
+    //   artist→album  1.091 × artist line height
+    // Convert to visual gap (bottom-of-A to top-of-B) assuming descender ≈ 20 %
+    // of line height:  gap = (kB − kDsc) × hA − (1 − kDsc) × hB
+    const float kDsc = 0.20f;
+    float gapTA = (0.920f - kDsc) * hTitle  - (1.f - kDsc) * hArtist;
+    float gapAA = (1.091f - kDsc) * hArtist - (1.f - kDsc) * hAlbum;
+    gapTA = std::max(0.f, gapTA);
+    gapAA = std::max(0.f, gapAA);
+
+    // Centre the text block against the art (both centred at NDC y = 0).
+    float blockH   = hTitle + gapTA + hArtist + gapAA + hAlbum;
+    float blockTop = blockH * 0.5f;
     m_titleY  = blockTop  - hTitle;
     m_artistY = m_titleY  - gapTA - hArtist;
     m_albumY  = m_artistY - gapAA - hAlbum;

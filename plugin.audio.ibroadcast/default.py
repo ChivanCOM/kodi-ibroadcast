@@ -43,47 +43,70 @@ def _get_meta():
     )
 
 
-def _run_prefetch_bg(api, force):
-    """Background worker: fetch metadata for all artists and albums without blocking the UI."""
-    meta    = _get_meta()
-    monitor = xbmc.Monitor()
+def _run_prefetch_bg(api, force, profile_path, ftv_key, icon):
+    """Background worker: fetch metadata for all artists and albums without blocking the UI.
 
-    artists = [(a["id"], a["name"]) for a in api.get_artists()]
-    albums  = [
-        (alb["id"], api.get_artist_name(alb["artist_id"]), alb["name"])
-        for alb in api.get_albums()
-        if api.get_artist_name(alb["artist_id"])
-    ]
+    All Kodi addon-API values (profile_path, ftv_key, icon) are pre-resolved
+    in the main thread before this thread starts, so no ADDON.* calls are made
+    here — those C-extension calls can crash if the plugin context is collected
+    while a long rebuild is still running.
+    """
+    try:
+        meta    = MetadataClient(profile_path, fanart_api_key=ftv_key)
+        monitor = xbmc.Monitor()
 
-    def cancelled():
-        return monitor.abortRequested()
+        artists = [(a["id"], a["name"]) for a in api.get_artists()]
+        albums  = [
+            (alb["id"], api.get_artist_name(alb["artist_id"]), alb["name"])
+            for alb in api.get_albums()
+            if api.get_artist_name(alb["artist_id"])
+        ]
 
-    if force:
-        meta.clear_cache()
+        def cancelled():
+            return monitor.abortRequested()
 
-    fa,  sa  = meta.prefetch_artists(artists, is_cancelled=cancelled, force=force)
-    fal, sal = meta.prefetch_albums(albums,   is_cancelled=cancelled, force=force)
+        if force:
+            meta.clear_cache()
 
-    if not monitor.abortRequested():
-        xbmc.log(
-            f"[iBroadcast/meta] prefetch done: {fa} artists, {fal} albums fetched; "
-            f"{sa + sal} skipped",
-            xbmc.LOGINFO,
-        )
-        # xbmc.executebuiltin routes through Kodi's main event loop and is more
-        # reliable from background threads than xbmcgui.Dialog().notification().
-        # Commas delimit Notification() args so use '/' as separator.
-        xbmc.executebuiltin(
-            f"Notification(iBroadcast,"
-            f"Metadata complete: {fa} artists / {fal} albums,"
-            f"8000,"
-            f"{ADDON.getAddonInfo('path')}/icon.png)"
-        )
+        fa,  sa  = meta.prefetch_artists(artists, is_cancelled=cancelled, force=force)
+        fal, sal = meta.prefetch_albums(albums,   is_cancelled=cancelled, force=force)
+
+        if not monitor.abortRequested():
+            xbmc.log(
+                f"[iBroadcast/meta] prefetch done: {fa} artists, {fal} albums fetched; "
+                f"{sa + sal} skipped",
+                xbmc.LOGINFO,
+            )
+            # xbmc.executebuiltin routes through Kodi's main event loop and is more
+            # reliable from background threads than xbmcgui.Dialog().notification().
+            # Commas delimit Notification() args so use '/' as separator.
+            xbmc.executebuiltin(
+                f"Notification(iBroadcast,"
+                f"Metadata complete: {fa} artists / {fal} albums,"
+                f"8000,"
+                f"{icon})"
+            )
+    except Exception as e:
+        try:
+            xbmc.log(f"[iBroadcast/meta] prefetch error: {e}", xbmc.LOGERROR)
+        except Exception:
+            pass
 
 
 def _prefetch_metadata(api, force=False):
     """Start metadata prefetch in a background thread and return immediately."""
-    t = threading.Thread(target=_run_prefetch_bg, args=(api, force), daemon=False)
+    # Resolve all Kodi addon-API values here, in the main thread, before the
+    # thread starts.  The background thread must not call ADDON.* methods
+    # because Kodi may clean up the plugin's addon context while the thread
+    # is still running (full rebuilds can take 30+ minutes).
+    icon         = ADDON.getAddonInfo("path") + "/icon.png"
+    profile_path = PROFILE_PATH
+    ftv_key      = ADDON.getSetting("fanart_tv_api_key") or ""
+    t = threading.Thread(
+        target=_run_prefetch_bg,
+        args=(api, force, profile_path, ftv_key, icon),
+        daemon=False,
+    )
     t.start()
     label = "Rebuilding metadata in background…" if force else "Updating metadata in background…"
     xbmcgui.Dialog().notification("iBroadcast", label, xbmcgui.NOTIFICATION_INFO, 3000)
