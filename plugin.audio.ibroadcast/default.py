@@ -205,7 +205,7 @@ def list_artists():
 
         ib_art = api.get_artwork_url(artist.get("artwork_id"))
         art  = {"thumb": ib_art, "icon": ib_art} if ib_art else {"icon": "DefaultArtist.png"}
-        info = {"artist": artist["name"]}
+        info = {"artist": artist["name"], "mediatype": "artist"}
 
         cached = meta.get_artist_info_cached(artist["name"])
         if cached:
@@ -214,10 +214,13 @@ def list_artists():
             # poster: prefer TADB/FTV portrait photo over iBroadcast thumb
             art["poster"] = cached.get("thumb") or art.get("thumb") or ""
             if not art["poster"]: del art["poster"]
-            if cached.get("fanart"):    art["fanart"]    = cached["fanart"]
-            if cached.get("fanart"):    art["landscape"] = cached["fanart"]
+            if cached.get("fanart"):     art["fanart"]    = cached["fanart"]
+            # widethumb is a native 16:9 image — better landscape source than fanart
+            if cached.get("widethumb"): art["landscape"] = cached["widethumb"]
+            elif cached.get("fanart"):  art["landscape"] = cached["fanart"]
             if cached.get("fanart2"):   art["fanart2"]   = cached["fanart2"]
             if cached.get("fanart3"):   art["fanart3"]   = cached["fanart3"]
+            if cached.get("fanart4"):   art["fanart4"]   = cached["fanart4"]
             if cached.get("clearlogo"): art["clearlogo"] = cached["clearlogo"]
             if cached.get("clearart"):  art["clearart"]  = cached["clearart"]
             if cached.get("banner"):    art["banner"]    = cached["banner"]
@@ -228,7 +231,6 @@ def list_artists():
         li.setArt(art)
         if cached:
             if cached.get("biography"):  li.setProperty("Artist_Description", cached["biography"])
-            if cached.get("genre"):      li.setProperty("Artist_Genre",        cached["genre"])
             if cached.get("style"):      li.setProperty("Artist_Style",        cached["style"])
             if cached.get("mood"):       li.setProperty("Artist_Mood",         cached["mood"])
             if cached.get("born_year"):  li.setProperty("Artist_Born",         str(cached["born_year"]))
@@ -271,13 +273,17 @@ def list_albums(artist_id=None):
             artist_meta = {}
 
         li = xbmcgui.ListItem(label=album["name"])
-        info = {"album": album["name"], "artist": artist_name}
+        info = {"album": album["name"], "artist": artist_name, "mediatype": "album"}
         if album.get("year"):
             info["year"] = int(album["year"])
         genre = alb_meta.get("genre") or artist_meta.get("genre") or ""
         if genre:                   info["genre"]   = genre
-        if alb_meta.get("description"): info["comment"] = alb_meta["description"]
-        if alb_meta.get("rating"):  info["rating"]  = float(alb_meta["rating"])
+        if alb_meta.get("description"):   info["comment"]                  = alb_meta["description"]
+        if alb_meta.get("rating"):        info["rating"]                   = float(alb_meta["rating"])
+        if alb_meta.get("mbid"):                info["musicbrainzalbumid"]        = alb_meta["mbid"]
+        ar_mbid = alb_meta.get("artist_mbid") or artist_meta.get("mbid")
+        if ar_mbid:                             info["musicbrainzartistid"]       = ar_mbid
+        if ar_mbid:                             info["musicbrainzalbumartistid"]  = ar_mbid
 
         art_url = api.get_artwork_url(album.get("artwork_id"))
         art = {"thumb": art_url, "icon": art_url} if art_url else {}
@@ -299,7 +305,6 @@ def list_albums(artist_id=None):
         li.setInfo("music", info)
         li.setArt(art)
         if alb_meta.get("description"): li.setProperty("Album_Description", alb_meta["description"])
-        if alb_meta.get("genre"):       li.setProperty("Album_Genre",        alb_meta["genre"])
         if alb_meta.get("style"):       li.setProperty("Album_Style",        alb_meta["style"])
         if alb_meta.get("mood"):        li.setProperty("Album_Mood",         alb_meta["mood"])
         if alb_meta.get("theme"):       li.setProperty("Album_Theme",        alb_meta["theme"])
@@ -321,12 +326,14 @@ def list_tracks(album_id=None, artist_id=None, playlist_id=None):
     meta   = _get_meta()
     tracks = api.get_tracks(album_id=album_id, artist_id=artist_id, playlist_id=playlist_id)
 
-    album_meta = {}
+    album_meta  = {}
+    artist_meta = {}
     if album_id and tracks:
         alb_name   = api.get_album_name(album_id)
         alb_artist = api.get_artist_name(tracks[0]["artist_id"])
         if alb_name and alb_artist:
-            album_meta = meta.get_album_info_cached(alb_artist, alb_name)
+            album_meta  = meta.get_album_info_cached(alb_artist, alb_name)
+            artist_meta = meta.get_artist_info_cached(alb_artist) or {}
 
     xbmcplugin.setContent(HANDLE, "songs")
     for track in tracks:
@@ -340,14 +347,18 @@ def list_tracks(album_id=None, artist_id=None, playlist_id=None):
             "tracknumber": track["track_number"],
             "duration":    track["duration"],
             "genre":       track["genre"] or album_meta.get("genre", ""),
+            "mediatype":   "song",
         }
         if track.get("year"):
             info["year"] = int(track["year"])
-        if album_meta.get("description"): info["comment"]  = album_meta["description"]
-        if album_meta.get("rating"):      info["rating"]   = float(album_meta["rating"])
+        if album_meta.get("description"):  info["comment"]                 = album_meta["description"]
+        if album_meta.get("rating"):       info["rating"]                  = float(album_meta["rating"])
+        if album_meta.get("mbid"):            info["musicbrainzalbumid"]        = album_meta["mbid"]
+        ar_mbid = album_meta.get("artist_mbid") or artist_meta.get("mbid")
+        if ar_mbid:                           info["musicbrainzartistid"]       = ar_mbid
+        if ar_mbid:                           info["musicbrainzalbumartistid"]  = ar_mbid
         li.setInfo("music", info)
         if album_meta.get("description"): li.setProperty("Album_Description", album_meta["description"])
-        if album_meta.get("genre"):       li.setProperty("Album_Genre",        album_meta["genre"])
         if album_meta.get("style"):       li.setProperty("Album_Style",        album_meta["style"])
         if album_meta.get("mood"):        li.setProperty("Album_Mood",         album_meta["mood"])
         if album_meta.get("theme"):       li.setProperty("Album_Theme",        album_meta["theme"])

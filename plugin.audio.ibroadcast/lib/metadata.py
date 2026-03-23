@@ -29,7 +29,7 @@ except ImportError:
         print(f"[meta] {msg}")
 
 MB_BASE   = "https://musicbrainz.org/ws/2"
-MB_UA     = "iBroadcast-Kodi/1.2.15 (https://github.com/ChivanCOM/kodi-repository)"
+MB_UA     = "iBroadcast-Kodi/1.2.18 (https://github.com/ChivanCOM/kodi-repository)"
 TADB_BASE = "https://www.theaudiodb.com/api/v1/json/2"
 FTV_BASE  = "https://webservice.fanart.tv/v3/music"
 CACHE_TTL = 30 * 86400  # 30 days
@@ -152,7 +152,10 @@ class MetadataClient:
             d["fanart"]  = bg[0]["url"] if len(bg) > 0 else d.get("fanart", "")
             d["fanart2"] = bg[1]["url"] if len(bg) > 1 else ""
             d["fanart3"] = bg[2]["url"] if len(bg) > 2 else ""
-        if ftv.get("artistthumb"):  d["thumb"]    = self._first(ftv["artistthumb"])
+            d["fanart4"] = bg[3]["url"] if len(bg) > 3 else ""
+        if ftv.get("artistthumb"):
+            d["thumb"]     = self._first(ftv["artistthumb"])
+            d["widethumb"] = self._first(ftv["artistthumb"])  # FTV thumb is wide-format
         if ftv.get("hdmusiclogo"):  d["clearlogo"] = self._first(ftv["hdmusiclogo"])
         elif ftv.get("musiclogo"):  d["clearlogo"] = self._first(ftv["musiclogo"])
         if ftv.get("hdmusicart"):   d["clearart"]  = self._first(ftv["hdmusicart"])
@@ -176,20 +179,23 @@ class MetadataClient:
 
         if a:
             d = {
-                "mbid":      a.get("strMusicBrainzID") or "",
-                "biography": a.get("strBiographyEN") or "",
-                "genre":     a.get("strGenre") or "",
-                "style":     a.get("strStyle") or "",
-                "mood":      a.get("strMood") or "",
-                "country":   a.get("strCountry") or "",
-                "born_year": a.get("intFormedYear") or a.get("intBornYear") or "",
-                "thumb":     a.get("strArtistThumb") or "",
-                "fanart":    a.get("strArtistFanart") or "",
-                "fanart2":   a.get("strArtistFanart2") or "",
-                "fanart3":   a.get("strArtistFanart3") or "",
-                "banner":    a.get("strArtistBanner") or "",
-                "clearlogo": a.get("strArtistLogo") or "",
-                "clearart":  a.get("strArtistClearArt") or "",
+                "mbid":       a.get("strMusicBrainzID") or "",
+                "biography":  a.get("strBiographyEN") or "",
+                "genre":      a.get("strGenre") or "",
+                "style":      a.get("strStyle") or "",
+                "mood":       a.get("strMood") or "",
+                "country":    a.get("strCountry") or "",
+                "born_year":  a.get("intFormedYear") or a.get("intBornYear") or "",
+                "thumb":      a.get("strArtistThumb") or "",
+                "widethumb":  a.get("strArtistWideThumb") or "",   # 16:9 wide thumb → landscape
+                "fanart":     a.get("strArtistFanart") or "",
+                "fanart2":    a.get("strArtistFanart2") or "",
+                "fanart3":    a.get("strArtistFanart3") or "",
+                "fanart4":    a.get("strArtistFanart4") or "",
+                "banner":     a.get("strArtistBanner") or "",
+                "clearlogo":  a.get("strArtistLogo") or "",
+                "clearart":   a.get("strArtistClearArt") or "",
+                "cutout":     a.get("strArtistCutout") or "",
             }
         else:
             d = {}
@@ -233,19 +239,33 @@ class MetadataClient:
                 "style":       alb.get("strStyle") or "",
                 "mood":        alb.get("strMood") or "",
                 "theme":       alb.get("strTheme") or "",
+                "speed":       alb.get("strSpeed") or "",
                 "year":        alb.get("intYearReleased") or "",
                 "rating":      alb.get("intScore") or "",
                 "thumb":       alb.get("strAlbumThumbHQ") or alb.get("strAlbumThumb") or "",
+                "thumb3d":     alb.get("strAlbum3DThumb") or alb.get("strAlbum3DCase") or "",
                 "discart":     alb.get("strAlbumCDart") or "",
                 "back":        alb.get("strAlbumBack") or "",
+                "spine":       alb.get("strAlbumSpine") or "",
                 "fanart":      "",
+                # TADB directly supplies MBIDs — saves a MusicBrainz round-trip
+                "mbid":        alb.get("strMusicBrainzID") or "",
+                "artist_mbid": alb.get("strMusicBrainzArtistID") or "",
             }
         else:
             d = {}
 
-        # FanArt.tv album art — also sole source when TADB has nothing
+        # FanArt.tv album art — use TADB MBIDs when available, fall back to MB query
         if self._ftv_key:
-            _, rg_mbid, artist_mbid = self._mb_release_mbids(artist_name, album_name)
+            rg_mbid    = d.get("mbid") or None
+            artist_mbid = d.get("artist_mbid") or None
+            if not (rg_mbid and artist_mbid):
+                # TADB didn't supply both MBIDs — ask MusicBrainz
+                _, mb_rg, mb_ar = self._mb_release_mbids(artist_name, album_name)
+                rg_mbid    = rg_mbid    or mb_rg
+                artist_mbid = artist_mbid or mb_ar
+            if rg_mbid:
+                d["mbid"] = rg_mbid
             if artist_mbid and rg_mbid:
                 ftv = self._ftv_by_mbid(artist_mbid)
                 if ftv:
