@@ -29,7 +29,7 @@ except ImportError:
         print(f"[meta] {msg}")
 
 MB_BASE   = "https://musicbrainz.org/ws/2"
-MB_UA     = "iBroadcast-Kodi/1.2.14 (https://github.com/ChivanCOM/kodi-repository)"
+MB_UA     = "iBroadcast-Kodi/1.2.15 (https://github.com/ChivanCOM/kodi-repository)"
 TADB_BASE = "https://www.theaudiodb.com/api/v1/json/2"
 FTV_BASE  = "https://webservice.fanart.tv/v3/music"
 CACHE_TTL = 30 * 86400  # 30 days
@@ -161,14 +161,15 @@ class MetadataClient:
 
     # ── public: artist ──────────────────────────────────────────────────────
 
-    def get_artist_info(self, name):
+    def get_artist_info(self, name, force=False):
         """Fetch and cache artist metadata.  Primary: TADB name-search.  Optional: FTV."""
         if not name:
             return {}
         k = self._ck("ar", name)
-        cached = self._load(k)
-        if cached is not None:
-            return cached
+        if not force:
+            cached = self._load(k)
+            if cached is not None:
+                return cached
 
         _log(f"artist: {name}")
         a = self._tadb_search_artist(name)
@@ -212,14 +213,15 @@ class MetadataClient:
 
     # ── public: album ───────────────────────────────────────────────────────
 
-    def get_album_info(self, artist_name, album_name):
+    def get_album_info(self, artist_name, album_name, force=False):
         """Fetch and cache album metadata.  Primary: TADB name-search.  Optional: FTV."""
         if not artist_name or not album_name:
             return {}
         k = self._ck("al", artist_name, album_name)
-        cached = self._load(k)
-        if cached is not None:
-            return cached
+        if not force:
+            cached = self._load(k)
+            if cached is not None:
+                return cached
 
         _log(f"album: {artist_name} / {album_name}")
         alb = self._tadb_search_album(artist_name, album_name)
@@ -291,10 +293,7 @@ class MetadataClient:
                 break
             if on_progress:
                 on_progress(i, total, name)
-            if force:
-                # bypass cache so the entry is always re-fetched and overwritten
-                self._save(self._ck("ar", name), {})
-            self.get_artist_info(name)
+            self.get_artist_info(name, force=force)
         return total, len(artist_names) - total
 
     def prefetch_albums(self, artist_album_pairs, on_progress=None, is_cancelled=None, force=False):
@@ -311,7 +310,5 @@ class MetadataClient:
                 break
             if on_progress:
                 on_progress(i, total, album_name)
-            if force:
-                self._save(self._ck("al", artist_name, album_name), {})
-            self.get_album_info(artist_name, album_name)
+            self.get_album_info(artist_name, album_name, force=force)
         return total, len(artist_album_pairs) - total
