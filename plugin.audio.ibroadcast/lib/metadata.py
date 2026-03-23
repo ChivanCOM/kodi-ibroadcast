@@ -29,7 +29,7 @@ except ImportError:
         print(f"[meta] {msg}")
 
 MB_BASE   = "https://musicbrainz.org/ws/2"
-MB_UA     = "iBroadcast-Kodi/1.2.13 (https://github.com/ChivanCOM/kodi-repository)"
+MB_UA     = "iBroadcast-Kodi/1.2.14 (https://github.com/ChivanCOM/kodi-repository)"
 TADB_BASE = "https://www.theaudiodb.com/api/v1/json/2"
 FTV_BASE  = "https://webservice.fanart.tv/v3/music"
 CACHE_TTL = 30 * 86400  # 30 days
