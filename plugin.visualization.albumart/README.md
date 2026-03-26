@@ -51,3 +51,18 @@ For questions or bug reports, please open an issue at [github.com/ChivanCOM/kodi
 ## Credits
 
 This add-on was co-developed with the assistance of Claude AI.
+
+### Shader credits
+
+Several background shaders are based on or adapted from works published on [Shadertoy](https://www.shadertoy.com):
+
+| Shader | Original work | Author |
+|--------|--------------|--------|
+| Audio Visualizer | [Shadertoy](https://www.shadertoy.com) | [chronos](https://www.shadertoy.com/user/chronos) — CC0 |
+| Metaballs | [shadertoy.com/view/3sySRK](https://www.shadertoy.com/view/3sySRK) | [edankwan](https://www.shadertoy.com/user/edankwan) |
+| Nebula Ring | [shadertoy.com/view/3tBGRm](https://www.shadertoy.com/view/3tBGRm) | [magician0809](https://www.shadertoy.com/user/magician0809) |
+| Wavy Lines | [shadertoy.com/view/4ljGD1](https://www.shadertoy.com/view/4ljGD1) | [ADOB](https://www.shadertoy.com/user/ADOB) |
+| Tunnelwisp | [shadertoy.com/view/WfcGWj](https://www.shadertoy.com/view/WfcGWj) | [mrange](https://www.shadertoy.com/user/mrange) |
+| Plasma | [shadertoy.com/view/7tGfRD](https://www.shadertoy.com/view/7tGfRD) | [MrHAX00](https://www.shadertoy.com/user/MrHAX00) |
+| Spectrum | [shadertoy.com/view/tcyGDz](https://www.shadertoy.com/view/tcyGDz) | Claude AI |
+| Metaballs Chroma | [shadertoy.com/view/3sySRK](https://www.shadertoy.com/view/3sySRK) | [edankwan](https://www.shadertoy.com/user/edankwan) |
