@@ -25,11 +25,8 @@ BASE_URL = sys.argv[0]
 PROFILE_PATH = _translate(ADDON.getAddonInfo("profile"))
 
 def get_bitrate():
-    """Return the selected bitrate as an integer (kbps)."""
-    try:
-        return int(ADDON.getSetting("bitrate") or 128)
-    except ValueError:
-        return 128
+    """Return the selected bitrate setting (e.g. '128' or 'orig')."""
+    return ADDON.getSetting("bitrate") or "128"
 
 sys.path.insert(0, os.path.join(ADDON.getAddonInfo("path"), "lib"))
 from ibroadcast import IBroadcastAPI, IBroadcastError
@@ -295,6 +292,12 @@ def list_albums(artist_id=None):
         info = {"album": album["name"], "artist": artist_name, "mediatype": "album"}
         if album.get("year"):
             info["year"] = int(album["year"])
+        if album.get("plays"):
+            info["playcount"] = int(album["plays"])
+        if album.get("rating"):
+            info["rating"] = float(album["rating"])
+        if album.get("uploaded_on"):
+            info["dateadded"] = str(album["uploaded_on"])
         genre = alb_meta.get("genre") or artist_meta.get("genre") or ""
         if genre:                   info["genre"]   = genre
         if alb_meta.get("description"):   info["comment"]                  = alb_meta["description"]
@@ -340,6 +343,9 @@ def list_albums(artist_id=None):
 
     xbmcplugin.addSortMethod(HANDLE, xbmcplugin.SORT_METHOD_ALBUM_IGNORE_THE)
     xbmcplugin.addSortMethod(HANDLE, xbmcplugin.SORT_METHOD_LABEL_IGNORE_THE)
+    xbmcplugin.addSortMethod(HANDLE, xbmcplugin.SORT_METHOD_DATEADDED)
+    xbmcplugin.addSortMethod(HANDLE, xbmcplugin.SORT_METHOD_SONG_RATING)
+    xbmcplugin.addSortMethod(HANDLE, xbmcplugin.SORT_METHOD_PLAYCOUNT)
     end_directory("albums")
 
 
@@ -383,6 +389,12 @@ def list_tracks(album_id=None, artist_id=None, playlist_id=None):
         }
         if track.get("year"):
             info["year"] = int(track["year"])
+        if track.get("plays"):
+            info["playcount"] = int(track["plays"])
+        if track.get("rating"):
+            info["rating"] = float(track["rating"])
+        if track.get("uploaded_on"):
+            info["dateadded"] = str(track["uploaded_on"])
         if album_meta.get("description"):  info["comment"]                 = album_meta["description"]
         if album_meta.get("rating"):       info["rating"]                  = float(album_meta["rating"])
         if album_meta.get("mbid"):            info["musicbrainzalbumid"]        = album_meta["mbid"]
@@ -431,6 +443,9 @@ def list_tracks(album_id=None, artist_id=None, playlist_id=None):
 
     xbmcplugin.addSortMethod(HANDLE, xbmcplugin.SORT_METHOD_TRACKNUM)
     xbmcplugin.addSortMethod(HANDLE, xbmcplugin.SORT_METHOD_LABEL_IGNORE_THE)
+    xbmcplugin.addSortMethod(HANDLE, xbmcplugin.SORT_METHOD_DATEADDED)
+    xbmcplugin.addSortMethod(HANDLE, xbmcplugin.SORT_METHOD_SONG_RATING)
+    xbmcplugin.addSortMethod(HANDLE, xbmcplugin.SORT_METHOD_PLAYCOUNT)
     end_directory("songs")
 
 

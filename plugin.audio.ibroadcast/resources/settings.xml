@@ -47,6 +47,7 @@
               <option label="32022">192</option>
               <option label="32023">256</option>
               <option label="32024">320</option>
+              <option label="32025">orig</option>
             </options>
           </constraints>
           <control type="list" format="string"/>

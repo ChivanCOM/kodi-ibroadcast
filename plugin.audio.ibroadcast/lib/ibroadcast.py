@@ -163,8 +163,9 @@ class IBroadcastAPI:
             json.dump({"library": library, "settings": settings}, f)
         return True
 
-    def _parse_section(self, data, id_key):
-        """Convert the array+map library section into a dict of named dicts."""
+    def _parse_section(self, data, id_key, filter_trashed=True):
+        """Convert the array+map library section into a dict of named dicts.
+        When filter_trashed is True, items with a truthy 'trashed' field are excluded."""
         if not isinstance(data, dict) or "map" not in data:
             return {}
         keymap = {idx: name for name, idx in data["map"].items()
@@ -173,6 +174,8 @@ class IBroadcastAPI:
         for key, value in data.items():
             if isinstance(value, list):
                 item = {keymap[i]: value[i] for i in range(len(value)) if i in keymap}
+                if filter_trashed and item.get("trashed"):
+                    continue
                 item[id_key] = int(key)
                 result[int(key)] = item
         return result
@@ -211,12 +214,19 @@ class IBroadcastAPI:
         if not self._library:
             return []
 
-        # Build album_id → artwork_id from tracks as fallback
+        # Build album_id → artwork_id, earliest uploaded_on, and total plays from tracks
         track_artwork = {}
+        track_uploaded = {}
+        track_plays = {}
         for trk in self._library["tracks"].values():
             aid = trk.get("album_id")
-            if aid is not None and aid not in track_artwork and trk.get("artwork_id"):
-                track_artwork[aid] = trk["artwork_id"]
+            if aid is not None:
+                if aid not in track_artwork and trk.get("artwork_id"):
+                    track_artwork[aid] = trk["artwork_id"]
+                uon = trk.get("uploaded_on", "")
+                if uon and (aid not in track_uploaded or str(uon) < str(track_uploaded[aid])):
+                    track_uploaded[aid] = uon
+                track_plays[aid] = track_plays.get(aid, 0) + int(trk.get("plays") or 0)
 
         results = []
         for alb in self._library["albums"].values():
@@ -228,6 +238,9 @@ class IBroadcastAPI:
                 "artist_id":  alb.get("artist_id"),
                 "year":       alb.get("year", ""),
                 "artwork_id": artwork_id,
+                "rating":     alb.get("rating", 0),
+                "plays":      track_plays.get(alb_id, 0),
+                "uploaded_on": alb.get("uploaded_on") or track_uploaded.get(alb_id, ""),
             })
         if artist_id:
             results = [a for a in results if str(a["artist_id"]) == str(artist_id)]
@@ -288,6 +301,9 @@ class IBroadcastAPI:
                 "duration":        int(trk.get("length") or 0),
                 "genre":           trk.get("genre", "") or "",
                 "file":            trk.get("file"),
+                "rating":          trk.get("rating", 0),
+                "plays":           trk.get("plays", 0),
+                "uploaded_on":     trk.get("uploaded_on", ""),
             })
         return sorted(results, key=lambda x: (x["track_number"], x["title"].casefold()))
 
@@ -321,7 +337,7 @@ class IBroadcastAPI:
     # Streaming & artwork
     # ------------------------------------------------------------------
 
-    def get_stream_url(self, track_id, bitrate=128):
+    def get_stream_url(self, track_id, bitrate="128"):
         """
         Build the streaming URL for a track.
 
@@ -331,6 +347,7 @@ class IBroadcastAPI:
 
         The file field from the library already contains the default bitrate
         prefix (e.g. /128/d0c/6f4/21127414). Replace it with the desired one.
+        Use 'orig' for original quality (no transcoding).
         """
         if not self._library:
             _log(f"get_stream_url({track_id}): library not loaded")

@@ -44,6 +44,10 @@ msgctxt "#32024"
 msgid "320 kbps"
 msgstr ""
 
+msgctxt "#32025"
+msgid "Original"
+msgstr ""
+
 msgctxt "#32030"
 msgid "Metadata"
 msgstr ""

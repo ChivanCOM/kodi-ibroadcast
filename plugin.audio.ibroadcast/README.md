@@ -7,7 +7,9 @@ With integrated artist information, fanart, and album metadata, you can explore 
 ## Features
 
 - Access and play your complete iBroadcast music library within Kodi, including playlists
+- Trashed items are automatically filtered from the library
 - Adjustable playback bitrate up to original quality (original quality requires an active iBroadcast subscription)
+- Sort albums and tracks by name, date added, rating, or play count
 - Built-in support for artist biographies and album descriptions, powered by MusicBrainz, TheAudioDB, Discogs, and the iBroadcast API
 - Smooth playback experience, ideal for gapless transitions
 - "Up Next" and queue functionality to easily manage upcoming tracks
